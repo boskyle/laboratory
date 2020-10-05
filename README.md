@@ -1,1 +1,1 @@
-# this repositorty will consist of self-made examples of css animations, etc..
+# this branch is for editing/adding to the 'develop' branch.
