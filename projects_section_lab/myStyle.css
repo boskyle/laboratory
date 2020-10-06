@@ -1,0 +1,26 @@
+.projects-container
+{
+    background-color: wheat;
+    width: 80%;
+    height: 80%;
+    position: relative;
+    margin: auto;
+    padding: 1em;
+}
+.projects-wrapper
+{
+    margin: 0px;
+    padding: 5px;
+    background-color: darkslateblue;
+    width: 95%;
+    height: 100%;
+    /* flex-flow: row wrap; */
+    position: relative;
+}
+
+.flex-item
+{
+    background: #f0ad4e;
+    flex: 1 1 30%;
+    margin: 3px 5px;
+}
