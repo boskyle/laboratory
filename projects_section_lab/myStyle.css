@@ -1,6 +1,6 @@
 .projects-container
 {
-    background-color: wheat;
+    /* background-color: wheat; */
     width: 80%;
     height: 80%;
     position: relative;
@@ -14,7 +14,7 @@
     background-color: darkslateblue;
     width: 95%;
     height: 100%;
-    /* flex-flow: row wrap; */
+    flex-flow: row wrap;
     position: relative;
 }
 
@@ -23,5 +23,5 @@
     background: #f0ad4e;
     flex: 1 1 30%;
     margin: 3px 5px;
-    box-shadow: 5px 4px black;
+    /* box-shadow: 5px 4px black; */
 }
