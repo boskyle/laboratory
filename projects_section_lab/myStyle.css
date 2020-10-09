@@ -32,13 +32,14 @@ user-select: none; /* Standard */
     margin: 8px 16px;
     font-size: 30px;
 
-    transition: background 1s,color 0.5s,transform .75s ease-out;
+    transition: background 1s,color 0.5s,transform .75s ease-out, border 0.5s ease-in;
 }
 
 .flex-item:hover {
     background-color: #1a1a2e;
     color: white;
     transform: scale(1.05); 
+    border: white 2px solid;
 }
 
 .flex-item h2
