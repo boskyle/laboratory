@@ -16,21 +16,26 @@ user-select: none; /* Standard */
 .projects-wrapper
 {
     margin: 0px;
-    padding: 5px;
-    /* background-color: darkslateblue; */
+    padding: 30px;
+    background-color: darkslateblue;
     width: 100%;
     height: 100%;
     flex-flow: row wrap;
     position: relative;
+    
+    /*to be able for 450px (small device) to scroll on all the projects*/
+    overflow-y: auto;
+  
+   
 }
 
 .flex-item
 {
-    background:#edc988;
+    background: #794c74;
     /* width: 30%; */
-    flex: 1 1 30%;
+    flex: 1 1 20%;
     margin: 8px 16px;
-    font-size: 30px;
+    font-size: 24px;
 
     transition: background 1s,color 0.5s,transform .75s ease-out, border 0.5s ease-in;
 }
@@ -40,6 +45,9 @@ user-select: none; /* Standard */
     color: white;
     transform: scale(1.05); 
     border: white 2px solid;
+    /* animation: hovering-effect .5s 2s ease-out infinite forwards alternate; */
+   
+    
 }
 
 .flex-item h2
@@ -49,13 +57,20 @@ user-select: none; /* Standard */
 }
 
 
+/* @keyframes hovering-effect {
 
-
-/* responsiveness */
-@media (min-width: 450px) and (max-width: 600px) {
-    .flex-item {
-        flex: 0 1 100%;
+    from {
+        transform: translateY(0px);
     }
 
+    to {
+        transform: translateY(-10px);
+    }
+} */
 
-}
+
+
+
+
+
+
