@@ -2,6 +2,11 @@ html,body {
 margin: 0;
 padding: 0;
 background-color: red;
+
+-webkit-user-select: none; /* Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
 }
 
 section {
@@ -15,25 +20,28 @@ section {
 
 
 section div {
-    background-color: indianred;
+    background-color: #edc988;
     width: 30%;
     height: 40%;
     margin: auto;
-    transition: background 2s,transform .75s .25s ease-out;
+    transition: background 1s,color .5s,transform .25s ease-out;
    
 }
 
 
-.animateMe:hover {
-    background-color: lightgreen;   
-    /* animation property */
-    /* animation-name: slideUp;
-    animation-delay: 0.25s;
-    animation-duration:1s;
-    animation-direction: alternate;
-    animation-fill-mode: forwards; */
+.animateMe {
+    color: black;
+    justify-content: center; 
+    align-items: center;
+    letter-spacing: 2px;
 
-    animation: slideUp 0.75s forwards alternate;
+}
+
+.animateMe:hover {
+    background-color: #1a1a2e;
+    color: white;
+    transform: scale(1.05); 
+    /* animation: slideUp 0.75s forwards alternate; */
 }
 
 
