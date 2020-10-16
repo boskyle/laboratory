@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="myStyle.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="script.js"></script>
 <title>Title</title>
 </head>
 <body>
@@ -17,32 +18,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <div class="container-fluid  pr-0 pl-0 text-center">
-    <section class="pages vh-100 bg-success"><h2>Projects</h2>
+    <section class="pages vh-100" style="background-color:#16213e">
+
+        <div class="btn-group my-5 w-75" aria-label="Sort Projects">
+            <button type="button" class="btn btn-info"id="btn-all">All</button>
+            <button type="button" class="btn btn-info"id="btn-react">Python</button>
+            <button type="button" class="btn btn-info"id="btn-nodejs">Fullstack</button>
+            <button type="button" class="btn btn-info"id="btn-css">Front-End</button>
+            <button type="button" class="btn btn-info"id="btn-python">Back-End</button>
+        </div>
     
         <!-- projects list section-->
         <div class="projects-container justify-content-center">
             <!--justify content center => horizontal center | align items center  => vertical center -->
 
-            <div class="projects-wrapper d-flex m-auto justify-content-center flex-lg-row flex-lg-wrap flex-column">
-                <div class="flex-item python" >Python</div>
-                <div class="flex-item react" >React</div>
-                <div class="flex-item react" >React 2</div>
-                <div class="flex-item nodejs">NodeJS</div>
-                <div class="flex-item css">CSS</div>   
-            </div>     
-            <div class="btn-group mt-1" aria-label="Sort Projects">
-                <button type="button" class="btn btn-info"id="btn-all">All</button>
-                <button type="button" class="btn btn-info"id="btn-react">React</button>
-                <button type="button" class="btn btn-info"id="btn-nodejs">NodeJS</button>
-                <button type="button" class="btn btn-info"id="btn-css">CSS</button>
-                <button type="button" class="btn btn-info"id="btn-python">Python</button>
-            </div>
-          
+            <div class="projects-wrapper d-flex m-auto justify-content-center flex-lg-row flex-lg-wrap">
+                <div class="flex-item justify-content-center align-items-center rounded python" ><h2>DISCORD WEATHER BOT</h2></div>
+                <div class="flex-item justify-content-center align-items-center rounded react" ><h2>FILE MANAGEMENT SYSTEM</h2></div>
+                <div class="flex-item justify-content-center align-items-center rounded react" ><h2>FITNESS TRACKER</h2></div>
+                <div class="flex-item justify-content-center align-items-center rounded nodejs"><h2>CHESS BOT</h2></div>
+                <div class="flex-item justify-content-center align-items-center rounded css"><h2>FOREST WEB GAME</h2></div>   
+                <div class="flex-item justify-content-center align-items-center rounded css"><h2>FOREST WEB GAME 2</h2></div>   
+                <div class="flex-item justify-content-center align-items-center rounded css"><h2>FOREST WEB GAME 3</h2></div>   
+               
+            </div>           
         </div>
        
     </section>
 </div>
 
-<script src="script.js"></script>
+
 </body>
 </html>

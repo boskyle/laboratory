@@ -1,6 +1,7 @@
 $(document).ready(function() {
    
-    
+    console.log('ready!!');
+
     $('#btn-all').click(function(){
         $('.flex-item').show();
         $('.btn').removeClass('active');
@@ -10,7 +11,7 @@ $(document).ready(function() {
 
     // delete all with class that dont have react
     $('#btn-react').click(function(){
-        
+        console.log('clicked!!');
         $('.flex-item').hide();
         $('.btn').removeClass('active');
 
