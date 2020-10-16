@@ -17,7 +17,7 @@ user-select: none; /* Standard */
 {
     margin: 0px;
     padding: 30px;
-    background-color: darkslateblue;
+    /* background-color: darkslateblue; */
     width: 100%;
     height: 100%;
     flex-flow: row wrap;
@@ -31,7 +31,7 @@ user-select: none; /* Standard */
 
 .flex-item
 {
-    background: #9dc483;
+    background: #0e918c;
     /* width: 30%; */
     flex: 1 1 20%;
     margin: 8px 16px;
@@ -55,6 +55,56 @@ user-select: none; /* Standard */
    margin-top: 20%;
    letter-spacing: 2px;
 }
+
+
+
+
+.btn-group {
+/* border-bottom: 1px solid white; */
+padding-bottom: 2em;
+overflow: auto;
+
+}
+/* for the bottom-border */
+.btn-group:before {
+    content : "";
+    position: absolute;
+    left    : 25%;
+    bottom  : 0;
+    height  : 1px;
+    width   : 50%;  /* or 100px */
+    border-bottom:1px solid white;
+
+}
+
+
+
+.btn {
+    font-size: 1.5em;
+    background-color: transparent;
+    border: none;
+    letter-spacing: 4px;
+}
+
+.btn:focus,btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn:hover {
+    background-color:transparent;
+    border: 1px solid white;
+
+}
+.active {
+    background-color: transparent !important;
+    border: 1px solid white !important;
+
+}
+
+
+
+
 
 
 /* @keyframes hovering-effect {
