@@ -11,8 +11,8 @@ import reportWebVitals from './reportWebVitals';
 
 
 var booklist = [
-  {'title':'Hunger','author':'Roxane Gay','pages':320},
-  {'title':'Boat','author':'I am not Gay','pages':104}
+  {'title':'Hunger','author':'Roxane Gray','pages':320},
+  {'title':'Boat','author':'John Willis','pages':104}
 ]
 
 // arrow function, instead of the traditional function
