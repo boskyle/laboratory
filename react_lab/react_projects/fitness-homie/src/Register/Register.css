@@ -1,0 +1,53 @@
+.container-fluid {
+    background-color: #03506f;
+}
+
+form {
+    box-shadow: 0 0 10px black;
+    background-color: whitesmoke;
+    position: relative;
+    overflow: auto;
+
+}
+
+label {
+   margin: 0;
+   padding: 0;
+   font-size: 0.5em;
+}
+
+button {
+    background-color: #03506f;
+    color: white;
+    font-size: 0.5em !important;
+    width: 80%;
+    text-align: center;
+    margin-top:1em;
+    height: 12%;
+    border-radius:0 !important;
+}
+
+
+
+.form-control{
+   border: none;
+   background-color: transparent;
+   transition: background-color 0.5s;
+   border-radius:0;
+}
+.form-control:focus{
+   color:white;
+    background-color: #03506f;
+    outline:0;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+.btn:focus {
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    outline:0;
+}
+
+
+
