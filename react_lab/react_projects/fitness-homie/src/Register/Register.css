@@ -27,6 +27,11 @@ button {
     border-radius:0 !important;
 }
 
+input {
+    margin-bottom: -3%;
+
+}
+
 
 
 .form-control{
@@ -34,7 +39,10 @@ button {
    background-color: transparent;
    transition: background-color 0.5s;
    border-radius:0;
+  
 }
+
+
 .form-control:focus{
    color:white;
     background-color: #03506f;
@@ -47,6 +55,17 @@ button {
     -webkit-box-shadow:none;
     box-shadow:none;
     outline:0;
+}
+
+
+
+.form-group span {
+    font-size:0.5em;
+    font-weight: bold;
+    color:red;
+
+
+   
 }
 
 
