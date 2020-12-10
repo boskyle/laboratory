@@ -1,14 +1,34 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './Register.css';
 import {useForm} from 'react-hook-form';
 
 function Register () {
 
-    const {register, handleSubmit, watch, errors} = useForm();
-    const onSubmit = data => console.log(data);
-    // console.log(watch('password'));
-   
 
+    var bos = useRef({});
+    const {register, handleSubmit, watch, errors} = useForm();
+    const onSubmit = formData => fetch('', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.error('Error: ', err))
+  
+    ;
+
+
+
+
+
+
+
+    // mutable -> , only objects and arrays are mutable, not primitive values.
+    const pw = useRef({});
+    pw.current = watch('password');
+    
        return (
        <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
            
@@ -19,12 +39,12 @@ function Register () {
                 ref={register({
                     required: {
                         value: true,
-                        message: "This field is required"
+                        message: "This field is required."
                     },
                     pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                         message: "Not a valid email address.",
-                      },
+                      }
                   })}
                 />
                 {/* {errors.email && <span>This field is required</span>} */}
@@ -35,15 +55,36 @@ function Register () {
                 <label htmlFor="passwordInput">Password</label>
                 <input name="password" type="password" className="form-control" id="" aria-describedby="passwordInput"
                 ref={register({
-                    required: true
-                  })}
+                    required:{
+                        value: true,
+                        message: "This field is required."
+                    },
+                    pattern: {
+                        value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i,
+                        message: 'Minimum eight characters, at least one letter, one number and one special character.'
+
+                    }
+                  })
+                
+                
+                }
                 /> 
-                {errors.password && <span>This field is required</span>}    
+                {errors.password && <span>{errors.password.message}</span>}   
             </div>
 
             <div className="form-group">
                 <label htmlFor="passwordInput">Confirm Password</label>
-                <input name="password-repeat"type="password" className="form-control" id="" aria-describedby="confirmPasswordInput"/>     
+                <input name="passwordRepeat"type="password" className="form-control" id="" aria-describedby="confirmPasswordInput"
+                    ref={register({
+
+                        required:{
+                            value: true,
+                            message: ""
+                        },
+                        validate: value => value === pw.current || 'Password mismatch.'
+                    })}
+                />
+                 {errors.passwordRepeat && <span>{errors.passwordRepeat.message}</span>}        
             </div>
             <button type="submit" className="btn mx-auto">Register</button>
           

@@ -7,6 +7,9 @@ form {
     background-color: whitesmoke;
     position: relative;
     overflow: auto;
+    width: 60vh;
+  
+    
 
 }
 
@@ -22,13 +25,17 @@ button {
     font-size: 0.5em !important;
     width: 80%;
     text-align: center;
-    margin-top:1em;
+    margin-top:5em;
     height: 12%;
     border-radius:0 !important;
 }
 
 input {
     margin-bottom: -3%;
+    height: 5vh !important;
+    font-size: 0.75em !important;
+    border-bottom: 0.5px solid black !important;
+    padding:3px !important;
 
 }
 
@@ -62,11 +69,15 @@ input {
 .form-group span {
     font-size:0.5em;
     font-weight: bold;
-    color:red;
-
-
-   
+    color:red;   
 }
 
+@media only screen and (max-width: 400px) {
+
+    form {
+        width: 80%;
+        font-size:0.75em;
+    }
+}
 
 
