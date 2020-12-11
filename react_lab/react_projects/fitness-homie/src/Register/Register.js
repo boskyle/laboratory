@@ -5,22 +5,30 @@ import {useForm} from 'react-hook-form';
 function Register () {
 
 
-    var bos = useRef({});
+    
     const {register, handleSubmit, watch, errors} = useForm();
-    const onSubmit = formData => fetch('', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.error('Error: ', err))
+
+    
+
+    
+    const onSubmit = formData => {
+       
+        fetch("http://boskyleprojects.com/fitness-homie-api/register-users.php", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: formData.email,
+                password: formData.password
+            })
+        }).then ((response) => {console.log(response)})
+            
+        .catch((error) => console.log(error))
+    };
+    
   
-    ;
-
-
-
 
 
 
