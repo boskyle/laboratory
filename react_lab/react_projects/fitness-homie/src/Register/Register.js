@@ -4,6 +4,8 @@ import {useForm} from 'react-hook-form';
 
 function Register () {
 
+    var urlLocalServer='http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/register.php';
+
 
     
     const {register, handleSubmit, watch, errors} = useForm();
@@ -13,7 +15,7 @@ function Register () {
     
     const onSubmit = formData => {
        
-        fetch("http://boskyleprojects.com/fitness-homie-api/register-users.php", {
+        fetch(urlLocalServer, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
