@@ -1,43 +1,39 @@
 import React, {useRef} from 'react';
 import './Register.css';
 import {useForm} from 'react-hook-form';
-
 function Register () {
 
-    var urlLocalServer='http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/register.php';
-
-
     
-    const {register, handleSubmit, watch, errors} = useForm();
-
+    const {register, handleSubmit, watch, errors, reset} = useForm();
     
-
     
-    const onSubmit = formData => {
-       
-        fetch(urlLocalServer, {
+    var urlLocalServer = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/register.php';
+     const onSubmit = formData => {
+        
+         fetch(urlLocalServer, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'content-Type': 'application/json',
             },
             body: JSON.stringify({
                 email: formData.email,
                 password: formData.password
             })
-        }).then ((response) => {console.log(response)})
-            
-        .catch((error) => console.log(error))
+        }).then(response => response.text())
+            .then((response)=> {alert("Succesfully registered"); reset();})
+            .catch(err => console.log(err))
     };
-    
-  
 
-
+   
+ 
 
 
     // mutable -> , only objects and arrays are mutable, not primitive values.
     const pw = useRef({});
     pw.current = watch('password');
+
+       
     
        return (
        <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
@@ -54,11 +50,18 @@ function Register () {
                     pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                         message: "Not a valid email address.",
-                      }
+                    },
+                    validate:emailIsValid
                   })}
-                />
-                {/* {errors.email && <span>This field is required</span>} */}
+                />          
                 {errors.email && <span>{errors.email.message}</span>}
+                {errors.email && errors.email.type === "validate" && (
+                <span>Email already registered.</span>
+                )}
+                
+               
+             
+                
  
             </div>
             <div className="form-group">
@@ -103,6 +106,18 @@ function Register () {
        </div>
        );
 }
+
+// function that will call the server and display all emails registered
+// *** understand this ***
+
+
+
+
+const emailIsValid = async (email) => {
+    // console.log(email);
+    return email !== "elitebos2@gmail.com";
+};
+
 
 
 export default Register;
