@@ -9,7 +9,7 @@ function Register () {
     
     var urlLocalServer = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/register.php';
      const onSubmit = formData => {
-        
+        // a promise
          fetch(urlLocalServer, {
             method: 'POST',
             headers: {
@@ -113,9 +113,37 @@ function Register () {
 
 
 
-const emailIsValid = async (email) => {
-    // console.log(email);
-    return email !== "elitebos2@gmail.com";
+const emailIsValid = async (emailInput) => {
+    
+    var emailsUrl="http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/check-email-exist.php";
+    var matcher='';
+    try {
+        
+        
+        await fetch(emailsUrl, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json'
+            }
+            }).then(response => response.json())
+                .then(response => {
+                    response.forEach(email => {
+                        if(email === emailInput) {
+                            matcher = emailInput;
+                        }
+                    })
+                })
+                .catch(err => console.log(err))
+    
+                console.log(matcher);
+          return (emailInput === matcher) ? false : true;
+
+
+
+
+
+    } catch (err) {console.log("Something went wrong with email fetch:"+err)}
 };
 
 
