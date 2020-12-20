@@ -1,12 +1,14 @@
 import React, {useRef} from 'react';
 import './Register.css';
 import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router-dom';
+
 function Register () {
 
     
     const {register, handleSubmit, watch, errors, reset} = useForm();
     
-    
+    const history = useHistory();
     var urlLocalServer = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/register.php';
      const onSubmit = formData => {
         // a promise
@@ -21,7 +23,12 @@ function Register () {
                 password: formData.password
             })
         }).then(response => response.text())
-            .then((response)=> {alert("Succesfully registered"); reset();})
+            .then((response)=> {
+            alert("Succesfully registered"); 
+            reset();
+            history.push("/login");
+        
+        })
             .catch(err => console.log(err))
     };
 
