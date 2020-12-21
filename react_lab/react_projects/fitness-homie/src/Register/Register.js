@@ -10,9 +10,9 @@ function Register () {
     
     const history = useHistory();
     var urlLocalServer = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/register.php';
-     const onSubmit = formData => {
+     const onSubmit = async formData => {
         // a promise
-         fetch(urlLocalServer, {
+         await fetch(urlLocalServer, {
             method: 'POST',
             headers: {
                 'accept': 'application/json',
