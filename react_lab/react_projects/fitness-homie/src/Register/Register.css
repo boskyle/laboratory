@@ -1,0 +1,83 @@
+html,body {
+    background-image: linear-gradient(180deg,#706897,#ebcfc4);
+}
+.container-fluid {
+    background-color: #706897;
+}
+
+form {
+    box-shadow: 0 0 10px black;
+    background-color: whitesmoke;
+    position: relative;
+    overflow: auto;
+    width: 60vh;
+}
+
+label {
+   margin: 0;
+   padding: 0;
+   font-size: 0.5em;
+}
+
+button {
+    background-color: #706897;
+    color: white;
+    font-size: 0.5em !important;
+    width: 80%;
+    text-align: center;
+    margin-top:5em;
+    height: 12%;
+    border-radius:0 !important;
+}
+
+input {
+    margin-bottom: -3%;
+    height: 5vh !important;
+    font-size: 0.75em !important;
+    border-bottom: 0.5px solid black !important;
+    padding:3px !important;
+
+}
+
+
+
+.form-control{
+   border: none;
+   background-color: transparent;
+   transition: background-color 0.5s;
+   border-radius:0;
+  
+}
+
+
+.form-control:focus{
+   color:white;
+    background-color: #03506f;
+    outline:0;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+.btn:focus {
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    outline:0;
+}
+
+
+
+.form-group span {
+    font-size:0.5em;
+    font-weight: bold;
+    color:red;   
+}
+
+@media only screen and (max-width: 400px) {
+
+    form {
+        width: 80%;
+        font-size:0.75em;
+    }
+}
+
+
