@@ -10,10 +10,10 @@ require_once 'connect.php';
     if (!$conn->connect_error) {
         echo 'Connected to server succesfully.';
     }
-// prepared statements, ? => placeholder for the values as args and bind
+    
 
     
-        // Receive the RAW post data.
+        // Receive the RAW post json data.
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
 

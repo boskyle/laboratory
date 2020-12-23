@@ -2,7 +2,7 @@ html,body {
     background-image: linear-gradient(180deg,#706897,#ebcfc4);
 }
 .container-fluid {
-    background-color: #03506f;
+    background-color: #706897;
 }
 
 form {
@@ -11,9 +11,6 @@ form {
     position: relative;
     overflow: auto;
     width: 60vh;
-  
-    
-
 }
 
 label {
@@ -23,7 +20,7 @@ label {
 }
 
 button {
-    background-color: #03506f;
+    background-color: #706897;
     color: white;
     font-size: 0.5em !important;
     width: 80%;

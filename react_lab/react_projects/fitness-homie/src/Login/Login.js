@@ -26,14 +26,29 @@ function Login() {
 
     const onSubmit = async formData => {
         
-
+        // if(formData.password !== "lolface22") {
+        //     setError("Incorrect Password.");
+        // } else {setError("");}
         console.log("here:"+formData.email);
         console.log("here:"+formData.password);
+
+        let local_url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/authenticate-user.php';
        
-        if(formData.password !== "lolface22") {
-            setError("Incorrect Password.");
-        } else {setError("");}
-   
+        // send email + password raw (get a resonpose (validation and authenticate user))
+        await fetch (local_url, {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: formData.email,
+                password: formData.password
+            })
+        }).then(response => response.text())
+            .then(response => alert(response))
+            .catch(err => console.log(err));
+
 
     }
 
@@ -42,9 +57,9 @@ function Login() {
 
         <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
 
-        <form className="h-75 p-3 d-flex flex-column justify-content-start" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form className="h-75 p-4 d-flex flex-column justify-content-start" onSubmit={handleSubmit(onSubmit)} noValidate>
         
-            <div className="form-group mt-2">
+            <div className="form-group">
                 <label htmlFor="emailInput">Email Address</label>
                 <input name="email" type="email" className="form-control" id="" aria-describedby="emailInput"
                 ref={register({
@@ -64,7 +79,7 @@ function Login() {
                 {errors.email && <span>{errors.email.message}</span>}
                 {errors.email && errors.email.type === "validate" && (
                 <span>This email is not registered.</span>
-                )}
+                )}</div>
                     
 
                 <div className="form-group mt-5">
@@ -78,15 +93,11 @@ function Login() {
                        
                     })}
                 />
-
-                </div>
                 {errors.password &&<span>{errors.password.message}</span>}
                 {<span>{error}</span>}
-
-                 <button type="submit" className="btn h-25">Login</button>
-
-            </div>
-        
+                </div>
+    
+                 <button type="submit" className="btn mx-auto">Login</button>
         </form>
 
 

@@ -47,7 +47,7 @@ function Register () {
            
         <form className="h-75 p-4 d-flex flex-column justify-content-start" onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="form-group">
-                <label htmlFor="emailInput">Email address</label>
+                <label htmlFor="emailInput">Email Address</label>
                 <input name="email" type="email" className="form-control" id="" aria-describedby="emailInput"
                 ref={register({
                     required: {
@@ -65,11 +65,6 @@ function Register () {
                 {errors.email && errors.email.type === "validate" && (
                 <span>Email already registered.</span>
                 )}
-                
-               
-             
-                
- 
             </div>
             <div className="form-group">
                 <label htmlFor="passwordInput">Password</label>
