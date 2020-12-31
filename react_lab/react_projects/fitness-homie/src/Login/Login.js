@@ -6,6 +6,7 @@ import {useForm} from 'react-hook-form';
 
 
 
+
 function Login() {
     
     const [error, setError] = useState('');
@@ -46,7 +47,13 @@ function Login() {
                 password: formData.password
             })
         }).then(response => response.text())
-            .then(response => alert(response))
+            .then(response => {
+                if (response == "pass") {
+                    alert('send me to setup page!!');
+                    // new subroute
+                   
+                }
+            })
             .catch(err => console.log(err));
 
 

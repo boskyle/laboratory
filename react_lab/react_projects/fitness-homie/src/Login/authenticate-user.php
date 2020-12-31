@@ -30,7 +30,9 @@ require_once '../Register/connect.php';
 
                                
                 if(password_verify($_POST['password'],$user['password'])) {
-                    echo "Correct password";
+                    echo "pass";
+                        // proceed with functionality
+                        
                 } else {echo "Incorrect password.";}
           
 

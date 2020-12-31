@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Home from './Home/Home';
-import BmrCalculator from './BmrCalculator/BmrCalculator';
 import Register from './Register/Register';
 import Login from './Login/Login';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -15,8 +14,9 @@ function App() {
 
       <Route path="/" exact component={Home}></Route>
       <Route path='/register' component={Register}></Route>
-      <Route path='/login' component={Login}></Route>
-      <Route path='/bmr' component={BmrCalculator}></Route>
+      <Route path='/login' exact component={Login}></Route>
+      <Route path='/login/:su'></Route>
+     
       </Switch>
     </div>
     </Router>
