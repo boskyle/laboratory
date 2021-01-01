@@ -3,6 +3,7 @@ import './login.css';
 import {useState,useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 
@@ -108,6 +109,7 @@ function Login() {
                 </div>
     
                  <button type="submit" className="btn mx-auto">Login</button>
+                 <Link to="/register" className="mx-auto mt-2" style={{textDecoration:"none"}}><span>Not a member ? Register here</span></Link>
         </form>
 
 
