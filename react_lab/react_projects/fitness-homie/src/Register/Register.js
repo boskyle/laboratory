@@ -32,15 +32,9 @@ function Register () {
             .catch(err => console.log(err))
     };
 
-   
- 
-
-
     // mutable -> , only objects and arrays are mutable, not primitive values.
     const pw = useRef({});
     pw.current = watch('password');
-
-       
     
        return (
        <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
