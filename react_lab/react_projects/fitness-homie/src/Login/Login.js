@@ -1,6 +1,6 @@
 import React from 'react';
 import './login.css';
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
@@ -23,7 +23,7 @@ function Login() {
         2. display error if user email does not match with hashed password.
     */
 
-    const {handleSubmit,register,watch,reset,errors} = useForm();
+    const {handleSubmit,register,errors} = useForm();
 
 
     
@@ -142,14 +142,14 @@ const isEmailExist = async (emailInput) => {
 }
 
 
-const authenticatePassword = async (rawPassword) => {
+// const authenticatePassword = async (rawPassword) => {
 
-    // post raw Password to php 
-    // php proccesses it with password verify if true return (YES)
-    console.log(rawPassword);
+//     // post raw Password to php 
+//     // php proccesses it with password verify if true return (YES)
+//     console.log(rawPassword);
    
 
-}
+// }
     
 
 

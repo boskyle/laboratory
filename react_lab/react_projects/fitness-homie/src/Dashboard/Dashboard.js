@@ -13,53 +13,71 @@ function Dashboard() {
     
 
     const [uid,setUid] = useState();
+    const [info,setInfo] = useState();
 
+   
+
+    
+    
+    
     useEffect(() => {
-        try {
+        
+           try{
+               setUid(location.state.user_id);
+           } catch {
+               history.push("/login");
+           }
+        LoadBasicInfo(uid).then(data => {            
+                    setInfo(data);               
+        })
+          
+  ;
+        
+    },[uid,location.state.user_id,history]);
 
-           
-            setUid(location.state.user_id);
-
-            LoadBasicInfo(uid);
-
-        } catch {console.log("You must log in to go to dashboard.")
-                history.push('/login');
-              
-    }
-    })
+   console.log(info);
 
 
+   if (info !== undefined) {
     return (
         <div className="container h-100">
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">{uid}</a>
-
-
-            </nav>
+            <h2>{info.username}</h2>
    
         </div>
-
-
-    )
+)
+} else { return (<h2>Loading info</h2>)}
     
 
 
 }
 
 
-const LoadBasicInfo = async (uid) => {
+const LoadBasicInfo = async (userId) => {
 
     let loadInfoUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/load-profile.php';
-        await fetch(loadInfoUrl, {
+    let userInfo;
+
+    await fetch(loadInfoUrl, {
             method: 'POST',
-            headers: {
-                'accept': '*',
-                'content-Type': '*',
-            },
-            body: uid
-        }).then (response => response.json()).then (response => console.log(response))
+            body: JSON.stringify(userId)
+
+        }).then(response => response.json())
+            .then (response => {
+                      userInfo = response;
+                      
+            })
+                .catch(error => console.log(error));
+
+            if (userInfo !== null) {
+               
+                return userInfo;
+            }
+
+               
 
 
+
+                
 
     // return an object of a succesful response
 }
