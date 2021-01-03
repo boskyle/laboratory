@@ -1,7 +1,10 @@
 import React from 'react';
 import './login.css';
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+
 
 
 
@@ -9,6 +12,7 @@ import {useForm} from 'react-hook-form';
 function Login() {
     
     const [error, setError] = useState('');
+    const history = useHistory();
     
     // useEffect( () => {
     
@@ -19,19 +23,14 @@ function Login() {
         2. display error if user email does not match with hashed password.
     */
 
-    const {handleSubmit,register,watch,reset,errors} = useForm();
+    const {handleSubmit,register,errors} = useForm();
 
 
     
 
     const onSubmit = async formData => {
         
-        // if(formData.password !== "lolface22") {
-        //     setError("Incorrect Password.");
-        // } else {setError("");}
-        console.log("here:"+formData.email);
-        console.log("here:"+formData.password);
-
+       
         let local_url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/authenticate-user.php';
        
         // send email + password raw (get a resonpose (validation and authenticate user))
@@ -45,8 +44,20 @@ function Login() {
                 email: formData.email,
                 password: formData.password
             })
-        }).then(response => response.text())
-            .then(response => alert(response))
+        }).then(response => response.json())
+            .then(response => {
+                console.log(response);
+                /*  If the response returned back is an integer that means the php file fetched  ~ returned a uid 
+                    which means the user had entered the right password.
+                */           
+                if (Number.isInteger(response)) {
+                    history.push({
+                        pathname: '/dashboard',
+                        state: {user_id: response}
+                    })
+                } else {setError(response);}
+                
+            })
             .catch(err => console.log(err));
 
 
@@ -98,6 +109,7 @@ function Login() {
                 </div>
     
                  <button type="submit" className="btn mx-auto">Login</button>
+                 <Link to="/register" className="mx-auto mt-2" style={{textDecoration:"none"}}><span>Not a member ? Register here</span></Link>
         </form>
 
 
@@ -130,14 +142,14 @@ const isEmailExist = async (emailInput) => {
 }
 
 
-const authenticatePassword = async (rawPassword) => {
+// const authenticatePassword = async (rawPassword) => {
 
-    // post raw Password to php 
-    // php proccesses it with password verify if true return (YES)
-    console.log(rawPassword);
+//     // post raw Password to php 
+//     // php proccesses it with password verify if true return (YES)
+//     console.log(rawPassword);
    
 
-}
+// }
     
 
 

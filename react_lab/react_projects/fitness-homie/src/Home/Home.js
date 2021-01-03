@@ -23,12 +23,12 @@ class Home extends React.Component {
                     <ul className="navbar-nav">
                         <Link to="/login" style={linkStyle}>
                             <li className="nav-item">
-                            <a className="nav-link">Log In</a>
+                            <span className="nav-link">Log In</span>
                             </li>
                         </Link>
                         <Link to="/register" style={linkStyle}>
                             <li className="nav-item">
-                            <a className="nav-link">Sign Up</a>
+                            <span className="nav-link">Sign Up</span>
                             </li>
                         </Link>
 

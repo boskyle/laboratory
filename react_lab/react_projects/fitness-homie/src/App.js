@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 import Home from './Home/Home';
-import BmrCalculator from './BmrCalculator/BmrCalculator';
 import Register from './Register/Register';
 import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
+import Feed from './Feed/Feed';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 // comment from main branch
@@ -12,11 +13,11 @@ function App() {
     <Router>
     <div className="App">
       <Switch>
-
       <Route path="/" exact component={Home}></Route>
       <Route path='/register' component={Register}></Route>
-      <Route path='/login' component={Login}></Route>
-      <Route path='/bmr' component={BmrCalculator}></Route>
+      <Route path='/login' exact component={Login}></Route>
+      <Route path='/dashboard' component={Dashboard}></Route>
+      <Route path="/feed" component={Feed}></Route>
       </Switch>
     </div>
     </Router>
