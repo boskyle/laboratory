@@ -10,23 +10,25 @@ function Dashboard() {
     const location = useLocation();
     let history = useHistory();
     
-    const [uid,setUid] = useState();
+    const [uid,setUid] = useState('empty');
     const [info,setInfo] = useState();
 
     useEffect(() => {
         
            try{
                setUid(location.state.user_id);
+               LoadBasicInfo(uid).then(data => {            
+                           setInfo(data);               
+               })
            } catch {
-               history.push("/login");
+               if(uid != 'empty') {                  
+                   history.push("/login");
+               }
            }
-        LoadBasicInfo(uid).then(data => {            
-                    setInfo(data);               
-        })
           
   ;
         
-    },[uid,location.state.user_id,history]);
+    },[uid,history]);
 
    console.log(info);
 
