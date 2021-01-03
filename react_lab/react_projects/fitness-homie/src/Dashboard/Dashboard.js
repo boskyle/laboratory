@@ -4,6 +4,10 @@ import { useLocation } from "react-router-dom";
 import {useHistory} from 'react-router-dom';
 import './dashboard.css';
 
+// navbar
+import {slide as Menu} from 'react-burger-menu';
+
+
 
 
 function Dashboard() {
@@ -37,13 +41,16 @@ function Dashboard() {
 
    console.log(info);
 
-
+// wait for object to be filled with data that is fetched within some TIME.
    if (info !== undefined) {
     return (
-        <div className="container h-100">
-            <h2>{info.username}</h2>
-   
-        </div>
+<div id="outer-container">
+  <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } className="bg-warning" />
+
+  <main id="page-wrap" className="container-fluid w-100 text-center">
+       <h2 className="display-5 mx-auto">{info.username}</h2>
+  </main>
+</div>
 )
 } else { return (<h2>Loading info</h2>)}
     
@@ -72,12 +79,6 @@ const LoadBasicInfo = async (userId) => {
                
                 return userInfo;
             }
-
-               
-
-
-
-                
 
     // return an object of a succesful response
 }
