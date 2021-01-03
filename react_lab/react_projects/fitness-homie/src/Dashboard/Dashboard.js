@@ -2,12 +2,7 @@ import React from 'react';
 import {useState,useEffect} from 'react';
 import { useLocation } from "react-router-dom";
 import {useHistory} from 'react-router-dom';
-import './dashboard.css';
-
-// navbar
-import {slide as Menu} from 'react-burger-menu';
-
-
+import DashboardMain from './DashboardMain';
 
 
 function Dashboard() {
@@ -15,15 +10,9 @@ function Dashboard() {
     const location = useLocation();
     let history = useHistory();
     
-
     const [uid,setUid] = useState();
     const [info,setInfo] = useState();
 
-   
-
-    
-    
-    
     useEffect(() => {
         
            try{
@@ -41,18 +30,14 @@ function Dashboard() {
 
    console.log(info);
 
+// *** if user info.username is <empty string> send them to a 'getting started form' ***
 // wait for object to be filled with data that is fetched within some TIME.
    if (info !== undefined) {
     return (
-<div id="outer-container">
-  <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } className="bg-warning" />
-
-  <main id="page-wrap" className="container-fluid w-100 text-center">
-       <h2 className="display-5 mx-auto">{info.username}</h2>
-  </main>
-</div>
+        <DashboardMain userInfo={info}/>
+       
 )
-} else { return (<h2>Loading info</h2>)}
+} else { return (<h2>Error with fetching logged in user's data from server..</h2>)}
     
 
 

@@ -14,15 +14,8 @@ require_once '../Register/connect.php';
 if (!$conn-> connect_error) {
 
    $user_id = file_get_contents('php://input');
-  
-   $int_id = (int)$user_id;
-
-   $myid = 54;
+     
    
- 
-  
-  
-
    if(!$stmt = $conn->prepare("SELECT * FROM UserBasic WHERE userlogin_id = ?")) {
       echo "Prepare failed: (". $conn->errno. ")". $conn->error;
    } else {
