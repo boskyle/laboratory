@@ -4,17 +4,17 @@ import {Link} from 'react-router-dom';
 import Navigation from '../Navigation';
 
 
-const Feed = (props) => {
-
+const Journal = (props) => {
     return (
         <>
         <Navigation/>
         <div className="container-fluid">
-        <h2>Coming Soon. (Last)</h2>
+        <h2>Coming Soon. (After Profile Functionalities are done)</h2>
         </div>
         </>
+
         );
 }
 
 
-export default Feed;
+export default Journal;

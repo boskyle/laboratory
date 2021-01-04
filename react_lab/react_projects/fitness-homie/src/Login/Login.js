@@ -46,11 +46,12 @@ function Login() {
             })
         }).then(response => response.json())
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 /*  If the response returned back is an integer that means the php file fetched  ~ returned a uid 
                     which means the user had entered the right password.
                 */           
                 if (Number.isInteger(response)) {
+                   
                     history.push({
                         pathname: '/dashboard',
                         state: {user_id: response}

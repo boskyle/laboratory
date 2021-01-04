@@ -98,7 +98,7 @@ function Register () {
             </div>
             <button type="submit" className="btn mx-auto">Register</button>
             <Link to="/login" className="mx-auto mt-2" style={{textDecoration:"none"}}><span>Already a member ? Login here</span></Link>
-          
+                    
            
         </form>
        </div>
