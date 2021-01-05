@@ -1,0 +1,20 @@
+form {
+    font-size: 0.85em;
+}
+
+
+.form-group span {
+    font-size:0.5em;
+    font-weight: bold;
+    color:red;   
+}
+
+@media only screen and (max-width: 400px) {
+
+    form {
+        width: 80%;
+        font-size:0.75em;
+    }
+}
+
+
