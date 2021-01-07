@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useState,useEffect} from 'react';
+import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector';
 import './setup.css';
 
 
@@ -19,25 +20,68 @@ import './setup.css';
         -height
         -workout per week (Drop down)
 */
-console.log(localStorage.getItem('userId'));
-console.log(localStorage.getItem('userName'));
+// console.log(localStorage.getItem('userId'));
+// console.log(localStorage.getItem('userName'));
+var basicInfo;
+var basicInfoArray = new Array();
 
 
 const Setup = ()  => {
     
+    const selectCountry = (val) => {
+        setCountry(val);
+    }
+    
+    const selectRegion = (val) => {
+        setRegion(val);
+    }
+    
     const [isFormSubmitted,setFlag] = useState(false);
+    const [country,setCountry] = useState('');
+    const [region, setRegion] = useState('');
+    const [foo,setFoo]= useState([]);
+  
+    
+    
     const {register, handleSubmit, watch, errors, reset} = useForm();
 
     let registerBasicInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info.php';
+    
 
 
-
-    const onSubmit = async formData => {
+    const onSubmit = formData => {
         
         console.log("submit worked!");
+         basicInfo = {   uid:localStorage.getItem('userId'),
+                            username: formData.username,
+                            firstname: formData.firstname,
+                            lastname: formData.lastname,
+                            country: country+','+region,                   
+    };
         setFlag(true);
+  
+}
+
+
+useEffect(() => {
+
+setBasicInfo();
+},[isFormSubmitted])
+
+
+const setBasicInfo = () => {
+   
+    
+    if (basicInfo !== undefined) {
+        console.log(basicInfo);
     }
 
+}
+       
+
+
+
+    
 
 
 
@@ -108,8 +152,14 @@ const Setup = ()  => {
                                         />
                                         {errors.lastname && <span>{errors.lastname.message}</span>}
                                 </div>
+                                <div className="form-group">
+                                <label htmlFor="emailInput">Location (Optional)</label><br></br>
+                                <CountryDropdown value={country}  onChange={selectCountry}className="countryInput mr-4"/>
+                                <RegionDropdown country={country} value={region}  onChange={selectRegion} className="regionInput"/>
+                                
         
-                                <button type="submit" className="btn mx-auto">Push</button>
+                                </div>
+                                <button type="submit" className="btn mx-auto">Next</button>
                             </form>
         
         
@@ -156,5 +206,7 @@ const isUsernameExist = async (userNameInput) => {
     } catch (err) {console.log("Something went wrong with email fetch:"+err)}
 
 }
+
+
 
 export default Setup;
