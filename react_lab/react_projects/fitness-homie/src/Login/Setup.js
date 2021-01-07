@@ -3,6 +3,13 @@ import {useForm} from 'react-hook-form';
 import {useState,useEffect} from 'react';
 import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector';
 import './setup.css';
+import { FaInfoCircle } from 'react-icons/fa';
+
+
+
+
+
+
 
 
 /*  Only render this component when it is the user's first time logging in
@@ -20,10 +27,14 @@ import './setup.css';
         -height
         -workout per week (Drop down)
 */
-// console.log(localStorage.getItem('userId'));
-// console.log(localStorage.getItem('userName'));
+
+console.log(localStorage.getItem('userId'));
+console.log(localStorage.getItem('userName'));
+
 var basicInfo;
 var basicInfoArray = new Array();
+
+let bmr_tool_tip_string = "Your BMR (Basal Metabolic Rate) is an estimate of how many calories you'd burn if you were to do nothing but rest for 24 hours. It represents the minimum amount of energy needed to keep your body functioning, including breathing and keeping your heart beating."
 
 
 const Setup = ()  => {
@@ -71,21 +82,12 @@ setBasicInfo();
 
 const setBasicInfo = () => {
    
-    
     if (basicInfo !== undefined) {
-        console.log(basicInfo);
-    }
-
-}
        
-
-
-
-    
-
-
-
-
+        basicInfoArray.push(basicInfo);
+        console.log(basicInfoArray[0]);
+    }
+}
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
     if (localStorage.getItem('userId') !== null && localStorage.getItem('userName') === null) {
         if(isFormSubmitted === false) {      
@@ -165,7 +167,40 @@ const setBasicInfo = () => {
         
                 </div>      
             )
-        } else {return <div>Form 2</div>}
+        } else {return (
+            <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
+      
+                <form className="h-75 p-4 d-flex flex-column justify-content-start text-center" noValidate>
+                    <span>
+                    <h2 className="mx-auto">LETS CALCULATE YOUR BASAL METABOLIC RATE     
+                    <FaInfoCircle  className="text-info ml-3" style={{position:"relative",fontSize:"0.5em"}}
+                    data-toggle="tooltip" data-placement="bottom" title={bmr_tool_tip_string}
+                    /></h2>
+          
+                   
+                    </span>
+                  
+          
+                   
+               
+                   
+                    <div className="form-group">
+                        <label htmlFor="ageInput">Age</label>
+
+
+                    </div>
+
+
+
+
+                </form>
+                
+
+
+            </div>
+
+
+        );}
   
                                
     }
