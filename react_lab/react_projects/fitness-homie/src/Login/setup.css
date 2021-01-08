@@ -9,6 +9,12 @@ form {
     color:red;   
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 
 .countryInput{
 font-size: 0.75em;
@@ -27,6 +33,15 @@ button {
     width: 50%;
     margin-top:2em;
 }
+select {
+    font-size: 0.75em;
+}
+label {
+    color: purple;
+}
+
+
+
 
 @media only screen and (max-width: 400px) {
 
