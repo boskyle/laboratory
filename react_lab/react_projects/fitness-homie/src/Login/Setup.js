@@ -6,30 +6,6 @@ import './setup.css';
 import { FaInfoCircle } from 'react-icons/fa';
 
 
-
-
-
-
-
-
-/*  Only render this component when it is the user's first time logging in
-    This component will collect the pre-logged in user's information firsthand:
-        -username
-        -firstname
-        -lastname
-        -country (optional)
-        -address (optional)
-
-            NEXT
-            
-        BMR Calculation
-        -age
-        -height
-        -workout per week (Drop down)
-
-        
-*/
-
 console.log(localStorage.getItem('userId'));
 console.log(localStorage.getItem('userName'));
 
@@ -38,88 +14,11 @@ var basicInfoArray = new Array();
 
 let bmr_tool_tip_string = "An estimation on how much calories you need to consume to be able to sustain your weight."
 
-
+// component instance
 const Setup = ()  => {
-    
-    const selectCountry = (val) => {
-        setCountry(val);
-    }
-    
-    const selectRegion = (val) => {
-        setRegion(val);
-    }
-    
-    const [isFormSubmitted,setFlag] = useState(false);
-    const [country,setCountry] = useState('');
-    const [region, setRegion] = useState('');
-    const [foo,setFoo]=useState([]);
-    
-    // dropdown
-    const [value,setValue]=useState('bmr');
-    const [gender,setGender]=useState('Gender');
-    const [feet, setFeet]=useState('5');
-    const [inches,setInches]=useState('5');
-  
-    
-    
     const {register, handleSubmit, errors, reset} = useForm();
-
     let registerBasicInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info.php';
-    
 
-
-    const onSubmit = formData => {
-        
-        console.log("submit worked!");
-         basicInfo = {   uid:localStorage.getItem('userId'),
-                            username: formData.username,
-                            firstname: formData.firstname,
-                            lastname: formData.lastname,
-                            country: country+','+region,                   
-    };
-   ;
-        setFlag(true);
-        reset();
-  
-}
-
-
-const onSubmit2 = formData => {
-        
-    console.log("submit 2 worked!");
-    console.log(formData.age);
-   
-
-
-}
-
-const dropDownChange = (e) => {
-    setValue(e.target.value);   
-}
-
-const dropDownGender = (e) => {
-    setGender(e.target.value);   
-}
-
-
-const dropDownFeet = (e) => {
-    setFeet(e.target.value);
-}
-
-const dropDownInches = (e) => {
-    setInches(e.target.value);
-}
-console.log(basicInfoArray[0]);
-
-
-
-
-useEffect(() => {
-setBasicInfo();
-},[isFormSubmitted])
-
-
-// activity two-dimensional array
 
 let activity = [
     ['bmr', 1],
@@ -130,21 +29,152 @@ let activity = [
     ['extra-active', 1.9],
 ];
 
-
-
-
-
-
-
+    
+    const [isFormSubmitted,setFlag] = useState(false);
+    const [country,setCountry] = useState('');
+    const [region, setRegion] = useState('');
+    const [foo,setFoo]=useState([]);
+    
+    // dropdown
+    const [value,setValue]=useState('bmr');
+    const [gender,setGender]=useState('Male');
+    const [feet, setFeet]=useState('5');
+    const [inches,setInches]=useState('5');
 
 
 const setBasicInfo = () => {
-   
+
     if (basicInfo !== undefined) {
-       
+        
         basicInfoArray.push(basicInfo);
+        
     }
 }
+
+
+    
+const selectCountry = (val) => {
+    setCountry(val);
+}
+
+const selectRegion = (val) => {
+    setRegion(val);
+}
+
+const dropDownChange = (e) => {
+    setValue(e.target.value);   
+}
+
+const dropDownGender = (e) => {
+    setGender(e.target.value);   
+}
+
+const dropDownFeet = (e) => {
+    setFeet(e.target.value);
+}
+const dropDownInches = (e) => {
+    setInches(e.target.value);
+}
+
+const isUsernameExist = async (userNameInput) => {
+    let userNameListingApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/check-username-exist.php';
+    let matcher = '';
+
+    try {
+        
+        
+        await fetch(userNameListingApi, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json'
+            }
+            }).then(response => response.json())
+                .then(response => {
+                    response.forEach(username => {
+                        if(username === userNameInput) {
+                            matcher = userNameInput;
+                        }
+                    })
+                })
+                .catch(err => console.log(err))
+    
+                // console.log(matcher);
+          return (userNameInput === matcher) ? false : true;
+
+
+
+
+
+    } catch (err) {console.log("Something went wrong with email fetch:"+err)}
+
+}
+
+
+/* initialize bascInfo object to fill in values:
+    username
+    firstname
+    lastname
+    country
+
+    setState of Flag to true (initially 0) to invoke a re-render of the second form.
+    reset() the react-hook-form object to clean and re-use for the second form.
+*/
+const onSubmit = formData => {
+    
+    console.log("submit worked!");
+        basicInfo = {   uid:localStorage.getItem('userId'),
+                        username: formData.username,
+                        firstname: formData.firstname,
+                        lastname: formData.lastname,
+                        country: country+','+region,                   
+};
+
+    setFlag(true);
+    reset();
+
+}
+
+
+const onSubmit2 = formData => {
+        
+
+ 
+    console.log("submit 2 worked!");
+
+    // console.log(gender,feet,inches,value,formData.age,formData.weight);
+    // console.log(inchesToCentimeters(parseInt(feet),parseInt(inches)));
+
+    let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
+    let bmr = calculateBMR(gender,formData.weight,height_cm,formData.age);
+    let caloric_needs = calculateCalories(bmr,value);
+
+    basicInfo = {
+        bmr: bmr,
+        calories: caloric_needs,
+        weight_lbs: parseInt(formData.weight),
+        activity_level: value,
+        gender: gender,
+        height_cm: height_cm,
+        age: parseInt(formData.age)
+    }
+
+
+    console.log(basicInfoArray);
+
+}
+
+
+
+
+useEffect(() => {
+setBasicInfo();
+},[isFormSubmitted])
+
+
+
+
+
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
     if (localStorage.getItem('userId') !== null && localStorage.getItem('userName') === null) {
         if(isFormSubmitted === false) {      
@@ -306,7 +336,7 @@ const setBasicInfo = () => {
                 </div>
 
                 <div className="form-group mb-1">
-                <label for="weightInput"><b>Weight (lbs)</b></label>
+                <label htmlFor="weightInput"><b>Weight (lbs)</b></label>
                 <input name="weight" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="weightInput"
                 ref={register({
                     required: {
@@ -341,59 +371,59 @@ const setBasicInfo = () => {
                                
     }
 
-return null;
+    return null;
+} 
+
+
+// rule of thumb, functions that dont have state change can go out of function
+const inchesToCentimeters = (feet,inches) => {
+
+    let multiplier_to_inches = 12;
+    let multiplier_to_cm = 2.54;
+
+    let finalCentimeters = ((multiplier_to_inches * feet) + inches) * multiplier_to_cm;
+
+    return finalCentimeters;
 }
-
-const isUsernameExist = async (userNameInput) => {
-    let userNameListingApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/check-username-exist.php';
-    let matcher = '';
-
-    try {
-        
-        
-        await fetch(userNameListingApi, {
-            method: 'GET',
-            headers: {
-                'accept': 'application/json',
-                'content-Type': 'application/json'
-            }
-            }).then(response => response.json())
-                .then(response => {
-                    response.forEach(username => {
-                        if(username === userNameInput) {
-                            matcher = userNameInput;
-                        }
-                    })
-                })
-                .catch(err => console.log(err))
-    
-                // console.log(matcher);
-          return (userNameInput === matcher) ? false : true;
-
-
-
-
-
-    } catch (err) {console.log("Something went wrong with email fetch:"+err)}
-
-}
-
-
 
 const calculateBMR = (gender,bodyweight,height,age) => {
     if (gender === "Male")
     {
-
+        // metric
+        let rounded = (10 * (bodyweight/2.205)) + (6.25 * height) - (5 * age) + 5;
+        // similar to casting to int
+        return ~~rounded;
+       
     } else if (gender === "Female") {
-        
+        // metric
+        let rounded = (10 * (bodyweight/2.205)) + (6.25 * height) - (5 * age) + 5 - 161;
+        // similar to casting to int
+        return ~~rounded;
     }
 
 }
 const calculateCalories = (bmr,activity) => {
+    switch (activity) {
+        case "bmr":
+            return ~~(bmr * 1.0);
+        case "sedentary":
+            return ~~(bmr * 1.2);
+        case "lightly-active":
+            return ~~(bmr * 1.375);
+        case "moderately-active":
+            return ~~(bmr * 1.55);
+        case "very-active":
+            return ~~(bmr * 1.725);
+        case "extra-active":
+            return ~~(bmr * 1.9);
+        default:
+            return ~~(bmr);
+    }
 
 }
 
 
 
 
+export {inchesToCentimeters,calculateBMR,calculateCalories};
 export default Setup;
