@@ -26,6 +26,7 @@ function Dashboard() {
 
     const isLogged = useSelector(state => state.isLogged);
     
+    // comment from refactor
     console.log(isLogged);
     
     useEffect(() => {
