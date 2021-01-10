@@ -9,7 +9,7 @@ import Journal from './Journal/Journal';
 import Setup from './Login/Setup';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-// comment from main branch
+
 function App() {
   return (
     <Router>

@@ -4,22 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// redux stuff
+import {createStore} from 'redux';
+// note that that the file that combines all your reducers is named 'index.js', thus no need to explicitly give ./redux/reducers/index.js, it already knows
+import allReducers from './redux/reducers';
+// enables our entire app to gain access to our global state
+import {Provider} from 'react-redux';
 
 
-// STORE -> GLOABAL STATE
-
-// ACTIONS ->
-
-// REDUCER ->
-
-// DISPATCH
+// the other argument is optional, it gives me the redux dev tool
+const store = createStore(allReducers,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
 
 
-
-
-
-
-ReactDOM.render(<App/>,document.getElementById('root')
+ReactDOM.render(
+<Provider store={store}>
+<App/>
+</Provider>
+,document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
