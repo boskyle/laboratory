@@ -5,6 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
+
+// STORE -> GLOABAL STATE
+
+// ACTIONS ->
+
+// REDUCER ->
+
+// DISPATCH
+
+
+
+
+
+
 ReactDOM.render(<App/>,document.getElementById('root')
 );
 
