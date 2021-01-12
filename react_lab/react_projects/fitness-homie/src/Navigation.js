@@ -18,7 +18,7 @@ const Navigation = (props) => {
     
     const logOut = () => {
         dispatch(userLoggedOut());
-        history.push("/login");
+        history.push("/");
         // localStorage.removeItem('userId');
         // localStorage.removeItem('userName');
         

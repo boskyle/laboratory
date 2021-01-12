@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 
 import {useSelector,useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
-
+import {loadFromLocalStorage} from '../LocalStorage';
 import {isEmailExist} from './db-endpoints/db-fetch';
 
 
@@ -23,6 +23,14 @@ function Login() {
     // by default false
     const isLogged = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
+
+    useEffect( () => {
+        const isLogged = localStorage.getItem('isLogged');
+        if (loadFromLocalStorage().isLogged[0] === true) {
+            history.push('/dashboard');
+        }
+
+    },[])
     
 
     const onSubmit = async formData => {
@@ -56,7 +64,7 @@ function Login() {
                     // uid dispatch send
                     dispatch(authenticateUserLoggedIn(response));
                    
-                    // load isLogged state to localStorage to persist
+                   
                    
                   
                    
@@ -69,6 +77,7 @@ function Login() {
 
             
     }
+    
 
     return  (
 
