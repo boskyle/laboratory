@@ -1,6 +1,6 @@
 import React from 'react';
 import './login.css';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
@@ -23,8 +23,12 @@ function Login() {
     // by default false
     const isLogged = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
+    
+    useEffect(() => {
+        console.log("mount");
+        localStorage.setItem('localStorage',isLogged);
+    },[isLogged])
 
-    console.log(isLogged);
     const onSubmit = async formData => {
         
        
@@ -54,12 +58,19 @@ function Login() {
                         state: {user_id: response}
                     })
                     dispatch(authenticateUserLoggedIn(response));
+                   
+                    // load isLogged state to localStorage to persist
+                   
+                  
+                   
                 } else {setError(response);}
                 
             })
             .catch(err => console.log(err));
 
+           
 
+            
     }
 
     return  (
@@ -116,4 +127,9 @@ function Login() {
     );
 
 }
+
+
+
+
+
 export default Login;

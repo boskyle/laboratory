@@ -19,10 +19,10 @@ const Navigation = (props) => {
     const logOut = () => {
         dispatch(userLoggedOut());
         history.push("/login");
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userName');
+        // localStorage.removeItem('userId');
+        // localStorage.removeItem('userName');
         
-       console.log("push");
+  
     }
     
     return (

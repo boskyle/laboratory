@@ -11,11 +11,23 @@ import allReducers from './redux/reducers';
 // enables our entire app to gain access to our global state
 import {Provider} from 'react-redux';
 
+function saveToLocalStorage(state){
+    try {
+        const stringyState = JSON.stringify(state);
+        localStorage.setItem('isLogged',stringyState);
+    } catch (e) {console.log(e)}
+}
+
 
 // the other argument is optional, it gives me the redux dev tool
 const store = createStore(allReducers,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
+
+// persist the state to redux
+store.subscribe (() => {
+saveToLocalStorage(store.getState());
+})
 
 
 ReactDOM.render(
