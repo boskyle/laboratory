@@ -24,10 +24,6 @@ function Login() {
     const isLogged = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
     
-    useEffect(() => {
-        console.log("mount");
-        localStorage.setItem('localStorage',isLogged);
-    },[isLogged])
 
     const onSubmit = async formData => {
         
@@ -57,6 +53,7 @@ function Login() {
                         pathname: '/dashboard',
                         state: {user_id: response}
                     })
+                    // uid dispatch send
                     dispatch(authenticateUserLoggedIn(response));
                    
                     // load isLogged state to localStorage to persist
