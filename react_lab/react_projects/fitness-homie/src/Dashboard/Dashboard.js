@@ -13,14 +13,36 @@ import {LoadBasicInfo} from './db-endpoints/loadProfile';
 
 function Dashboard() {
     // var to access passed variable from Login.js
-    let location = useLocation(); 
+    
   
     const isLogged = useSelector(state => state.isLogged);
-    console.log(isLogged);
+    const [userInfo, setUserInfo] = useState({
+        user_id: loadFromLocalStorage().isLogged[1],
+        username: '',
+        firstname: '',
+        lastname: '',
+        address: '',
+        country: '',
+    });
 
-  
-   console.log(loadFromLocalStorage().isLogged[0]);
-   console.log(loadFromLocalStorage().isLogged[1]);
+    useEffect( () => {
+        LoadBasicInfo(userInfo.user_id)
+        .then(data => {
+            setUserInfo({
+                username: data.username,
+                firstname: data.firstname,
+                lastname: data.lastname,
+                address: data.address,
+                country: data.country
+            })
+        })
+
+        console.log(userInfo);
+    },[])
+    
+
+
+   
    
     if (loadFromLocalStorage().isLogged[0] === true) {
         return <Navigation/>
