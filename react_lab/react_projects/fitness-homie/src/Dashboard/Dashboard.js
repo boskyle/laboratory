@@ -37,7 +37,7 @@ function Dashboard() {
             })
         })
 
-        console.log(userInfo);
+       
     },[])
     
 
