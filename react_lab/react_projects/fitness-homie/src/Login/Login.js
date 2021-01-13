@@ -4,7 +4,6 @@ import {useState,useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-
 import {useSelector,useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import {loadFromLocalStorage} from '../LocalStorage';
@@ -24,13 +23,7 @@ function Login() {
     const isLogged = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
 
-    useEffect( () => {
-        const isLogged = localStorage.getItem('isLogged');
-        if (loadFromLocalStorage().isLogged[0] === true) {
-            history.push('/dashboard');
-        }
-
-    },[])
+ 
     
 
     const onSubmit = async formData => {
@@ -57,12 +50,10 @@ function Login() {
                 */           
                 if (Number.isInteger(response)) {
 
-                    history.push({
-                        pathname: '/dashboard',
-                        state: {user_id: response}
-                    })
+                    
                     // uid dispatch send
                     dispatch(authenticateUserLoggedIn(response));
+                    history.push('/dashboard');
                    
                    
                    

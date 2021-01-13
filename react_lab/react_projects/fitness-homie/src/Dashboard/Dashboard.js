@@ -16,8 +16,9 @@ function Dashboard() {
     
   
     const isLogged = useSelector(state => state.isLogged);
+    
     const [userInfo, setUserInfo] = useState({
-        user_id: loadFromLocalStorage().isLogged[1],
+        user_id: loadFromLocalStorage("isLogged").isLogged[1],
         username: '',
         firstname: '',
         lastname: '',
@@ -29,6 +30,7 @@ function Dashboard() {
         LoadBasicInfo(userInfo.user_id)
         .then(data => {
             setUserInfo({
+                user_id:loadFromLocalStorage("isLogged").isLogged[1],
                 username: data.username,
                 firstname: data.firstname,
                 lastname: data.lastname,
@@ -40,12 +42,15 @@ function Dashboard() {
        
     },[])
     
-
+    console.log(userInfo);
 
    
    
-    if (loadFromLocalStorage().isLogged[0] === true) {
-        return <Navigation/>
+    if (loadFromLocalStorage("isLogged").isLogged[0] === true) {
+        return <div className="container-fluid text-center">
+        <Navigation/>
+        <h2>{userInfo.firstname}</h2>
+    </div> 
     } else
    return null;
   

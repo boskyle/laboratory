@@ -20,7 +20,7 @@ const store = createStore(allReducers,
 
 // persist the state to redux
 store.subscribe (() => {
-saveToLocalStorage(store.getState());
+saveToLocalStorage(store.getState(),'isLogged');
 })
 
 ReactDOM.render(

@@ -22,7 +22,7 @@ const Home = () => {
     const history = useHistory();
 
     useEffect( () => {
-        if (loadFromLocalStorage().isLogged[0] === true) {
+        if (loadFromLocalStorage("isLogged").isLogged[0] === true) {
             history.push('/dashboard');
         }
     })

@@ -17,7 +17,6 @@ export const LoadBasicInfo = async (userId) => {
 
             if (userInfo !== null) {
                
-                console.log(userInfo);
                 return userInfo;
             }
 
