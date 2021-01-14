@@ -4,6 +4,8 @@ import {useState,useEffect} from 'react';
 import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector';
 import './setup.css';
 import { FaInfoCircle } from 'react-icons/fa';
+import {useLocation} from 'react-router-dom';
+import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
 
 
 console.log(localStorage.getItem('userId'));
@@ -16,8 +18,27 @@ let bmr_tool_tip_string = "An estimation on how much calories you need to consum
 
 // component instance
 const Setup = ()  => {
-    const {register, handleSubmit, errors, reset} = useForm();
     let registerBasicInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info.php';
+
+    const {register, handleSubmit, errors, reset} = useForm();
+    const location = useLocation();
+    
+
+    useEffect( () => {
+        if(location.isDataGiven === false) {
+            
+            saveToLocalStorage(location.isDataGiven,'isDataGiven');
+        }
+    },[])
+
+
+    console.log(loadFromLocalStorage('isDataGiven'));
+
+
+ 
+    
+
+  
 
 
 let activity = [
@@ -33,23 +54,12 @@ let activity = [
     const [isFormSubmitted,setFlag] = useState(false);
     const [country,setCountry] = useState('');
     const [region, setRegion] = useState('');
-    const [foo,setFoo]=useState([]);
-    
+   
     // dropdown
     const [value,setValue]=useState('bmr');
     const [gender,setGender]=useState('Male');
     const [feet, setFeet]=useState('5');
     const [inches,setInches]=useState('5');
-
-
-const setBasicInfo = () => {
-
-    if (basicInfo !== undefined) {
-        
-        basicInfoArray.push(basicInfo);
-        
-    }
-}
 
 
     
@@ -123,27 +133,27 @@ const isUsernameExist = async (userNameInput) => {
 const onSubmit = formData => {
     
     console.log("submit worked!");
-        basicInfo = {   uid:localStorage.getItem('userId'),
+        basicInfo = {   uid:loadFromLocalStorage("isLogged").isLogged[1],
                         username: formData.username,
                         firstname: formData.firstname,
                         lastname: formData.lastname,
                         country: country+','+region,                   
 };
 
+    basicInfoArray.push(basicInfo);
     setFlag(true);
     reset();
 
 }
 
 
-const onSubmit2 = formData => {
+const onSubmit2 = async formData => {
         
 
  
     console.log("submit 2 worked!");
 
-    // console.log(gender,feet,inches,value,formData.age,formData.weight);
-    // console.log(inchesToCentimeters(parseInt(feet),parseInt(inches)));
+
 
     let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
     let bmr = calculateBMR(gender,formData.weight,height_cm,formData.age);
@@ -158,25 +168,34 @@ const onSubmit2 = formData => {
         height_cm: height_cm,
         age: parseInt(formData.age)
     }
-
-
+    basicInfoArray.push(basicInfo);
     console.log(basicInfoArray);
+
+    await fetch (registerBasicInfoApi, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(basicInfoArray[0])
+    }).then(response => response.text())
+        .then(response => console.log(response))
+            .catch(error => console.log(error));
+
 
 }
 
 
 
 
-useEffect(() => {
-setBasicInfo();
-},[isFormSubmitted])
+
 
 
 
 
 
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
-    if (localStorage.getItem('userId') !== null && localStorage.getItem('userName') === null) {
+    if (loadFromLocalStorage('isDataGiven') === false) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">

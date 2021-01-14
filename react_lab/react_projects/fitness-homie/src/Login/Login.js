@@ -54,11 +54,7 @@ function Login() {
                     // uid dispatch send
                     dispatch(authenticateUserLoggedIn(response));
                     history.push('/dashboard');
-                   
-                   
-                   
-                  
-                   
+                                           
                 } else {setError(response);}
                 
             })
