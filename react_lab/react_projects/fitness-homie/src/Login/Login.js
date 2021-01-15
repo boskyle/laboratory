@@ -1,12 +1,11 @@
 import React from 'react';
 import './login.css';
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import {useSelector,useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
-import {loadFromLocalStorage} from '../LocalStorage';
 import {isEmailExist} from './db-endpoints/db-fetch';
 
 
@@ -20,7 +19,7 @@ function Login() {
     const {handleSubmit,register,errors} = useForm();
 
     // by default false
-    const isLogged = useSelector(state => state.isLogged);
+    // const isLogged = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
 
  

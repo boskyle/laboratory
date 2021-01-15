@@ -4,7 +4,7 @@ import './Burger/burger.css';
 import {Link} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 
-import {useSelector,useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {userLoggedOut} from './redux/actions';
 
 // remove uid from superglobal associative araray local.storage ~~ and redirect to login page

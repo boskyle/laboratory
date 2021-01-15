@@ -1,15 +1,14 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useState,useEffect} from 'react';
-import {CountryDropdown, RegionDropdown, CountryRegionData} from 'react-country-region-selector';
+import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 import './setup.css';
 import { FaInfoCircle } from 'react-icons/fa';
 import {useLocation} from 'react-router-dom';
 import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
 
 
-console.log(localStorage.getItem('userId'));
-console.log(localStorage.getItem('userName'));
+
 
 var basicInfo;
 var basicInfoArray = new Array();
@@ -29,17 +28,10 @@ const Setup = ()  => {
             
             saveToLocalStorage(location.isDataGiven,'isDataGiven');
         }
-    },[])
+    },[location.isDataGiven])
 
 
     console.log(loadFromLocalStorage('isDataGiven'));
-
-
- 
-    
-
-  
-
 
 let activity = [
     ['bmr', 1],
@@ -120,7 +112,6 @@ const isUsernameExist = async (userNameInput) => {
 
 }
 
-
 /* initialize bascInfo object to fill in values:
     username
     firstname
@@ -148,13 +139,7 @@ const onSubmit = formData => {
 
 
 const onSubmit2 = async formData => {
-        
-
- 
     console.log("submit 2 worked!");
-
-
-
     let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
     let bmr = calculateBMR(gender,formData.weight,height_cm,formData.age);
     let caloric_needs = calculateCalories(bmr,value);
@@ -181,18 +166,7 @@ const onSubmit2 = async formData => {
     }).then(response => response.text())
         .then(response => console.log(response))
             .catch(error => console.log(error));
-
-
 }
-
-
-
-
-
-
-
-
-
 
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
     if (loadFromLocalStorage('isDataGiven') === false) {
@@ -402,7 +376,7 @@ const inchesToCentimeters = (feet,inches) => {
 
     let finalCentimeters = ((multiplier_to_inches * feet) + inches) * multiplier_to_cm;
 
-    return finalCentimeters;
+    return ~~finalCentimeters;
 }
 
 const calculateBMR = (gender,bodyweight,height,age) => {

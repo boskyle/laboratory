@@ -20,7 +20,7 @@ import {inchesToCentimeters,calculateBMR,calculateCalories} from './../Setup';
 describe('testing setup functions', () => {
     console.log("testing!");
     test("should return 165.1cm",() => {
-       expect(inchesToCentimeters(5,5)).toBe(165.1);
+       expect(inchesToCentimeters(5,5)).toBe(165);
     });
 
     test("should return bmr,",() => {
