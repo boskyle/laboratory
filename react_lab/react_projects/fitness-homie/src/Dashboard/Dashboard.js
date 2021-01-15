@@ -26,6 +26,7 @@ function Dashboard() {
         country: '',
     });
 
+   
     useEffect( () => {
         // this async function returns false when userInfo hasnt ben filled yet
         LoadBasicInfo(userInfo.user_id)
@@ -36,7 +37,8 @@ function Dashboard() {
                     pathname: '/login/setup',
                     isDataGiven: data
                 })
-            } else {            
+            } else {
+                console.log(data);            
                 setUserInfo({
                     user_id:loadFromLocalStorage("isLogged").isLogged[1],
                     username: data.username,

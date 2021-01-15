@@ -21,7 +21,6 @@ require_once '../Register/connect.php';
             $stmt->bind_param("ssssi",$decoded['username'],$decoded['firstname'],$decoded['lastname'],$decoded['country'],$decoded['uid']);
             $stmt->execute();
             $stmt->close();
-            echo 'Succesfully registered';
             $conn->close();
         }
 

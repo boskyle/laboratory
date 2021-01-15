@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react';
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 import './setup.css';
 import { FaInfoCircle } from 'react-icons/fa';
-import {useLocation} from 'react-router-dom';
+import {useLocation,Redirect} from 'react-router-dom';
 import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
 
 
@@ -18,6 +18,7 @@ let bmr_tool_tip_string = "An estimation on how much calories you need to consum
 // component instance
 const Setup = ()  => {
     let registerBasicInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info.php';
+    let registerFitnessInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info-2.php';
 
     const {register, handleSubmit, errors, reset} = useForm();
     const location = useLocation();
@@ -138,6 +139,8 @@ const onSubmit = formData => {
 }
 
 
+// where all the submissions get posted
+
 const onSubmit2 = async formData => {
     console.log("submit 2 worked!");
     let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
@@ -164,12 +167,39 @@ const onSubmit2 = async formData => {
         },
         body: JSON.stringify(basicInfoArray[0])
     }).then(response => response.text())
-        .then(response => console.log(response))
+        .then(response => console.log("SUCCESS"))
             .catch(error => console.log(error));
+
+
+    
+    await fetch (registerFitnessInfoApi, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            uid: basicInfoArray[0].uid,
+            age: basicInfoArray[1].age,
+            gender: basicInfoArray[1].gender,
+            height: basicInfoArray[1].height_cm,
+            weight: basicInfoArray[1].weight_lbs,
+            activity_level: basicInfoArray[1].activity_level,
+            bmr: basicInfoArray[1].bmr,
+            calories: basicInfoArray[1].calories
+        })
+    }).then(response => response.text())
+            .then(response => console.log("SUCCESS"))
+                .catch(error => console.log(error))
+
+
+saveToLocalStorage(true,"isDataGiven");
 }
 
+
+
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
-    if (loadFromLocalStorage('isDataGiven') === false) {
+    if (loadFromLocalStorage('isDataGiven') === false && loadFromLocalStorage('isLogged').isLogged[0] === true) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
@@ -364,7 +394,7 @@ const onSubmit2 = async formData => {
                                
     }
 
-    return null;
+    return <Redirect to="/dashboard"/>;
 } 
 
 
