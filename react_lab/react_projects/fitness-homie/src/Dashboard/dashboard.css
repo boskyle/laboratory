@@ -1,0 +1,65 @@
+.container-fluid {
+    overflow: hidden;
+}
+
+.container-flex {
+   display: flex;
+   background-color: #715E7A;
+   justify-content: space-between;
+   height: 100vh;
+   flex-wrap: wrap;
+   padding: 1em 20% 1em 20%;
+}
+
+.flex-item-dashboard > h2{
+    color: #ebcfc4;
+}
+.flex-item-dashboard{
+    display: inline-block;
+    border: 1px solid black;
+    height: 45%;
+    margin: 0.5em;
+    padding:1em;
+    color: #fff3e2;
+    font-family: raleway-bold;
+    letter-spacing:0.25em;
+    font-size:0.5em;
+    border-radius:15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.flex-item-dashboard:first-child {
+    flex: 1 1 100%;
+}
+
+.flex-item-dashboard:not(:first-child) {
+    flex: 1 1 auto;
+}
+#flex-item-profile {
+    background: linear-gradient(90deg, rgba(203,203,203,1) 0%, rgba(112,104,151,1) 0%, rgba(144,136,212,1) 100%);
+}
+
+
+
+.flex-container-profile{
+    display: flex;
+    height: 80%;
+}
+.profile-item {
+    flex: 1 1 auto;
+    margin: 0.5em;
+    border: 3px dotted black;
+    padding: 0.5em;
+}
+.profile-item span {
+    display: block;
+}
+
+/* comment on dashboard css */
+@media only screen and (max-width: 760px) {
+    .container-flex {
+        padding: 0.5em;
+        overflow: auto;
+    }
+  }
+

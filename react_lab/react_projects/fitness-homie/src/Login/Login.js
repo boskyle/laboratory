@@ -4,6 +4,9 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {authenticateUserLoggedIn} from '../redux/actions';
+import {isEmailExist} from './db-endpoints/db-fetch';
 
 
 
@@ -13,19 +16,13 @@ function Login() {
     
     const [error, setError] = useState('');
     const history = useHistory();
-    
-    // useEffect( () => {
-    
-    // })
-    
-    /*
-        1. display error if user email does not exist.
-        2. display error if user email does not match with hashed password.
-    */
-
     const {handleSubmit,register,errors} = useForm();
 
+    // by default false
+    // const isLogged = useSelector(state => state.isLogged);
+    const dispatch = useDispatch();
 
+ 
     
 
     const onSubmit = async formData => {
@@ -46,23 +43,27 @@ function Login() {
             })
         }).then(response => response.json())
             .then(response => {
-                console.log(response);
+               
                 /*  If the response returned back is an integer that means the php file fetched  ~ returned a uid 
                     which means the user had entered the right password.
                 */           
                 if (Number.isInteger(response)) {
-                    history.push({
-                        pathname: '/dashboard',
-                        state: {user_id: response}
-                    })
+
+                    
+                    // uid dispatch send
+                    dispatch(authenticateUserLoggedIn(response));
+                    history.push('/dashboard');
+                                           
                 } else {setError(response);}
                 
             })
             .catch(err => console.log(err));
 
+           
 
+            
     }
-
+    
 
     return  (
 
@@ -119,38 +120,6 @@ function Login() {
 
 }
 
-
-
-
-const isEmailExist = async (emailInput) => {
-
-    let emailsListing = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Register/check-email-exist.php';
-    let matcher = '';
-    // code goes here for api fetch
-    await fetch (emailsListing,{
-        method: 'GET',
-        headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-        }
-    }).then (response => response.json())
-        .then(response =>{response.forEach(email => {
-            // console.log(email);
-            if(email === emailInput) {matcher = emailInput;}
-        })}).catch(err => console.log(err))
-        return (matcher === '') ? false : true;
-}
-
-
-// const authenticatePassword = async (rawPassword) => {
-
-//     // post raw Password to php 
-//     // php proccesses it with password verify if true return (YES)
-//     console.log(rawPassword);
-   
-
-// }
-    
 
 
 

@@ -1,11 +1,18 @@
 import React from 'react';
-import '../Dashboard/Burger/burger.css';
-import {slide as Menu} from 'react-burger-menu';
-import {Link} from 'react-router-dom';
+
+import Navigation from '../Navigation';
 
 
 const Feed = (props) => {
-    return (<h2>Feed main component</h2>);
+
+    return (
+        <>
+        <Navigation/>
+        <div className="container-fluid">
+        <h2>Coming Soon. (Last)</h2>
+        </div>
+        </>
+        );
 }
 
 
