@@ -55,6 +55,7 @@
     display: block;
 }
 
+/* comment on dashboard css */
 @media only screen and (max-width: 760px) {
     .container-flex {
         padding: 0.5em;
