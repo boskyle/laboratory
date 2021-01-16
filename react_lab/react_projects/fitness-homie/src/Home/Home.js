@@ -56,13 +56,12 @@ const Home = () => {
              </div>
             </nav>
             <div className="container d-flex flex-column container-about">
-                <h2 className="mx-auto mt-2 text-center">The ultimate fitness tracker.</h2>
+                <h2 className="mx-auto mt-2 text-center display-2">The ultimate fitness tracker.</h2>
                 <div className="container container-info mt-5">
                     <div className="flex-item"><h4>Track your calories.</h4>
-                    <p>Lorem Ipsum lorem Ips</p>
                     </div>
-                    <div className="flex-item"><h4>Easy to use meal planner.</h4> <p>Lorem Ipsum lorem Ips</p></div>
-                    <div className="flex-item"><h4>See your entire progress.</h4> <p>Lorem Ipsum lorem Ips</p></div>
+                    <div className="flex-item"><h4>Easy to use meal planner.</h4> </div>
+                    <div className="flex-item"><h4>See your entire progress.</h4> </div>
                 </div>
             </div>
         
