@@ -19,7 +19,7 @@ function App() {
       <Route path='/register' component={Register}></Route>
       <Route path='/login' exact component={Login}></Route>
       <Route path='/login/setup' component={Setup}></Route>
-      <Route path='/dashboard' component={Dashboard}></Route>
+      <Route path='/:username' component={Dashboard}></Route>
       <Route path="/feed" component={Feed}></Route>
       <Route path="/journal" component={Journal}></Route>
       </Switch>

@@ -1,12 +1,13 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
-import { Redirect} from "react-router-dom";
-import {useHistory} from 'react-router-dom';
+import {Redirect,useHistory,useParams} from "react-router-dom";
 import Navigation from '../Navigation';
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo} from './db-endpoints/loadProfile';
 import '../assets/fonts/index.css';
+import  UserProfile from './UserProfile';
 import './dashboard.css';
+
 
 
 
@@ -18,6 +19,9 @@ function Dashboard() {
   
 
     const history = useHistory();
+    const {username} = useParams();
+
+    
     
     const [userInfo, setUserInfo] = useState({
         user_id: loadFromLocalStorage("isLogged").isLogged[1],
@@ -103,36 +107,21 @@ function Dashboard() {
  
 
    
-   
+//    able to edit?
     if (loadFromLocalStorage("isLogged").isLogged[0] === true) {
             
-        return  <div className="container-fluid">
-                    <Navigation/>
-                        <div className="container-flex">
-                            <div className="flex-item-dashboard" id="flex-item-profile">
-                                <h2>PROFILE</h2>
-                                <div className="flex-container-profile p-3">
-                                    <div className="profile-item w-25">
-                                        <h5>Profile Picture</h5>
-                                    </div>
-                                    <div className="profile-item w-75">
-                                    <span>{userInfo.firstname + " " +userInfo.lastname} ({userInfo.username})</span>
-                                    <span>{userInfo.country}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex-item-dashboard" id="flex-item-journal">
-                                <h2>JOURNAL</h2>
-                                <p className="w-50">Calories to maintain weight (lbs): {userFitness.calories}</p>
-                            </div>
-
-                            <div className="flex-item-dashboard" id="flex-item-workout">
-                                <h2>WORKOUT</h2>
-                            </div>
-
-                        </div>
-                </div> 
+        return  (
+            <div className="container-fluid">
+            <Navigation/>
+            <UserProfile 
+            username={userInfo.username} 
+            firstname={userInfo.firstname}
+            lastname={userInfo.lastname}
+            country={userInfo.country}
+            userCalories={userFitness.calories}
+            />
+            </div> 
+        );
     } else
    return <Redirect to="/" />;
   

@@ -6,7 +6,7 @@ import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
-import {isEmailExist} from './db-endpoints/db-fetch';
+import {isEmailExist,getUsernameFromId} from './db-endpoints/db-fetch';
 
 
 
@@ -50,10 +50,14 @@ function Login() {
                 if (Number.isInteger(response)) {
 
                     
-                    // uid dispatch send
+                    // uid (response) dispatch send
                     dispatch(authenticateUserLoggedIn(response));
-                    history.push('/dashboard');
-                                           
+                    /*  fetch uid from the logged in user, 
+                        and pass this uid as paramter to another async function t
+                        hat will return the username
+                        associated with the userid and push it to the history stack to reroute to that username
+                    */
+                    getUsernameFromId(response).then( data => history.push(`/${data}`));                               
                 } else {setError(response);}
                 
             })
