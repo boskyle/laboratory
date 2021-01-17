@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react';
 import {Redirect,useHistory,useParams} from "react-router-dom";
 import Navigation from '../Navigation';
 import {loadFromLocalStorage} from '../LocalStorage';
-import {LoadBasicInfo,LoadFitnessInfo} from './db-endpoints/loadProfile';
+import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
 import '../assets/fonts/index.css';
 import  UserProfile from './UserProfile';
 import './dashboard.css';
@@ -49,7 +49,6 @@ function Dashboard() {
         // this async function returns false when userInfo hasnt ben filled yet
 
         let isCancelled = false;
-
         LoadBasicInfo(userInfo.user_id)
         .then(data => {
             // only
@@ -102,7 +101,11 @@ function Dashboard() {
         }    
     },[])
 
-
+    useEffect( () => {
+        console.log(loadFromLocalStorage('isLogged').isLogged[1]);
+        console.log(username);
+        getUidFromUsername(username).then(uid => {console.log(uid)});
+    },[])
 
  
 

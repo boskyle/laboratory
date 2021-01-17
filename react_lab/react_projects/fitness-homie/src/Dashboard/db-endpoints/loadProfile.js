@@ -23,7 +23,6 @@ export const LoadBasicInfo = async (userId) => {
             return false;
 
             
-
     // return an object of a succesful response
 }
 
@@ -51,5 +50,22 @@ export const LoadFitnessInfo = async (userId) => {
 
             return false;
 
+
+}
+
+export const getUidFromUsername = async (username) => {
+    let loadUidAPI = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/load-uid.php';
+    let userId;
+
+    await fetch(loadUidAPI, {
+        method: 'POST',
+        body: JSON.stringify({username})
+
+    }).then(response => response.json())
+        .then(response => userId = response.userlogin_id)
+        if (userId !== null) {        
+            return userId;
+        }
+        return false;
 
 }
