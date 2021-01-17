@@ -43,91 +43,114 @@ function Dashboard() {
     });
 
  
-
-    
     useEffect( () => {
-        // this async function returns false when userInfo hasnt ben filled yet
-
-        let isCancelled = false;
-        LoadBasicInfo(userInfo.user_id)
-        .then(data => {
-            // only
-            if (data === false && loadFromLocalStorage('isLogged').isLogged[0] === true) {
-                history.push({
-                    pathname: '/login/setup',
-                    isDataGiven: data
-                })
-            } else {     
-                if (!isCancelled)     
-                setUserInfo({
-                    user_id:loadFromLocalStorage("isLogged").isLogged[1],
-                    username: data.username,
-                    firstname: data.firstname,
-                    lastname: data.lastname,
-                    address: data.address,
-                    country: data.country
-                })
-            }
        
-        })
-
-
-        LoadFitnessInfo(userInfo.user_id)
-        .then(data => {
-            // only
-            if (data === false && loadFromLocalStorage('isLogged').isLogged[0] === true) {
-                history.push({
-                    pathname: '/login/setup',
-                    isDataGiven: data
-                })
-            } else {     
-                if (!isCancelled)     
-                setUserFitness({
-                    age: data.age,
-                    heightCm: data.height_cm,
-                    weightLbs: data.weight_lbs,
-                    gender: data.gender,
-                    activity: data.activity_level,
-                    bmr: data.BMR,
-                    calories: data.calories
-                })
-            }
-       
-        })
-
-        // prevents memory leak, make sure that it is mounted first
-        return () => {
-            isCancelled = true;
-        }    
-    },[])
-
-    useEffect( () => {
         console.log(loadFromLocalStorage('isLogged').isLogged[1]);
         console.log(username);
-        getUidFromUsername(username).then(uid => {console.log(uid)});
+        getUidFromUsername(username).then(uid => {
+            console.log(uid)
+            let isCancelled = false;
+
+            LoadBasicInfo(uid)
+            .then(data => {
+                // only
+                if (data === false && loadFromLocalStorage('isLogged').isLogged[0] === true) {
+                    // history.push({
+                    //     pathname: '/login/setup',
+                    //     isDataGiven: data
+                    // })
+                } else {     
+                    if (!isCancelled)     
+                    setUserInfo({
+                        user_id:loadFromLocalStorage("isLogged").isLogged[1],
+                        username: data.username,
+                        firstname: data.firstname,
+                        lastname: data.lastname,
+                        address: data.address,
+                        country: data.country
+                    })
+                }
+           
+            })
+    
+    
+            LoadFitnessInfo(uid)
+            .then(data => {
+                // only
+                if (data === false && loadFromLocalStorage('isLogged').isLogged[0] === true) {
+                    history.push({
+                        // pathname: '/login/setup',
+                        // isDataGiven: data
+                    })
+                } else {     
+                    if (!isCancelled)     
+                    setUserFitness({
+                        age: data.age,
+                        heightCm: data.height_cm,
+                        weightLbs: data.weight_lbs,
+                        gender: data.gender,
+                        activity: data.activity_level,
+                        bmr: data.BMR,
+                        calories: data.calories
+                    })
+                }
+           
+            })   
+            // prevents memory leak, make sure that it is mounted first
+            return () => {
+                isCancelled = true;
+            }    
+
+        });
     },[])
 
- 
+   
+    console.log(userInfo);
+
+        // Viewers only
+        if (loadFromLocalStorage('isLogged').isLogged[0] !== true)
+        {
+            
+            if (userInfo.username !== undefined)
+            {
+                return  (
+                    <div className="container-fluid">
+                    <UserProfile 
+                    username={userInfo.username} 
+                    firstname={userInfo.firstname}
+                    lastname={userInfo.lastname}
+                    country={userInfo.country}
+                    userCalories={userFitness.calories}
+                    />
+                    </div> 
+                );
+            } else {return <h2>Doesnt exist..</h2>}
+
+
+        
+
+
+
+
+
+
+        }else {
+            return  (
+                <div className="container-fluid">
+                <Navigation userId={loadFromLocalStorage('isLogged').isLogged[1]}/>
+                <UserProfile 
+                username={userInfo.username} 
+                firstname={userInfo.firstname}
+                lastname={userInfo.lastname}
+                country={userInfo.country}
+                userCalories={userFitness.calories}
+                />
+                </div> 
+            );
+        }
+
 
    
-//    able to edit?
-    if (loadFromLocalStorage("isLogged").isLogged[0] === true) {
-            
-        return  (
-            <div className="container-fluid">
-            <Navigation/>
-            <UserProfile 
-            username={userInfo.username} 
-            firstname={userInfo.firstname}
-            lastname={userInfo.lastname}
-            country={userInfo.country}
-            userCalories={userFitness.calories}
-            />
-            </div> 
-        );
-    } else
-   return <Redirect to="/" />;
   
-
 }
 export default Dashboard;

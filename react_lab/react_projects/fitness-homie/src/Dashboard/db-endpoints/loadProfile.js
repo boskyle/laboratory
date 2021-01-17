@@ -62,7 +62,12 @@ export const getUidFromUsername = async (username) => {
         body: JSON.stringify({username})
 
     }).then(response => response.json())
-        .then(response => userId = response.userlogin_id)
+        .then(response => {
+            if (response !== null) {
+                userId = response.userlogin_id;
+            }
+        }) 
+            .catch(error => console.log(error));
         if (userId !== null) {        
             return userId;
         }

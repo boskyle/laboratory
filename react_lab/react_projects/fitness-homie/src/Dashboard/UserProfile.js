@@ -21,7 +21,7 @@ const UserProfile = (props) => {
 
                     <div className="flex-item-dashboard" id="flex-item-journal">
                         <h2>JOURNAL</h2>
-                        <p className="w-50">Calories to maintain weight (lbs): {props.calories}</p>
+                        <p className="w-50">Calories to maintain weight (lbs): {props.userCalories}</p>
                     </div>
 
                     <div className="flex-item-dashboard" id="flex-item-workout">
