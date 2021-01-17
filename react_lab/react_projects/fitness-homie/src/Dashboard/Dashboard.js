@@ -111,7 +111,7 @@ function Dashboard() {
         if (loadFromLocalStorage('isLogged').isLogged[0] !== true)
         {
             
-            if (userInfo.username !== undefined)
+            if (userInfo.username !== "")
             {
                 return  (
                     <div className="container-fluid">
