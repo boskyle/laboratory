@@ -4,7 +4,7 @@ import React from 'react';
 
 const UserProfile = (props) => {
 
-    if (props.username === undefined) {
+    if (props.username === "") {
         return (
             <div className="container-flex">
             <div className="flex-item-dashboard" id="flex-item-profile">
@@ -34,7 +34,7 @@ const UserProfile = (props) => {
 
     return (
         <div className="container-flex">
-                    <div className="flex-item-dashboard" id="flex-item-profile">
+                    <div className="flex-item-dashboard mt-5" id="flex-item-profile">
                         <h2>PROFILE</h2>
                         <div className="flex-container-profile p-3">
                             <div className="profile-item w-25">

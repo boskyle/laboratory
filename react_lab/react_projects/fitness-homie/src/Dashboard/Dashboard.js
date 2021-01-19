@@ -7,6 +7,7 @@ import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/l
 import '../assets/fonts/index.css';
 import  UserProfile from './UserProfile';
 import './dashboard.css';
+import SearchBox from './SearchBox/SearchBox';
 
 
 
@@ -108,36 +109,11 @@ function Dashboard() {
     console.log(userInfo);
 
         // Viewers only
-        if (loadFromLocalStorage('isLogged').isLogged[0] !== true)
-        {
-            
-            if (userInfo.username !== "")
-            {
-                return  (
-                    <div className="container-fluid">
-                    <UserProfile 
-                    username={userInfo.username} 
-                    firstname={userInfo.firstname}
-                    lastname={userInfo.lastname}
-                    country={userInfo.country}
-                    userCalories={userFitness.calories}
-                    />
-                    </div> 
-                );
-            } else {return <h2>Doesnt exist..</h2>}
-
-
-        
-
-
-
-
-
-
-        }else {
+    
             return  (
-                <div className="container-fluid">
-                <Navigation userId={loadFromLocalStorage('isLogged').isLogged[1]}/>
+                <div className="container-fluid" style={{position:'relative'}}>
+                    <SearchBox placeholder="Enter username.."/>
+                <Navigation/>
                 <UserProfile 
                 username={userInfo.username} 
                 firstname={userInfo.firstname}
@@ -147,7 +123,7 @@ function Dashboard() {
                 />
                 </div> 
             );
-        }
+        
 
 
    
