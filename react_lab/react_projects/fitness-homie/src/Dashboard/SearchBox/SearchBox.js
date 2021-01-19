@@ -1,12 +1,13 @@
 import React from 'react';
-import './searchBox.css';
+import './searchbox.css';
+import {FaSearch} from 'react-icons/fa';
 
-const SearchBox = ({placeholder}) => {
+const SearchBox = ({pl}) => {
+
     return (
-            <input type="search"
-            className="search"
-            placeholder={placeholder}
-            />
+            <div className="search-container d-flex">
+            
+            </div>
     );
 
 

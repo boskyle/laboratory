@@ -56,9 +56,7 @@ const Navigation = (props) => {
                     
             </div>
         );
-    } else 
-    
-    // we can add a link to make then register / login here
+    } else  // we can add a link to make then register / login here
     {return null;}
 }
 

@@ -1,28 +1,19 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import {Redirect,useHistory,useParams} from "react-router-dom";
-import Navigation from '../Navigation';
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
-import '../assets/fonts/index.css';
-import  UserProfile from './UserProfile';
-import './dashboard.css';
+import  UserProfile from './UserProfile/UserProfile';
+import "./dashboard.css";
 import SearchBox from './SearchBox/SearchBox';
-
-
-
 
 
 
 function Dashboard() {
     // var to access passed variable from Login.js
-    
-  
-
     const history = useHistory();
     const {username} = useParams();
 
-    
     
     const [userInfo, setUserInfo] = useState({
         user_id: loadFromLocalStorage("isLogged").isLogged[1],
@@ -107,21 +98,18 @@ function Dashboard() {
 
    
     console.log(userInfo);
-
-        // Viewers only
-    
+     
             return  (
-                <div className="container-fluid" style={{position:'relative'}}>
-                    <SearchBox placeholder="Enter username.."/>
-                <Navigation/>
-                <UserProfile 
-                username={userInfo.username} 
-                firstname={userInfo.firstname}
-                lastname={userInfo.lastname}
-                country={userInfo.country}
-                userCalories={userFitness.calories}
-                />
-                </div> 
+                // main component (gridbox and will be injected)
+                <div className="containerFluid">
+                    <div className="row">
+                        <div className="col-2    col-sm-2 col-md-3   text-center">Navigation</div>
+                        <div className="col-10   col-sm-8 col-md-7 " >
+                            <UserProfile />                  
+                        </div>
+                        <div className="col-sm-2 col-md-2 d-none d-sm-block text-center">Search</div>
+                    </div>
+                </div>
             );
         
 
