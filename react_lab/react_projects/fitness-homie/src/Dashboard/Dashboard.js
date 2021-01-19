@@ -1,11 +1,12 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
-import {Redirect,useHistory,useParams} from "react-router-dom";
+import {useHistory,useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
 import  UserProfile from './UserProfile/UserProfile';
+import '../assets/fonts/index.css';
 import "./dashboard.css";
-import SearchBox from './SearchBox/SearchBox';
+
 
 
 
@@ -16,7 +17,6 @@ function Dashboard() {
 
     
     const [userInfo, setUserInfo] = useState({
-        user_id: loadFromLocalStorage("isLogged").isLogged[1],
         username: '',
         firstname: '',
         lastname: '',
@@ -37,10 +37,10 @@ function Dashboard() {
  
     useEffect( () => {
        
-        console.log(loadFromLocalStorage('isLogged').isLogged[1]);
-        console.log(username);
+        console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1]);
+        console.log("url param: "+username);
         getUidFromUsername(username).then(uid => {
-            console.log(uid)
+            console.log("uid of url param: "+uid)
             let isCancelled = false;
 
             LoadBasicInfo(uid)
@@ -54,7 +54,6 @@ function Dashboard() {
                 } else {     
                     if (!isCancelled)     
                     setUserInfo({
-                        user_id:loadFromLocalStorage("isLogged").isLogged[1],
                         username: data.username,
                         firstname: data.firstname,
                         lastname: data.lastname,
@@ -103,11 +102,17 @@ function Dashboard() {
                 // main component (gridbox and will be injected)
                 <div className="containerFluid">
                     <div className="row">
-                        <div className="col-2    col-sm-2 col-md-3   text-center">Navigation</div>
-                        <div className="col-10   col-sm-8 col-md-7 " >
-                            <UserProfile />                  
+                        <div className="col-3 col-sm-2 col-md-2 text-center"><h2>Nav</h2></div>
+                        <div className="col-9 col-sm-10 col-md-8 ">
+                            <UserProfile 
+                                username={userInfo.username}
+                                firstname={userInfo.firstname}
+                                lastname={userInfo.lastname}
+                                address={userInfo.country}
+                                usernameSearched={username}
+                            />                  
                         </div>
-                        <div className="col-sm-2 col-md-2 d-none d-sm-block text-center">Search</div>
+                        <div className="col-sm-2 col-md d-none d-md-block text-center">Search</div>
                     </div>
                 </div>
             );

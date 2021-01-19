@@ -1,9 +1,48 @@
 .user-profile-container {
     width: 100%;
     height: 100%;
-    opacity: 50%;
-
     /* flex parent properties */
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
+
+.user-profile-item {
+    display: inline-block;
+    border: 1px solid black;
+    background-color:#9088d4;
+    height: 45%;
+    margin: 0.5em;
+    padding:1em;
+    color: #fff3e2;
+    font-family: raleway-bold;
+    letter-spacing:0.25em;
+    font-size:0.5em;
+    border-radius:15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;   
+}
+
+
+
+.user-profile-item:first-child {
+    flex: 1 1 100%;
+}
+.user-profile-item:not(:first-child) {
+    flex: 1 1 auto;
+}
+
+
+/* medium breakpoint <=  (720px or less)*/
+@media only screen and (max-width: 1500px) {
+    .user-profile-container {
+        flex-wrap: nowrap;
+    }
+
+    .user-profile-item:first-child {
+        flex: 1 1 100%;
+    }
+    .user-profile-item:not(:first-child) {
+        flex: 1 1 auto;
+    }
+    
+  }

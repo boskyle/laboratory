@@ -10,11 +10,8 @@
 .containerFluid .row > div {
     border: 1px solid black;
     height: 95vh;
-    padding: 0;
+    padding: 0.5em;
 }
-
-
-
 
 
 
