@@ -8,11 +8,10 @@
 }
 
 .containerFluid .row > div {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 95vh;
     padding: 0.5em;
 }
-
 
 
 @media only screen and (max-width: 760px) {

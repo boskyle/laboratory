@@ -1,13 +1,14 @@
 import React from 'react';
 import {slide as Menu} from 'react-burger-menu';
-import './Burger/burger.css';
 import {Link} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 import {useState,useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import {userLoggedOut} from './redux/actions';
-import {loadFromLocalStorage} from './LocalStorage';
-import {LoadBasicInfo} from './Dashboard/db-endpoints/loadProfile';
+import {userLoggedOut} from '../../redux/actions';
+import {LoadBasicInfo} from '../db-endpoints/loadProfile';
+import {loadFromLocalStorage} from '../../LocalStorage';
+
+
 // remove uid from superglobal associative araray local.storage ~~ and redirect to login page
 
 
