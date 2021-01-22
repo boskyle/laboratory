@@ -74,7 +74,7 @@ function Dashboard() {
         console.log("url param: "+username);
 
         let isMounted = true;
-       
+    //    comment added
         LoadBasicInfo(dashUid).then(data => {
             if (isMounted) {
                 if (data !== false) {
