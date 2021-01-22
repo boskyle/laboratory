@@ -60,11 +60,12 @@ function Dashboard() {
     const handleSelection = val => {
         setSelectedSearchInputValue(val);
     }
-    console.log("search input: "+searchInputValue);
+    // console.log("search input: "+searchInputValue);
  
    
 
-    const [dashUid,setDashUid] = useState(loadFromLocalStorage('isLogged').isLogged[1]);
+    const [dashUid,setDashUid] = useState(undefined);
+   
 
  
     useEffect( () => {
@@ -97,25 +98,20 @@ function Dashboard() {
         // console.log(selectedSearchInputValue.userlogin_id);
         if(selectedSearchInputValue !== null) {
             localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
+            history.push(`/${selectedSearchInputValue.username}`);
         }
-        setDashUid(parseInt(localStorage.getItem("dash-uid")));
+    
+        
        
     },[selectedSearchInputValue])
 
 
     // if searching through browser
     useEffect(() => {
-        let isCancelled = false;
         getUidFromUsername(username).then(uid => {
-            if (uid !== undefined) {
-                    setDashUid(uid);
-            }
-        })
-
-        return () => {
-            isCancelled = true;
-        }     
-      
+          setDashUid(uid);
+          
+        })   
     },[username])
     
 
@@ -133,7 +129,7 @@ function Dashboard() {
                 <div className="containerFluid">
                  
                     <div className="row">
-                        <div className="col-3 col-sm-2 col-md-2 text-center">
+                        <div className="col-3 col-sm-2 col-md-2 text-center border">
                         <button onClick={logOut}>Log out</button>
                         </div>
                         <div className="col-9 col-sm-10 col-md-8 ">
@@ -149,7 +145,8 @@ function Dashboard() {
                               
                         <div className="d-flex flex-column align-items-center" style={{width:"100%",height:"100%"}}>
                             <AsyncSelect className="w-100 mt-3" 
-                             cacheOptions                         
+                             cacheOptions    
+                             placeholder="Discover.."                     
                              loadingMessage={() => 'searching...'}
                              noOptionsMessage={() => 'doesnt exist'} 
                              loadOptions={filterUsername}              
