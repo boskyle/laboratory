@@ -6,6 +6,7 @@ import './setup.css';
 import { FaInfoCircle } from 'react-icons/fa';
 import {useLocation,Redirect} from 'react-router-dom';
 import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
+import {getUsernameFromId} from './db-endpoints/db-fetch';
 
 
 
@@ -21,17 +22,11 @@ const Setup = ()  => {
     let registerFitnessInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info-2.php';
 
     const {register, handleSubmit, errors, reset} = useForm();
-    const location = useLocation();
+ 
     
 
-    useEffect( () => {
-        if(location.isDataGiven === false) {
-            
-            saveToLocalStorage(location.isDataGiven,'isDataGiven');
-        }
-    },[location.isDataGiven])
-
-
+  
+    
     console.log(loadFromLocalStorage('isDataGiven'));
 
 let activity = [
@@ -192,14 +187,29 @@ const onSubmit2 = async formData => {
             .then(response => console.log("SUCCESS"))
                 .catch(error => console.log(error))
 
-
-saveToLocalStorage(true,"isDataGiven");
 }
 
+    const [username_boo, setUsername] = useState('');
 
+    useEffect (() => {
+        let isCancelled = false;
+        if (loadFromLocalStorage('isLogged').isLogged[0] === true) {
+            console.log(loadFromLocalStorage('isLogged').isLogged[1])
+            getUsernameFromId(loadFromLocalStorage('isLogged').isLogged[1]).then (response => {
+                setUsername(response);
+            })
+        }
 
+        return () => {
+            isCancelled = true;
+        };
+
+    },[])
+
+    
+    console.log(username_boo);
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
-    if (loadFromLocalStorage('isDataGiven') === false && loadFromLocalStorage('isLogged').isLogged[0] === true) {
+    if (loadFromLocalStorage('isLogged').isLogged[0] === true && username_boo === undefined) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
@@ -392,9 +402,9 @@ saveToLocalStorage(true,"isDataGiven");
         );}
   
                                
-    }
+    } else {return null}
 
-    return <Redirect to="/dashboard"/>;
+  
 } 
 
 

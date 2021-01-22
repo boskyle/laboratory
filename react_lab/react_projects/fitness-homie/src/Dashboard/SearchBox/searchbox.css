@@ -1,0 +1,14 @@
+.search-container{
+    border: 1px solid black;
+    height: 2em;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    top: 1%;
+    transform: translateX(-50%);
+    align-items: start;
+
+
+}
+
+
