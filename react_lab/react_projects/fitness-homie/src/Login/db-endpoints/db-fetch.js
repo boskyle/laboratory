@@ -30,13 +30,12 @@ export const getUsernameFromId  = async (userId) => {
         },
         body: userId
     }).then(response => response.json())
-        .then(response => {buffer = response.username})
+        .then(response => {if (response !== null){
+            buffer = response.username;
+        }} )
             .catch(err => console.log(err));
 
-    if (buffer !== null) {
-        return buffer;
-    }
-    return false;
+    return buffer;
 }
 
 

@@ -7,7 +7,8 @@ import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import {isEmailExist,getUsernameFromId} from './db-endpoints/db-fetch';
-
+import {LoadBasicInfo} from '../Dashboard/./db-endpoints/loadProfile';
+import {saveToLocalStorage} from '../LocalStorage';
 
 
 
@@ -57,7 +58,15 @@ function Login() {
                         hat will return the username
                         associated with the userid and push it to the history stack to reroute to that username
                     */
-                    getUsernameFromId(response).then( data => history.push(`/${data}`));                               
+                     LoadBasicInfo(response).then(response => {
+                            console.log(response);
+                                if (response === false) {
+                                    history.push("login/setup");
+                            } else { history.push(`/${response.username}`);}
+                           
+                     })
+
+                                         
                 } else {setError(response);}
                 
             })

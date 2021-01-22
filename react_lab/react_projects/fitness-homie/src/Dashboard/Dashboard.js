@@ -92,6 +92,8 @@ function Dashboard() {
     // set DashUid everytime selected input from async dropdown is changed
     // make it local so on page refresh it retains the uid
     useEffect(() => {
+
+        
         // console.log(selectedSearchInputValue.userlogin_id);
         if(selectedSearchInputValue !== null) {
             localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
@@ -103,12 +105,16 @@ function Dashboard() {
 
     // if searching through browser
     useEffect(() => {
-        
+        let isCancelled = false;
         getUidFromUsername(username).then(uid => {
             if (uid !== undefined) {
                     setDashUid(uid);
             }
         })
+
+        return () => {
+            isCancelled = true;
+        }     
       
     },[username])
     

@@ -26,9 +26,7 @@ if (!$conn-> connect_error) {
         $stmt->execute();
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
-          
             $myArray[] = $row;
-          
         }
 
         echo json_encode($myArray);
