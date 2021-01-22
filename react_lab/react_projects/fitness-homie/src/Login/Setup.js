@@ -7,12 +7,14 @@ import { FaInfoCircle } from 'react-icons/fa';
 import {useLocation,Redirect} from 'react-router-dom';
 import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
 import {getUsernameFromId} from './db-endpoints/db-fetch';
+import {useHistory} from 'react-router-dom';
 
 
 
 
 var basicInfo;
 var basicInfoArray = new Array();
+
 
 let bmr_tool_tip_string = "An estimation on how much calories you need to consume to be able to sustain your weight."
 
@@ -22,7 +24,7 @@ const Setup = ()  => {
     let registerFitnessInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info-2.php';
 
     const {register, handleSubmit, errors, reset} = useForm();
- 
+    let history = useHistory();
     
 
   
@@ -187,27 +189,32 @@ const onSubmit2 = async formData => {
             .then(response => console.log("SUCCESS"))
                 .catch(error => console.log(error))
 
+
+
+    history.push(`/${basicInfoArray[0].username}`);
+
 }
 
     const [username_boo, setUsername] = useState('');
 
     useEffect (() => {
-        let isCancelled = false;
+        let isMounted = true;
+
         if (loadFromLocalStorage('isLogged').isLogged[0] === true) {
             console.log(loadFromLocalStorage('isLogged').isLogged[1])
             getUsernameFromId(loadFromLocalStorage('isLogged').isLogged[1]).then (response => {
-                setUsername(response);
+                if(isMounted){setUsername(response);};   
             })
         }
 
         return () => {
-            isCancelled = true;
+            isMounted = false;
         };
 
     },[])
 
     
-    console.log(username_boo);
+  
     // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
     if (loadFromLocalStorage('isLogged').isLogged[0] === true && username_boo === undefined) {
         if(isFormSubmitted === false) {      

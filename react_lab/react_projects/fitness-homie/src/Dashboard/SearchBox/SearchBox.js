@@ -6,8 +6,9 @@ export const searchBoxStyle = {
     option: (provided, state) => ({
       ...provided,
       borderBottom: '1px dotted pink',
-      color: state.isSelected ? 'purle' : 'purple',
+      color: state.isSelected ? 'black' : 'black',
       padding: 5,
+
     }),
     control: styles => ({ ...styles, backgroundColor: '#9088D4', width: '100%', textDecoration: 'none'}),
     singleValue: (provided, state) => {

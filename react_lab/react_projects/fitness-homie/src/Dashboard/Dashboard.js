@@ -73,36 +73,33 @@ function Dashboard() {
         console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1]);
         console.log("url param: "+username);
 
-        let isCancelled = false;    
+        let isMounted = true;
+       
         LoadBasicInfo(dashUid).then(data => {
-            if (data !== false) {
-                setUserInfo({
-                    username: data.username,
-                    firstname: data.firstname,
-                    lastname: data.lastname,
-                    country: data.country
-                })
+            if (isMounted) {
+                if (data !== false) {
+                    setUserInfo({
+                        username: data.username,
+                        firstname: data.firstname,
+                        lastname: data.lastname,
+                        country: data.country
+                    })
+                }
             }
-        })      
+        })    
+        return () => {isMounted = false};  
             // prevents memory leak, make sure that it is mounted first
-            return () => {
-                isCancelled = true;
-            }     
+         
     },[dashUid])
 
     // set DashUid everytime selected input from async dropdown is changed
     // make it local so on page refresh it retains the uid
     useEffect(() => {
-
-        
         // console.log(selectedSearchInputValue.userlogin_id);
         if(selectedSearchInputValue !== null) {
             localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
             history.push(`/${selectedSearchInputValue.username}`);
-        }
-    
-        
-       
+        }      
     },[selectedSearchInputValue])
 
 
