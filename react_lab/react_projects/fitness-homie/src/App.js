@@ -8,6 +8,8 @@ import Feed from './Feed/Feed';
 import Journal from './Journal/Journal';
 import Setup from './Login/Setup';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+// css font import//
+import './assets/fonts/index.css';
 
 
 function App() {

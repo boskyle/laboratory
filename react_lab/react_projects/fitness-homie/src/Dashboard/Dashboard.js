@@ -10,6 +10,7 @@ import AsyncSelect from 'react-select/async';
 import {searchBoxStyle} from './SearchBox/SearchBox';
 import {useDispatch} from 'react-redux';
 import {userLoggedOut} from '../redux/actions';
+import Navigation from './Navigation/Navigation';
 
 
 
@@ -61,13 +62,9 @@ function Dashboard() {
         setSelectedSearchInputValue(val);
     }
     // console.log("search input: "+searchInputValue);
- 
-   
 
     const [dashUid,setDashUid] = useState(undefined);
    
-
- 
     useEffect( () => {
        
         console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1]);
@@ -96,7 +93,9 @@ function Dashboard() {
                         age: data.age,
                         height: data.height_cm,
                         weight: data.weight_lbs,
+                        activity: data.activity_level,
                         calories: data.calories,
+                        
                     })
                 }
             }
@@ -126,13 +125,7 @@ function Dashboard() {
     },[username])
     
 
-    const dispatch = useDispatch();
 
-
-    const logOut = () => {
-        dispatch(userLoggedOut());
-        history.push("/");
-    }
    
  
      
@@ -142,7 +135,7 @@ function Dashboard() {
                  
                     <div className="row">
                         <div className="col-3 col-sm-2 col-md-2 text-center border">
-                        <button onClick={logOut}>Log out</button>
+                        <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]}/>
                         </div>
                         <div className="col-9 col-sm-10 col-md-8 ">
                             <UserProfile 
@@ -151,8 +144,12 @@ function Dashboard() {
                                 lastname={userInfo.lastname}
                                 address={userInfo.country}
                                 usernameSearched={username}
+                                gender={userFitness.gender}
                                 age={userFitness.age}
                                 height={userFitness.height}
+                                weight={userFitness.weight}
+                                activityLevel={userFitness.activity}
+                                calories={userFitness.calories}
                             />                  
                         </div>
                         <div className="col-sm-2 col-md-2 d-none d-md-block text-center">

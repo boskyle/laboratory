@@ -24,8 +24,9 @@
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;   
 }
 
-.user-profile-item h2, .user-profile-item h3 {
+.user-profile-item > h2, .user-profile-item > h3 {
     color: #ebcfc4;
+    font-size: 2em;
 }
 
 .user-profile-item span {
@@ -62,12 +63,29 @@
     text-align: left;
     padding: 1em;
     margin: 0px 4px 10px 4px;
-  
-    
+    overflow: auto;   
 }
 .journal-item:first-child {
     flex: 1 1 50%;
 }
+.journal-item > h4 {
+    font-size: 1.75em;
+}
+
+.journal-item ul {
+    font-size: 1.5em;
+    font-family: raleway-regular;
+    list-style-type: none;
+    margin-top: 10%;
+    padding: 0;
+}
+
+/* fancy way of selecting the second div's ul (PROGRESS) */
+.journal-items-container > div + div ul {
+ /* margin-top: 3em; */
+ font-size: 1em;
+}
+
 .journal-item:not(:first-child) {
     flex: 1 1 45%;
    
@@ -81,14 +99,20 @@
 
 /* medium breakpoint <=  (720px or less)*/
 @media only screen and (max-width: 1500px) {
+
     .user-profile-container {
         flex-wrap: nowrap;
+        font-size: 75%;
     }
     .journal-items-container {
         margin-top: 0em;
     }
     .journal-item {
         height: 95%;
+        padding: 8px;
+    }
+    .journal-item ul {
+        margin: 0;
     }
 
     .user-profile-item:first-child {
