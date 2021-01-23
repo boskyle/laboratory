@@ -23,16 +23,16 @@ const UserProfile = ({username,firstname,lastname,country,usernameSearched,gende
                         <div className="journal-items-container">
                             <div className="journal-item"><h4>STATS</h4>
                                 <ul>
-                                    <li>gender: {gender}</li>
-                                    <li>age: {age}</li>
-                                    <li>height: {height} cm</li>
-                                    <li>weight: {weight} lbs</li>
+                                    <li>gender: <span>{gender}</span></li>
+                                    <li>age: <span>{age}</span></li>
+                                    <li>height: <span>{height} cm</span></li>
+                                    <li>weight: <span>{weight} lbs</span></li>
                                 </ul>
                             </div>
                             <div className="journal-item"><h4>PROGRESS</h4>
                                 <ul>
-                                   <li>Activity Level: {activityLevel}</li>
-                                   <li>Calories: {calories}</li>
+                                   <li>Activity Level: <span>{activityLevel}</span></li>
+                                   <li>Calories: <span>{calories}</span></li>
                                 </ul>
                             </div>
                         </div>

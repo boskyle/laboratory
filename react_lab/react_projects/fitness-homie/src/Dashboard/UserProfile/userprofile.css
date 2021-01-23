@@ -78,6 +78,12 @@
     list-style-type: none;
     margin-top: 10%;
     padding: 0;
+    line-height: 2.5em;
+}
+
+.journal-item ul span {
+    display: inline;
+    font-family: raleway-bold;
 }
 
 /* fancy way of selecting the second div's ul (PROGRESS) */
@@ -97,7 +103,7 @@
 
 
 
-/* medium breakpoint <=  (720px or less)*/
+/* large breakpoint <=  (720px or less)*/
 @media only screen and (max-width: 1500px) {
 
     .user-profile-container {
@@ -112,7 +118,9 @@
         padding: 8px;
     }
     .journal-item ul {
+        font-size: 1.1em;
         margin: 0;
+        line-height: 1.5em;
     }
 
     .user-profile-item:first-child {
@@ -126,3 +134,4 @@
     }
     
   }
+
