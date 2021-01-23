@@ -72,6 +72,10 @@ input {
     color:red;   
 }
 
+.form-group input {
+    margin-bottom: -0.5em;
+}
+
 @media only screen and (max-width: 400px) {
 
     form {

@@ -122,6 +122,9 @@
         margin: 0;
         line-height: 1.5em;
     }
+    .journal-item h4 {
+        font-size: 1.5em;
+    }
 
     .user-profile-item:first-child {
         flex: 1 1 100%;
