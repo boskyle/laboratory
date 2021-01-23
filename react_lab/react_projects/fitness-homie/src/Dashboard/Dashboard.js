@@ -15,6 +15,7 @@ import Navigation from './Navigation/Navigation';
 
 
 
+
 function Dashboard() {
 
  
@@ -123,21 +124,16 @@ function Dashboard() {
           
         })   
     },[username])
-    
-
-
-   
- 
-     
+        
             return  (
                 // main component (gridbox and will be injected)
                 <div className="containerFluid">
                  
                     <div className="row">
                         <div className="col-3 col-sm-2 col-md-2 text-center">
-                        <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]}/>
+                        <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]} is_loggedId ={loadFromLocalStorage('isLogged').isLogged[1]}/>
                         </div>
-                        <div className="col-9 col-sm-10 col-md-8 ">
+                        <div className="col-9 col-sm-10 col-md-8 p-2">
                             <UserProfile 
                                 username={userInfo.username}
                                 firstname={userInfo.firstname}
@@ -152,7 +148,7 @@ function Dashboard() {
                                 calories={userFitness.calories}
                             />                  
                         </div>
-                        <div className="col-sm-2 col-md-2 d-none d-md-block text-center">
+                        <div className="col-sm-2 col-md-2 d-none d-md-block text-center p-2">
                               
                         <div className="d-flex flex-column align-items-center" style={{width:"100%",height:"100%"}}>
                             <AsyncSelect className="w-100 mt-3" 

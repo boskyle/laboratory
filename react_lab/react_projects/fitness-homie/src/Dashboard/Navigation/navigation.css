@@ -6,6 +6,31 @@
     flex-direction: column;
     flex-wrap: wrap;
     border-radius:15px;
-    background-color: #ebcfc4;
+    background-color: #9088D4;
+    align-items: center;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;   
+}
+.link {
+    color: black;
+    font-family: raleway-bold;
+    transition: 0.5s;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.navigation-item {
+    border: 1px solid black;
+    width: 80%;
+    flex: 1 1 auto;
+}
+.navigation-item:first-child {
+    flex: 1 1 85%;
+    /* shorthand for display + direction */
+    display: flex column;
+    padding: 1em;
+    text-align: left;
+    width: 80%;
 }

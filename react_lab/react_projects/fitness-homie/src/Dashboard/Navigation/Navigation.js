@@ -1,5 +1,4 @@
 import React from 'react';
-import {slide as Menu} from 'react-burger-menu';
 import {Link} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 import {useState,useEffect} from 'react';
@@ -8,12 +7,13 @@ import {userLoggedOut} from '../../redux/actions';
 import {LoadBasicInfo} from '../db-endpoints/loadProfile';
 import {loadFromLocalStorage} from '../../LocalStorage';
 import './navigation.css';
+import { FaInfoCircle } from 'react-icons/fa';
 
 
 
 
 
-const Navigation = ({is_logged}) => {
+const Navigation = ({is_logged,is_loggedId}) => {
  
     const dispatch = useDispatch();
     const history = useHistory();
@@ -23,11 +23,28 @@ const Navigation = ({is_logged}) => {
         history.push("/");
     }
 
+
+    const [navUsername,setNavUsername] = useState(undefined);
+
+    useEffect(() => {
+        LoadBasicInfo(is_loggedId).then(data => {
+            console.log(data.username);
+            setNavUsername(data.username);
+        })
+    },[])
+
     if (is_logged === true)
     {
         return (
         <div className="navigation-container">
-            <button onClick={logOut}>Log out</button>
+                <div className="navigation-item">
+                    <Link className="link" to={`/${navUsername}`}><h2>Dashboard</h2></Link>
+                    <h2>Settings</h2>
+                </div>
+
+                <div className="navigation-item" id="navigation-out">
+                <Link className="link" onClick={logOut}><h2>Log Out</h2></Link>
+                </div>
         </div>
         )
     } else {
