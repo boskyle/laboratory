@@ -130,7 +130,7 @@ function Dashboard() {
                 <div className="containerFluid">
                  
                     <div className="row">
-                        <div className="col-3 col-sm-2 col-md-2 text-center">
+                        <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
                         <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]} is_loggedId ={loadFromLocalStorage('isLogged').isLogged[1]}/>
                         </div>
                         <div className="col-9 col-sm-10 col-md-8 p-2">
