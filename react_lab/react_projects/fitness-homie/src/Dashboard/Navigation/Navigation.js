@@ -7,25 +7,29 @@ import {useDispatch} from 'react-redux';
 import {userLoggedOut} from '../../redux/actions';
 import {LoadBasicInfo} from '../db-endpoints/loadProfile';
 import {loadFromLocalStorage} from '../../LocalStorage';
+import './navigation.css';
 
 
-// remove uid from superglobal associative araray local.storage ~~ and redirect to login page
+
 
 
 const Navigation = ({is_logged}) => {
  
     const dispatch = useDispatch();
     const history = useHistory();
-
-
     const logOut = () => {
+        // remove uid from superglobal associative araray local.storage ~~ and redirect to login page
         dispatch(userLoggedOut());
         history.push("/");
     }
-    console.log(is_logged);
+
     if (is_logged === true)
     {
-        return<button onClick={logOut}>Log out</button>
+        return (
+        <div className="navigation-container">
+            <button onClick={logOut}>Log out</button>
+        </div>
+        )
     } else {
         return (
             <h3>Haven't Logged In ? / Sign up ?</h3>
