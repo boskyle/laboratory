@@ -86,7 +86,21 @@ function Dashboard() {
                     })
                 }
             }
-        })    
+        })
+        
+        LoadFitnessInfo(dashUid).then(data => {
+            if (isMounted) {
+                if (data !== false) {
+                    setUserFitness({
+                        gender: data.gender,
+                        age: data.age,
+                        height: data.height_cm,
+                        weight: data.weight_lbs,
+                        calories: data.calories,
+                    })
+                }
+            }
+        })
         return () => {isMounted = false};  
             // prevents memory leak, make sure that it is mounted first
          
@@ -120,6 +134,7 @@ function Dashboard() {
         history.push("/");
     }
    
+ 
      
             return  (
                 // main component (gridbox and will be injected)
@@ -136,6 +151,8 @@ function Dashboard() {
                                 lastname={userInfo.lastname}
                                 address={userInfo.country}
                                 usernameSearched={username}
+                                age={userFitness.age}
+                                height={userFitness.height}
                             />                  
                         </div>
                         <div className="col-sm-2 col-md-2 d-none d-md-block text-center">
