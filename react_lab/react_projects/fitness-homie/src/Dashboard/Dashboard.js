@@ -124,6 +124,10 @@ function Dashboard() {
           
         })   
     },[username])
+
+            if(username === "settings") {
+                return "i am in settings";
+            }
         
             return  (
                 // main component (gridbox and will be injected)

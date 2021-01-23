@@ -7,7 +7,9 @@ import {userLoggedOut} from '../../redux/actions';
 import {LoadBasicInfo} from '../db-endpoints/loadProfile';
 import {loadFromLocalStorage} from '../../LocalStorage';
 import './navigation.css';
-import { FaInfoCircle } from 'react-icons/fa';
+import {ImProfile} from 'react-icons/im';
+import {RiUserSettingsLine} from 'react-icons/ri';
+import {BiLogOutCircle} from 'react-icons/bi';
 
 
 
@@ -38,13 +40,14 @@ const Navigation = ({is_logged,is_loggedId}) => {
         return (
         <div className="navigation-container">
                 <div className="nav-item d-flex flex-column justify-content-center text-left">
-                    <NavLink to={`/${navUsername}`} className="link" activeClassName="link-active">Dashboard</NavLink>
+                    <NavLink to={`/${navUsername}`} className="link" activeClassName="link-active"><span><h2 style={{display:"inline"}}>Dashboard</h2><ImProfile className="nav-icon mb-2 ml-2"/></span></NavLink>
                 </div>
                 <div className="nav-item d-flex flex-column justify-content-center text-left">    
-                    <NavLink to={`/settings`} className="link"   activeClassName="link-active">Settings</NavLink>
+                    <NavLink to={`/settings`} className="link"   activeClassName="link-active"><span><h2 style={{display:"inline"}}>Settings</h2><RiUserSettingsLine className="nav-icon mb-2 ml-2"/></span></NavLink>
                 </div>
             
-               <div className="nav-item d-flex flex-column justify-content-center text-left"><Link onClick={logOut} className="link">Log out</Link></div>
+               <div className="nav-item d-flex flex-column justify-content-center text-left"><Link onClick={logOut} className="link"><span><h2 style={{display:"inline"}}>Log Out</h2><BiLogOutCircle className="nav-icon mb-2 ml-2"/></span></Link>
+               </div>
         </div>
         )
     } else {

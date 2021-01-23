@@ -11,12 +11,23 @@
 }
 
 .nav-item {
-    
+    position: relative;
     flex: 1 1 auto;
     padding: 0.25em;
     /* make each flex */
+    display: flex;
+    flex-direction: row;
  
 }
+
+.nav-icon {
+    position: relative;
+    display: inline-block;
+    font-size: 1.25em;
+    align-self: flex-end;
+}
+
+
 
 
 
@@ -31,13 +42,19 @@
     color: black;
     font-family: raleway-bold;
     transition: 0.25s;  
+    display: flex row;
 }
-
 .link:hover {
     text-decoration: none;
-    font-size: 75%;
     color: #EBCFC4;
 }
+.link > span:hover {
+    transition: 0.25s;
+    color: #EBCFC4;
+    font-size: 75%;
+}
+
+
 .link-active{
     font-weight: bold;
     color:#EBCFC4;
@@ -45,4 +62,14 @@
 
 .navigation-item span {
     display: inline-block;
+}
+
+@media only screen and (max-width: 1275px) {
+    /* make icons center */
+   .link {
+       text-align: center;
+   }
+   .link > span > h2 {
+        display: none !important;
+   }
 }
