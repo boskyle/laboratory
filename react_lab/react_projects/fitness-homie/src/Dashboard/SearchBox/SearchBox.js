@@ -1,6 +1,5 @@
-import React from 'react';
 import './searchbox.css';
-import {FaSearch} from 'react-icons/fa';
+
 
 export const searchBoxStyle = {
     option: (provided, state) => ({

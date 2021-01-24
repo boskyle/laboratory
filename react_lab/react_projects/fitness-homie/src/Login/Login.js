@@ -30,7 +30,7 @@ function Login() {
         
        
         let local_url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/authenticate-user.php';
-        let auth_rleative_path = "./authenticate-user.php";
+        // let auth_rleative_path = "./authenticate-user.php";
        
         // send email + password raw (get a resonpose (validation and authenticate user))
         await fetch (local_url, {

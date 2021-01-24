@@ -2,12 +2,11 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useState,useEffect} from 'react';
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
-import './setup.css';
 import { FaInfoCircle } from 'react-icons/fa';
-import {useLocation,Redirect} from 'react-router-dom';
-import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
+import {loadFromLocalStorage} from '../LocalStorage';
 import {getUsernameFromId} from './db-endpoints/db-fetch';
 import {useHistory} from 'react-router-dom';
+import './setup.css';
 
 
 
@@ -122,7 +121,7 @@ const isUsernameExist = async (userNameInput) => {
 const onSubmit = formData => {
     
     console.log("submit worked!");
-        basicInfo = {   uid:loadFromLocalStorage("isLogged").isLogged[1],
+        basicInfo = {   uid:loadFromLocalStorage("isLogged").isLogged[1][0],
                         username: formData.username,
                         firstname: formData.firstname,
                         lastname: formData.lastname,
@@ -202,7 +201,7 @@ const onSubmit2 = async formData => {
 
         if (loadFromLocalStorage('isLogged').isLogged[0] === true) {
             console.log(loadFromLocalStorage('isLogged').isLogged[1])
-            getUsernameFromId(loadFromLocalStorage('isLogged').isLogged[1]).then (response => {
+            getUsernameFromId(loadFromLocalStorage('isLogged').isLogged[1][0]).then (response => {
                 if(isMounted){setUsername(response);};   
             })
         }

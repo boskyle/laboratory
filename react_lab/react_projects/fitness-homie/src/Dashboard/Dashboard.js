@@ -46,9 +46,8 @@ function Dashboard() {
    
     useEffect( () => {
        
-        // get username (isLogged is an array [0](state of logged in) [1] (an array of logged in userId and username))
         // console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1][1]);
-        console.log("url param: "+urlParam);
+        // console.log("url param: "+urlParam);
 
         let isMounted = true;
     //    comment added

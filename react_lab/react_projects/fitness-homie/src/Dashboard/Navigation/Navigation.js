@@ -1,19 +1,13 @@
 import React from 'react';
 import {NavLink,Link} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
-import {useState,useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {userLoggedOut} from '../../redux/actions';
-import {LoadBasicInfo} from '../db-endpoints/loadProfile';
 import {loadFromLocalStorage} from '../../LocalStorage';
 import './navigation.css';
 import {ImProfile} from 'react-icons/im';
 import {RiUserSettingsLine} from 'react-icons/ri';
 import {BiLogOutCircle} from 'react-icons/bi';
-
-
-
-
 
 const Navigation = ({is_logged,is_loggedId}) => {
  
@@ -24,7 +18,7 @@ const Navigation = ({is_logged,is_loggedId}) => {
         dispatch(userLoggedOut());
         history.push("/");
     }
-    
+
     if (is_logged === true)
     {
         return (
