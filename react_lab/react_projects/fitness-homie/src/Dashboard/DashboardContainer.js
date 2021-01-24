@@ -64,7 +64,7 @@ const DashboardContainer = (props) => {
                             age={props.age}
                             height={props.height}
                             weight={props.weight}
-                            activityLevel={props.activity}
+                            activityLevel={props.activityLevel}
                             calories={props.calories}
                         />                  
                     </div>
