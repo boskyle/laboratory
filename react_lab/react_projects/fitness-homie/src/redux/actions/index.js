@@ -1,7 +1,7 @@
-export const authenticateUserLoggedIn = (uid) => {
+export const authenticateUserLoggedIn = (uid,username) => {
     return {
         type: 'LOG_IN_SUCCESS',
-        payload: uid
+        payload: [uid,username]
     };
 };
 

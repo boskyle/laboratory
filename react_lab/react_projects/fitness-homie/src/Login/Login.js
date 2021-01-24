@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import {isEmailExist,getUsernameFromId} from './db-endpoints/db-fetch';
 import {LoadBasicInfo} from '../Dashboard/./db-endpoints/loadProfile';
-import {saveToLocalStorage} from '../LocalStorage';
+
 
 
 
@@ -50,10 +50,12 @@ function Login() {
                     which means the user had entered the right password.
                 */           
                 if (Number.isInteger(response)) {
-
                     
+                    // added username to the redux payload along with his/her userid
+                    getUsernameFromId(response).then (username => {
+                        dispatch(authenticateUserLoggedIn(response,username));
+                    });
                     // uid (response) dispatch send
-                    dispatch(authenticateUserLoggedIn(response));
                     /*  fetch uid from the logged in user, 
                         and pass this uid as paramter to another async function t
                         hat will return the username

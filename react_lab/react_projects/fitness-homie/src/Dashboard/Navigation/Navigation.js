@@ -24,29 +24,19 @@ const Navigation = ({is_logged,is_loggedId}) => {
         dispatch(userLoggedOut());
         history.push("/");
     }
-
-
-    const [navUsername,setNavUsername] = useState(undefined);
-
-    useEffect(() => {
-        LoadBasicInfo(is_loggedId).then(data => {
-            console.log(data.username);
-            setNavUsername(data.username);
-        })
-    },[])
-
+    
     if (is_logged === true)
     {
         return (
         <div className="navigation-container">
                 <div className="nav-item d-flex flex-column justify-content-center text-left">
-                    <NavLink to={`/${navUsername}`} className="link" activeClassName="link-active"><span><h2 style={{display:"inline"}}>Dashboard</h2><ImProfile className="nav-icon mb-2 ml-2"/></span></NavLink>
+                    <NavLink to={`/${loadFromLocalStorage('isLogged').isLogged[1][1]}`} className="link" activeClassName="link-active"><span><h2 className="mr-2" style={{display:"inline"}}>Dashboard</h2><ImProfile className="nav-icon"/></span></NavLink>
                 </div>
                 <div className="nav-item d-flex flex-column justify-content-center text-left">    
-                    <NavLink to={`/settings`} className="link"   activeClassName="link-active"><span><h2 style={{display:"inline"}}>Settings</h2><RiUserSettingsLine className="nav-icon mb-2 ml-2"/></span></NavLink>
+                    <NavLink to={`/settings`} className="link"   activeClassName="link-active"><span><h2 className="mr-2" style={{display:"inline"}}>Settings</h2><RiUserSettingsLine className="nav-icon"/></span></NavLink>
                 </div>
             
-               <div className="nav-item d-flex flex-column justify-content-center text-left"><Link onClick={logOut} className="link"><span><h2 style={{display:"inline"}}>Log Out</h2><BiLogOutCircle className="nav-icon mb-2 ml-2"/></span></Link>
+               <div className="nav-item d-flex flex-column justify-content-center text-left"><Link onClick={logOut} className="link"><span><h2 className="mr-2" style={{display:"inline"}}>Log Out</h2><BiLogOutCircle className="nav-icon mb-2 ml-2"/></span></Link>
                </div>
         </div>
         )

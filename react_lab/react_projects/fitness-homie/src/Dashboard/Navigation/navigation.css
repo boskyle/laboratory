@@ -25,6 +25,7 @@
     display: inline-block;
     font-size: 1.25em;
     align-self: flex-end;
+    margin-bottom: 0.25em;
 }
 
 
@@ -72,4 +73,10 @@
    .link > span > h2 {
         display: none !important;
    }
+   .nav-icon {
+    margin-bottom: 0em;
+   }
 }
+
+
+

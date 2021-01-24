@@ -18,7 +18,7 @@ const store = createStore(allReducers,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
-// persist the state to redux
+// persist the redux state to local browser (cache)
 store.subscribe (() => {
 saveToLocalStorage(store.getState(),'isLogged');
 })

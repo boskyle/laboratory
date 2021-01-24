@@ -1,18 +1,14 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
-import {useHistory,useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
-import  UserProfile from './UserProfile/UserProfile';
 import '../assets/fonts/index.css';
 import "./dashboard.css";
-import AsyncSelect from 'react-select/async';
-import {searchBoxStyle} from './SearchBox/SearchBox';
-import {useDispatch} from 'react-redux';
-import {userLoggedOut} from '../redux/actions';
 import Navigation from './Navigation/Navigation';
-
 import DashboardContainer from './DashboardContainer';
+
+
 
 
 
@@ -50,7 +46,8 @@ function Dashboard() {
    
     useEffect( () => {
        
-        console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1]);
+        // get username (isLogged is an array [0](state of logged in) [1] (an array of logged in userId and username))
+        // console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1][1]);
         console.log("url param: "+urlParam);
 
         let isMounted = true;
@@ -91,7 +88,7 @@ function Dashboard() {
 
 
 
-    console.log(dashUid);
+   
 
 
         return (
