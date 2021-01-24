@@ -1,16 +1,33 @@
 import React from 'react';
+import {loadFromLocalStorage} from '../../LocalStorage';
 import './userprofile.css';
-
+import Popup from './Popup';
 
 const UserProfile = ({username,firstname,lastname,country,usernameSearched,gender,age,height,weight,activityLevel,calories}) => {
+
+        // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
+        console.log(username);
+
+        let edit;
+        
+        if (loadFromLocalStorage('isLogged').isLogged[1][1] === username && loadFromLocalStorage('isLogged').isLogged[1][1] !== undefined)
+        {
+            edit =  <Popup/>
+        }
 
         // validate that username exists
         if(username !== "")
         {
+            
             return (
                 <div className="user-profile-container">
                     <div className="user-profile-item">
-                    <h2>PROFILE</h2>
+                    <h2 className="">PROFILE {edit}
+                    
+                    
+                    
+                    
+                    </h2>
                         <div>
                         <span className="userName">{username}</span>
                         <span className="name">{firstname +" "+lastname}</span>
