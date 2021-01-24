@@ -12,16 +12,14 @@ import {useDispatch} from 'react-redux';
 import {userLoggedOut} from '../redux/actions';
 import Navigation from './Navigation/Navigation';
 
-
+import DashboardContainer from './DashboardContainer';
 
 
 
 function Dashboard() {
 
- 
-    // var to access passed variable from Login.js
-    const history = useHistory();
-    const {username} = useParams();
+    // const history = useHistory();
+    const {urlParam} = useParams();
 
 
     const [userInfo, setUserInfo] = useState({
@@ -42,34 +40,18 @@ function Dashboard() {
         calories: ''
     });
 
-    const filterUsername =  (inputValue) => {
-     
-          return fetch ('http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/SearchBox/usernameAsync.php',{
-                method: 'POST',
-                body:JSON.stringify(inputValue)
-            }).then(res => res.json());
-            
-      
-    }
-
-    const [searchInputValue, setSearchInputValue] = useState('');
-    const [selectedSearchInputValue, setSelectedSearchInputValue] = useState(null);
-    
-    const handleSearchInputChange = val => {
-        setSearchInputValue(val);
-    }
-    
-    const handleSelection = val => {
-        setSelectedSearchInputValue(val);
-    }
-    // console.log("search input: "+searchInputValue);
-
     const [dashUid,setDashUid] = useState(undefined);
+    useEffect(() => {
+        getUidFromUsername(urlParam).then(uid => {
+          setDashUid(uid);     
+        })  
+    },[urlParam])
+    
    
     useEffect( () => {
        
         console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1]);
-        console.log("url param: "+username);
+        console.log("url param: "+urlParam);
 
         let isMounted = true;
     //    comment added
@@ -106,76 +88,36 @@ function Dashboard() {
          
     },[dashUid])
 
-    // set DashUid everytime selected input from async dropdown is changed
-    // make it local so on page refresh it retains the uid
-    useEffect(() => {
-        // console.log(selectedSearchInputValue.userlogin_id);
-        if(selectedSearchInputValue !== null) {
-            localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
-            history.push(`/${selectedSearchInputValue.username}`);
-        }      
-    },[selectedSearchInputValue])
 
 
-    // if searching through browser
-    useEffect(() => {
-        getUidFromUsername(username).then(uid => {
-          setDashUid(uid);
-          
-        })   
-    },[username])
 
-            if(username === "settings") {
-                return "i am in settings";
-            }
-        
-            return  (
-                // main component (gridbox and will be injected)
-                <div className="containerFluid">
-                 
-                    <div className="row">
-                        <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
-                        <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]} is_loggedId ={loadFromLocalStorage('isLogged').isLogged[1]}/>
-                        </div>
-                        <div className="col-9 col-sm-10 col-md-8 p-2">
-                            <UserProfile 
-                                username={userInfo.username}
-                                firstname={userInfo.firstname}
-                                lastname={userInfo.lastname}
-                                address={userInfo.country}
-                                usernameSearched={username}
-                                gender={userFitness.gender}
-                                age={userFitness.age}
-                                height={userFitness.height}
-                                weight={userFitness.weight}
-                                activityLevel={userFitness.activity}
-                                calories={userFitness.calories}
-                            />                  
-                        </div>
-                        <div className="col-sm-2 col-md-2 d-none d-md-block text-center p-2">
-                              
-                        <div className="d-flex flex-column align-items-center" style={{width:"100%",height:"100%"}}>
-                            <AsyncSelect className="w-100 mt-3" 
-                             cacheOptions    
-                             placeholder="Discover.."                     
-                             loadingMessage={() => 'searching...'}
-                             noOptionsMessage={() => 'doesnt exist'} 
-                             loadOptions={filterUsername}              
-                             value={searchInputValue}
-                             getOptionValue={e => e.username}
-                             getOptionLabel={e => e.username}
-                             onInputChange={handleSearchInputChange}
-                             onChange={handleSelection}    
-                             styles={searchBoxStyle}
-                             components={{ DropdownIndicator:()=> null,IndicatorSeparator: () => null}}
-                            />                  
-                        </div>
-                        
-                        </div>
-                    </div>
+    console.log(dashUid);
+
+
+        return (
+            <div className="containerFluid">
+                <div className="row">
+                <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
+                    <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]} is_loggedId ={loadFromLocalStorage('isLogged').isLogged[1]}/>
                 </div>
+                <DashboardContainer 
+                        urlParam={urlParam}
+                        username={userInfo.username}
+                        firstname={userInfo.firstname}
+                        lastname={userInfo.lastname}
+                        country={userInfo.country}
+                        // fitness Information
+                        gender={userFitness.gender}
+                        age={userFitness.age}
+                        height={userFitness.height}
+                        weight={userFitness.weight}
+                        activityLevel={userFitness.activity}
+                        calories={userFitness.calories}
+                        />
+                </div>   
+            </div>
             );
-      
+
 
   
 }

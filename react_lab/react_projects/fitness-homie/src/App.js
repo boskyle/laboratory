@@ -23,7 +23,7 @@ function App() {
       <Route path='/login/setup' component={Setup}></Route>
       <Route path="/feed" exact component={Feed}></Route>
       <Route path="/journal" exact component={Journal}></Route>
-      <Route path='/:username' component={Dashboard}></Route>
+      <Route path='/:urlParam' component={Dashboard}></Route>
       </Switch>
     </div>
     </Router>
