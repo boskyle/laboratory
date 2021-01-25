@@ -2,14 +2,16 @@ import React from 'react';
 import {useState,useEffect} from 'react';
 import Modal from 'react-modal';
 import {useForm} from 'react-hook-form';
-import {isUsernameExist} from '../../../DB/validation';
+import {isUsernameExistWithCheck} from '../../../DB/validation';
+import {ImCross} from 'react-icons/im';
 import './popup.css';
 
 
-export default () => {
+export default (props) => {
 
     Modal.setAppElement('.App');
     const [showPop,setShowPop] = useState(false);
+    const [userInfo,setUserInfo] = useState('');
 
     const  handleOpen = (e) => {
         console.log("open");
@@ -20,9 +22,20 @@ export default () => {
         console.log("close");
         setShowPop(false);
     }
+   
+    const {register, handleSubmit, errors, reset} = useForm({
+        defaultValues: {
+            username : props.username,
+            firstname: props.firstname,
+            lastname: props.lastname
+        }
+    });
+    
+    const onSubmit = formData => {
 
-    const {register, handleSubmit, errors, reset} = useForm();
-
+        console.log("SUBMIT WORKED");
+        setShowPop(false);
+    } 
     return (
         <>
         <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
@@ -34,27 +47,62 @@ export default () => {
            overlayClassName="overlay"
         >
             <div className="pop-form-container p-5">
-                <form className="pop-form-profile-update bg-warning w-75" noValidate>
-                                    <div className="form-group">
+                <ImCross className="exit-icon" onClick={handleClose}/>
+                <form className="pop-form-profile-update" onSubmit={handleSubmit(onSubmit)} noValidate>
+                                    <div className="form-group pop-up-form-group mb-2">
                                     <label htmlFor="emailInput"><h4>Username</h4></label>
-                                    <input name="username" type="text" className="form-control" id="" aria-describedby="emailInput"
+                                    <input name="username" type="text"  className="form-control w-50 mx-auto text-center" aria-describedby="usernameInput"
                                         ref={register({
-                                            required: {
-                                                value: true,
-                                                message: "Username is required."
-                                            },
                                             pattern: {
                                                 value: /^[a-zA-Z0-9]{4,10}$/,
                                                 message: "Length should be: 4-10 with no special characters."
                                             },
-                                            validate: isUsernameExist
+                                            validate: {
+                                                userNameExist: value => isUsernameExistWithCheck(value,props.username)
+                                            }
+                                        })}
+                                               
+                                        />
+                                        {errors.username && <span>{errors.username.message}</span>}
+                                        {errors.username?.type === "userNameExist" && (
+                                        <span>Username already exists.</span>
+                                        )}
+                                        {errors.username?.type === "sameUsername" && (
+                                        <span>Same username.</span>
+                                        )}
+                                    </div>
+                                    {/* firstname */}
+                                    <div className="form-group pop-up-form-group mb-2">
+                                    <label htmlFor="emailInput"><h4>Firstname</h4></label>
+                                    <input name="firstname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
+                                        ref={register({
+                                            pattern: {
+                                                value: /^[a-zA-Z]{2,20}$/,
+                                                message: "Name format is invalid."
+                                            },
+                                            
                                         })}
                                         
                                         />
-                                    </div>
+                                        {errors.firstname && <span>{errors.firstname.message}</span>}
+                                </div>
+                                <div className="form-group pop-up-form-group">
+                                    <label htmlFor="emailInput"><h4>Lastname</h4></label>
+                                    <input name="lastname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
+                                        ref={register({
+                                            pattern: {
+                                                value: /^[a-zA-Z]{2,20}$/,
+                                                message: "Name format is invalid."
+                                            },
+                                            
+                                        })}
+                                        
+                                        />
+                                        {errors.lastname && <span>{errors.lastname.message}</span>}
+                                </div>
+                <button  type="submit"  className="btn save-button">Save</button>
                 </form>
             </div>
-            <button className="btn save-button" onClick={handleClose}><h2>Save</h2></button>
 
            
           

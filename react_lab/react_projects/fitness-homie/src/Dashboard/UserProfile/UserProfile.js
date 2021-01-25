@@ -33,7 +33,7 @@ const UserProfile = ({username,firstname,lastname,country,usernameSearched,gende
 
             if (isYours)
             {
-                edit =  <Popup/>
+                edit =  <Popup username={username} firstname={firstname} lastname={lastname}/>
             }
             
 
