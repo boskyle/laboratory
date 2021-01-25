@@ -1,7 +1,7 @@
 .containerFluid {
     position: relative;
     height: 100vh;
-    background-color:#715E7A;
+    background-image: linear-gradient(180deg, #706897, #719fb0);
     padding: 1em;
     overflow-y: auto;
 }

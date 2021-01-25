@@ -6,6 +6,9 @@ import { FaInfoCircle } from 'react-icons/fa';
 import {loadFromLocalStorage} from '../LocalStorage';
 import {getUsernameFromId} from './db-endpoints/db-fetch';
 import {useHistory} from 'react-router-dom';
+import {isUsernameExist} from '../DB/validation';
+import {useDispatch} from 'react-redux';
+import {authenticateUserLoggedIn} from '../redux/actions';
 import './setup.css';
 
 
@@ -24,7 +27,7 @@ const Setup = ()  => {
 
     const {register, handleSubmit, errors, reset} = useForm();
     let history = useHistory();
-    
+    const dispatch = useDispatch();
 
   
     
@@ -75,39 +78,7 @@ const dropDownInches = (e) => {
     setInches(e.target.value);
 }
 
-const isUsernameExist = async (userNameInput) => {
-    let userNameListingApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/check-username-exist.php';
-    let matcher = '';
 
-    try {
-        
-        
-        await fetch(userNameListingApi, {
-            method: 'GET',
-            headers: {
-                'accept': 'application/json',
-                'content-Type': 'application/json'
-            }
-            }).then(response => response.json())
-                .then(response => {
-                    response.forEach(username => {
-                        if(username === userNameInput) {
-                            matcher = userNameInput;
-                        }
-                    })
-                })
-                .catch(err => console.log(err))
-    
-                // console.log(matcher);
-          return (userNameInput === matcher) ? false : true;
-
-
-
-
-
-    } catch (err) {console.log("Something went wrong with email fetch:"+err)}
-
-}
 
 /* initialize bascInfo object to fill in values:
     username
@@ -189,21 +160,21 @@ const onSubmit2 = async formData => {
                 .catch(error => console.log(error))
 
 
-
+    // dispatch
+    dispatch(authenticateUserLoggedIn(null,basicInfoArray[0].username))
+    // push to dashboard
     history.push(`/${basicInfoArray[0].username}`);
 
 }
 
-    const [username_boo, setUsername] = useState('');
+    const [username_boo, setUsername] = useState(undefined);
+
 
     useEffect (() => {
         let isMounted = true;
 
         if (loadFromLocalStorage('isLogged').isLogged[0] === true) {
-            console.log(loadFromLocalStorage('isLogged').isLogged[1])
-            getUsernameFromId(loadFromLocalStorage('isLogged').isLogged[1][0]).then (response => {
-                if(isMounted){setUsername(response);};   
-            })
+            setUsername(loadFromLocalStorage('isLogged').isLogged[1][1]);    
         }
 
         return () => {
@@ -212,10 +183,8 @@ const onSubmit2 = async formData => {
 
     },[])
 
-    
-  
-    // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
-    if (loadFromLocalStorage('isLogged').isLogged[0] === true && username_boo === undefined) {
+    // if user logged in but no username yet
+    if (loadFromLocalStorage('isLogged').isLogged[0] === true && username_boo === null) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">

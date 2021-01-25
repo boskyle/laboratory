@@ -1,19 +1,45 @@
 import React from 'react';
 import {loadFromLocalStorage} from '../../LocalStorage';
+import {useState,useEffect} from 'react';
 import './userprofile.css';
-import Popup from './Popup';
+import Popup from './Popup/Popup';
 
 const UserProfile = ({username,firstname,lastname,country,usernameSearched,gender,age,height,weight,activityLevel,calories}) => {
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
-        console.log(username);
+      
 
         let edit;
         
-        if (loadFromLocalStorage('isLogged').isLogged[1][1] === username && loadFromLocalStorage('isLogged').isLogged[1][1] !== undefined)
+    const [isYours,setYours] = useState(undefined);
+
+    const matched = (loggedUserName,currentUserName) => {
+        console.log(loggedUserName + ":"+ currentUserName);
+        if (loggedUserName === currentUserName)
         {
-            edit =  <Popup/>
-        }
+            return true;
+        } else return false;
+    }
+        useEffect( () => {
+           
+                // wait to fetch logged in Object (initially undefined)
+                if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
+                {
+                // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
+                setYours(matched(loadFromLocalStorage('isLogged').isLogged[1][1],username));
+                }
+                console.log(username);
+        },[loadFromLocalStorage('isLogged').isLogged[1]],username)
+
+            if (isYours)
+            {
+                edit =  <Popup/>
+            }
+            
+
+ 
+
+
 
         // validate that username exists
         if(username !== "")
