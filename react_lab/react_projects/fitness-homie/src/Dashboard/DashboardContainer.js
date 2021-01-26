@@ -7,6 +7,7 @@ import "./dashboard.css";
 import AsyncSelect from 'react-select/async';
 import {searchBoxStyle} from './SearchBox/SearchBox';
 import Settings from './Settings/Settings';
+import {loadFromLocalStorage} from '../LocalStorage';
 
 
 
@@ -50,6 +51,7 @@ const DashboardContainer = (props) => {
                     <>
                     <div className="col-9 col-sm-10 col-md-8 p-2">
                         <UserProfile 
+                            userid={props.uid}
                             username={props.username}
                             firstname={props.firstname}
                             lastname={props.lastname}

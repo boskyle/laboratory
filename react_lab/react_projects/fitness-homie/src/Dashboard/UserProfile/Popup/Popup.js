@@ -46,10 +46,9 @@ export default (props) => {
                 firstname: formData.firstname,
                 lastname: formData.lastname
             })
-        }). then (response => response.json())
-            .then (response => console.log(response))
-                .catch(err => console.log(err));
+        })
         // instant
+
         setShowPop(false);
     } 
     return (

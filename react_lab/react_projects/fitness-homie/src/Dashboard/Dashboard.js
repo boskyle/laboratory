@@ -46,8 +46,8 @@ function Dashboard() {
    
     useEffect( () => {
        
-        // console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1][1]);
-        // console.log("url param: "+urlParam);
+    
+        console.log("url param: "+urlParam);
 
         let isMounted = true;
     //    comment added
@@ -84,20 +84,34 @@ function Dashboard() {
          
     },[dashUid])
 
+    const [loggedUid,setLoggedUid] = useState(undefined);
+
+    useEffect( () => {
+           
+        // wait to fetch logged in Object (initially undefined)
+        if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
+        {
+        setLoggedUid(loadFromLocalStorage('isLogged').isLogged[1][0]);
+        }
+        
+},[loadFromLocalStorage('isLogged').isLogged[1]])
+
+console.log(loggedUid);
 
 
-
-   
+  
 
 
         return (
             <div className="containerFluid">
                 <div className="row">
                 <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
-                    <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]} is_loggedId ={loadFromLocalStorage('isLogged').isLogged[1]}/>
+                    <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]}/>
                 </div>
                 <DashboardContainer 
-                        urlParam={urlParam}
+                        
+                        urlParam={urlParam}    
+                        uid={loggedUid}
                         username={userInfo.username}
                         firstname={userInfo.firstname}
                         lastname={userInfo.lastname}

@@ -1,10 +1,11 @@
 import React from 'react';
 import {loadFromLocalStorage} from '../../LocalStorage';
 import {useState,useEffect} from 'react';
+import {LoadBasicInfo} from '../db-endpoints/loadProfile';
 import './userprofile.css';
 import Popup from './Popup/Popup';
 
-const UserProfile = ({username,firstname,lastname,country,usernameSearched,gender,age,height,weight,activityLevel,calories}) => {
+const UserProfile = ({userid,username,firstname,lastname,country,usernameSearched,gender,age,height,weight,activityLevel,calories}) => {
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
@@ -25,11 +26,14 @@ const UserProfile = ({username,firstname,lastname,country,usernameSearched,gende
                 // wait to fetch logged in Object (initially undefined)
                 if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
                 {
-                console.log(loadFromLocalStorage('isLogged').isLogged[1]);
+                console.log(loadFromLocalStorage('isLogged').isLogged[1][0]);
                 setYours(matched(loadFromLocalStorage('isLogged').isLogged[1][1],username));
                 }
                 console.log(username);
         },[loadFromLocalStorage('isLogged').isLogged[1]],username)
+
+        console.log(userid);
+
 
             if (isYours)
             {
