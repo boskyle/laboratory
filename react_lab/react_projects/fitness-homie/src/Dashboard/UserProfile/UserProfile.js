@@ -25,7 +25,7 @@ const UserProfile = ({username,firstname,lastname,country,usernameSearched,gende
                 // wait to fetch logged in Object (initially undefined)
                 if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
                 {
-                // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
+                console.log(loadFromLocalStorage('isLogged').isLogged[1]);
                 setYours(matched(loadFromLocalStorage('isLogged').isLogged[1][1],username));
                 }
                 console.log(username);
@@ -33,7 +33,7 @@ const UserProfile = ({username,firstname,lastname,country,usernameSearched,gende
 
             if (isYours)
             {
-                edit =  <Popup username={username} firstname={firstname} lastname={lastname}/>
+                edit =  <Popup userId ={loadFromLocalStorage('isLogged').isLogged[1][0]} username={username} firstname={firstname} lastname={lastname}/>
             }
             
 

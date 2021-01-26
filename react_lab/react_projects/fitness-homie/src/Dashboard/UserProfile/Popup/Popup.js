@@ -3,6 +3,7 @@ import {useState,useEffect} from 'react';
 import Modal from 'react-modal';
 import {useForm} from 'react-hook-form';
 import {isUsernameExistWithCheck} from '../../../DB/validation';
+import {saveToLocalStorageTwo} from '../../../LocalStorage';
 import {ImCross} from 'react-icons/im';
 import './popup.css';
 
@@ -31,9 +32,24 @@ export default (props) => {
         }
     });
     
-    const onSubmit = formData => {
-
-        console.log("SUBMIT WORKED");
+    const onSubmit = async formData => {
+        let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
+        await fetch (editUrl,{
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: props.userId,
+                username: formData.username,
+                firstname: formData.firstname,
+                lastname: formData.lastname
+            })
+        }). then (response => response.json())
+            .then (response => console.log(response))
+                .catch(err => console.log(err));
+        // instant
         setShowPop(false);
     } 
     return (
@@ -53,6 +69,10 @@ export default (props) => {
                                     <label htmlFor="emailInput"><h4>Username</h4></label>
                                     <input name="username" type="text"  className="form-control w-50 mx-auto text-center" aria-describedby="usernameInput"
                                         ref={register({
+                                            required: {
+                                                value: true,
+                                                message: "You can't leave it blank silly."
+                                            },
                                             pattern: {
                                                 value: /^[a-zA-Z0-9]{4,10}$/,
                                                 message: "Length should be: 4-10 with no special characters."
@@ -76,6 +96,10 @@ export default (props) => {
                                     <label htmlFor="emailInput"><h4>Firstname</h4></label>
                                     <input name="firstname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
                                         ref={register({
+                                            required: {
+                                                value: true,
+                                                message: "You can't leave it blank silly."
+                                            },
                                             pattern: {
                                                 value: /^[a-zA-Z]{2,20}$/,
                                                 message: "Name format is invalid."
@@ -90,6 +114,10 @@ export default (props) => {
                                     <label htmlFor="emailInput"><h4>Lastname</h4></label>
                                     <input name="lastname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
                                         ref={register({
+                                            required: {
+                                                value: true,
+                                                message: "You can't leave it blank silly."
+                                            },
                                             pattern: {
                                                 value: /^[a-zA-Z]{2,20}$/,
                                                 message: "Name format is invalid."
