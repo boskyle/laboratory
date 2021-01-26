@@ -21,6 +21,8 @@ export default (props) => {
     const  handleOpen = (e) => {
         console.log("open");
         setShowPop(true);
+
+        console.log(props.identity);
     }
 
     const  handleClose = (e) => {
@@ -58,7 +60,11 @@ export default (props) => {
         history.push(`/${formData.username}`);
         window.location.reload();
         setShowPop(false);
-    } 
+    }
+
+    
+
+
     return (
         <>
         <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
