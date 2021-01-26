@@ -1,7 +1,7 @@
 import React from 'react';
-import {loadFromLocalStorage} from '../../LocalStorage';
 import {useState,useEffect} from 'react';
-import {LoadBasicInfo} from '../db-endpoints/loadProfile';
+import {useDispatch,useSelector} from 'react-redux';
+import {getUidFromUsername} from '../db-endpoints/loadProfile';
 import './userprofile.css';
 import Popup from './Popup/Popup';
 
@@ -10,9 +10,9 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
 
-        let edit;
-        
-    const [isYours,setYours] = useState(undefined);
+    let edit;
+   
+    const [suid,setSuid] = useState(undefined);
 
     const matched = (loggedUserName,currentUserName) => {
         console.log(loggedUserName + ":"+ currentUserName);
@@ -21,23 +21,21 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
             return true;
         } else return false;
     }
-        useEffect( () => {
-           
-                // wait to fetch logged in Object (initially undefined)
-                if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
-                {
-                console.log(loadFromLocalStorage('isLogged').isLogged[1][0]);
-                setYours(matched(loadFromLocalStorage('isLogged').isLogged[1][1],username));
-                }
-                console.log(username);
-        },[loadFromLocalStorage('isLogged').isLogged[1]],username)
 
-        console.log(userid);
+    const selector = useSelector(state => state.isLogged);
 
+    useEffect( () => {
+        getUidFromUsername(username).then(searchedUid => {
+            console.log(searchedUid);
+            setSuid(searchedUid);
+        })
 
-            if (isYours)
+    },[username])
+ 
+
+            if (userid === suid)
             {
-                edit =  <Popup userId ={loadFromLocalStorage('isLogged').isLogged[1][0]} username={username} firstname={firstname} lastname={lastname}/>
+                edit =  <Popup userId ={userid} username={username} firstname={firstname} lastname={lastname}/>
             }
             
 

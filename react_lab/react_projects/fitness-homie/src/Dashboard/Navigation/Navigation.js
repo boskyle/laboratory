@@ -9,7 +9,7 @@ import {ImProfile} from 'react-icons/im';
 import {RiUserSettingsLine} from 'react-icons/ri';
 import {BiLogOutCircle} from 'react-icons/bi';
 
-const Navigation = ({is_logged,is_loggedId}) => {
+const Navigation = ({is_logged}) => {
  
     const dispatch = useDispatch();
     const history = useHistory();

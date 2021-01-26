@@ -13,10 +13,10 @@ if (!$conn -> connect_error) {
      // gets the key values of the json format to asscoiate them with their matching pair
      $decoded = json_decode($content, true);
 
-     if(!$stmt = $conn->prepare("UPDATE UserBasic SET username = ? WHERE userlogin_id = ?")) {
+     if(!$stmt = $conn->prepare("UPDATE UserBasic SET username = ?,firstname = ?,lastname = ? WHERE userlogin_id = ?")) {
             echo "Prepare failed: (". $conn->errno. ")". $conn->error;
         } else {
-            $stmt->bind_param("si",$decoded['username'],$decoded['userId']);
+            $stmt->bind_param("sssi",$decoded['username'],$decoded['firstname'],$decoded['lastname'],$decoded['userId']);
             $stmt->execute();
             $stmt->close();
             $conn->close();

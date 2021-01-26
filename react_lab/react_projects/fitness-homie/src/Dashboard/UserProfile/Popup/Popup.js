@@ -3,17 +3,21 @@ import {useState,useEffect} from 'react';
 import Modal from 'react-modal';
 import {useForm} from 'react-hook-form';
 import {isUsernameExistWithCheck} from '../../../DB/validation';
-import {saveToLocalStorageTwo} from '../../../LocalStorage';
+import {useHistory} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {authenticateUserLoggedIn} from '../../../redux/actions';
 import {ImCross} from 'react-icons/im';
 import './popup.css';
 
 
 export default (props) => {
 
+    const dispatch = useDispatch();
+    const history = useHistory();
     Modal.setAppElement('.App');
     const [showPop,setShowPop] = useState(false);
     const [userInfo,setUserInfo] = useState('');
-
+   
     const  handleOpen = (e) => {
         console.log("open");
         setShowPop(true);
@@ -47,8 +51,12 @@ export default (props) => {
                 lastname: formData.lastname
             })
         })
-        // instant
 
+        
+        // instantly to redux state
+        dispatch(authenticateUserLoggedIn(props.userId,formData.username));
+        history.push(`/${formData.username}`);
+        window.location.reload();
         setShowPop(false);
     } 
     return (

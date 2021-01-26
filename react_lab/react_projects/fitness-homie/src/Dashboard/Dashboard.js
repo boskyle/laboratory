@@ -96,7 +96,7 @@ function Dashboard() {
         
 },[loadFromLocalStorage('isLogged').isLogged[1]])
 
-console.log(loggedUid);
+
 
 
   
