@@ -39,6 +39,7 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
                 edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname}/>
             }
             
+            console.log(userid);
 
  
 
