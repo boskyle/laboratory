@@ -31,42 +31,27 @@ export default (props) => {
         setShowPop(false);
     }
    
- 
 
-    if (props.identity === "userProfile")
-    {
-        return (
-            <EditForm username={props.username} firstname={props.firstname} lastname={props.lastname} userId={props.userId}/>
-        );
+        if (props.identity === "userProfile")
+        {
 
-    }
+            return (
+                <EditForm identity={props.identity} username={props.username} firstname={props.firstname} lastname={props.lastname} userId={props.userId} gender={props.gender} age={props.age} height={props.height} weight={props.weight}/>
+            );
+        } else if (props.identity === "userStats")
+        {
+            return (
+                <EditForm identity={props.identity} username={props.username} firstname={props.firstname} lastname={props.lastname} userId={props.userId} gender={props.gender} age={props.age} height={props.height} weight={props.weight}/>
+            );
+        }
 
-    if (props.identity === "userStats")
-    {
-        return (
-            <>
-            <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
-            <Modal 
-               isOpen={showPop}
-               onRequestClose={handleClose}
-               contentLabel="Minimal Modal Example"
-               className="popUp"
-               overlayClassName="overlay"
-            >
-                <div className="pop-form-container p-5">
-                    <ImCross className="exit-icon" onClick={handleClose}/>
-                   
-                </div>
-    
-               
-              
-            </Modal>
-            </>
-        );
-    }
+        return null;
 
 
-    return null;
+
+
+
+   
 
 
     

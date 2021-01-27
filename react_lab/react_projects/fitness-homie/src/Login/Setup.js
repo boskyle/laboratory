@@ -293,8 +293,6 @@ const onSubmit2 = async formData => {
                         {errors.age && <span>{errors.age.message}</span>}
                         {errors.age?.type === "tooOld" && <span>Too old.</span>}
                         {errors.age?.type === "positive" && <span>You can't be 0 years old silly.</span>}
-                    
-
                     </div>
                 <div className="form-group mb-0 mt-2">
                 <label htmlFor="ageInput" style={{display:"block"}}><b>Activity</b></label>

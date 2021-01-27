@@ -18,30 +18,82 @@ export const EditForm = (props) => {
         defaultValues: {
             username : props.username,
             firstname: props.firstname,
-            lastname: props.lastname
+            lastname: props.lastname,
+            weight:props.weight,
+            age: props.age
         }
     });
 
 
-    const [showPop,setShowPop] = useState(false);
-    const [userInfo,setUserInfo] = useState('');
-   
-    const  handleOpen = (e) => {
-        console.log("open");
-        setShowPop(true);
-
-        console.log(props.identity);
+    // mini functions to turn height in cm to feet & inches
+    const takeFeet = (height) => {
+        let feetTaken = height/30.48;
+        return Math.floor(feetTaken);
+       
     }
 
-    const  handleClose = (e) => {
+    const takeInches = (height) => {
+        let feetTaken = height/30.48;
+        let inches = (feetTaken % 1);  
+      return Math.round(inches*12);
+      
+    
+    }
+
+    const inchesToCentimeters = (feet,inches) => {
+
+        let multiplier_to_inches = 12;
+        let multiplier_to_cm = 2.54;
+    
+        let finalCentimeters = ((multiplier_to_inches * feet) + inches) * multiplier_to_cm;
+    
+        return ~~finalCentimeters;
+    }
+
+
+    const [showPop,setShowPop] = useState(false);
+    const [userInfo,setUserInfo] = useState('');
+    const [form,setForm] = useState('');
+
+
+    const [gender,setGender] = useState (props.gender);
+    const [feet, setFeet] = useState(takeFeet(props.height));
+    const [inches, setInches] = useState(takeInches(props.height));
+
+   
+   
+    const  handleOpen = () => {
+        console.log("open");
+        setShowPop(true);
+        setForm(props.identity);
+    }
+
+    const  handleClose = () => {
         console.log("close");
         setShowPop(false);
+    }
+
+    // stats functions
+
+    const dropDownGender = (e) => {
+       let {value} = e.target;
+       setGender(value);
+    }
+
+    const dropDownFeet = (e) => {
+        let {value} = e.target;
+        setFeet(value);
+
+    }
+    const dropDownInches = (e) => {
+        let {value} = e.target;
+        setInches(value);
     }
 
 
 
     
-    const onSubmit = async formData => {
+    const onEditProfile = async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
         await fetch (editUrl,{
             method: 'POST',
@@ -66,87 +118,218 @@ export const EditForm = (props) => {
         // setShowPop(false);
     }
 
+    const onEditStyles = async formData => {
+        let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-stats.php';
+        await fetch (editUrl,{
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json'
+            },
+            // for some reason inches returned as a string :o so  I had to use parseInt
+            body: JSON.stringify({
+                uid:    props.userId,
+                gender: gender,
+                age:    formData.age,
+                height: inchesToCentimeters(feet,parseInt(inches)),
+                weight: formData.weight
 
-    return (
-        <> 
-         <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
-         <Modal 
-               isOpen={showPop}
-               onRequestClose={handleClose}
-               contentLabel="Minimal Modal Example"
-               className="popUp"
-               overlayClassName="overlay"
-            >     
-         <form className="pop-form-profile-update" onSubmit={handleSubmit(onSubmit)} noValidate>
-                                        <ImCross className="exit-icon" onClick={handleClose}/>
-                                        <div className="form-group pop-up-form-group mb-2">
-                                        <label htmlFor="emailInput"><h4>Username</h4></label>
-                                        <input name="username" type="text"  className="form-control w-50 mx-auto text-center" aria-describedby="usernameInput"
-                                            ref={register({
-                                                required: {
-                                                    value: true,
-                                                    message: "You can't leave it blank silly."
-                                                },
-                                                pattern: {
-                                                    value: /^[a-zA-Z0-9]{4,10}$/,
-                                                    message: "Length should be: 4-10 with no special characters."
-                                                },
-                                                validate: {
-                                                    userNameExist: value => isUsernameExistWithCheck(value,props.username)
-                                                }
-                                            })}
-                                                   
-                                            />
-                                            {errors.username && <span>{errors.username.message}</span>}
-                                            {errors.username?.type === "userNameExist" && (
-                                            <span>Username already exists.</span>
-                                            )}
-                                            {errors.username?.type === "sameUsername" && (
-                                            <span>Same username.</span>
-                                            )}
-                                        </div>
-                                        {/* firstname */}
-                                        <div className="form-group pop-up-form-group mb-2">
-                                        <label htmlFor="emailInput"><h4>Firstname</h4></label>
-                                        <input name="firstname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
-                                            ref={register({
-                                                required: {
-                                                    value: true,
-                                                    message: "You can't leave it blank silly."
-                                                },
-                                                pattern: {
-                                                    value: /^[a-zA-Z]{2,20}$/,
-                                                    message: "Name format is invalid."
-                                                },
-                                                
-                                            })}
-                                            
-                                            />
-                                            {errors.firstname && <span>{errors.firstname.message}</span>}
-                                    </div>
-                                    <div className="form-group pop-up-form-group">
-                                        <label htmlFor="emailInput"><h4>Lastname</h4></label>
-                                        <input name="lastname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
-                                            ref={register({
-                                                required: {
-                                                    value: true,
-                                                    message: "You can't leave it blank silly."
-                                                },
-                                                pattern: {
-                                                    value: /^[a-zA-Z]{2,20}$/,
-                                                    message: "Name format is invalid."
-                                                },
-                                                
-                                            })}
-                                            
-                                            />
-                                            {errors.lastname && <span>{errors.lastname.message}</span>}
-                                    </div>
-                    <button  type="submit"  className="btn save-button">Save</button>
-                    </form>
-            </Modal>
+            })
+        })
+      
+
+        window.location.reload();
+
+    }
+
+    const profileEdit =
+    <Modal 
+    isOpen={showPop}
+    onRequestClose={handleClose}
+    contentLabel="Minimal Modal Example"
+    className="popUp"
+    overlayClassName="overlay"
+>     
+    <form className="pop-form-profile-update" onSubmit={handleSubmit(onEditProfile)} noValidate>
+    <ImCross className="exit-icon" onClick={handleClose}/>
+    <div className="form-group pop-up-form-group mb-2">
+    <label htmlFor="emailInput"><h4>Username</h4></label>
+    <input name="username" type="text"  className="form-control w-50 mx-auto text-center" aria-describedby="usernameInput"
+        ref={register({
+            required: {
+                value: true,
+                message: "You can't leave it blank silly."
+            },
+            pattern: {
+                value: /^[a-zA-Z0-9]{4,10}$/,
+                message: "Length should be: 4-10 with no special characters."
+            },
+            validate: {
+                userNameExist: value => isUsernameExistWithCheck(value,props.username)
+            }
+        })}
+               
+        />
+        {errors.username && <span>{errors.username.message}</span>}
+        {errors.username?.type === "userNameExist" && (
+        <span>Username already exists.</span>
+        )}
+        {errors.username?.type === "sameUsername" && (
+        <span>Same username.</span>
+        )}
+    </div>
+    {/* firstname */}
+    <div className="form-group pop-up-form-group mb-2">
+    <label htmlFor="emailInput"><h4>Firstname</h4></label>
+    <input name="firstname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
+        ref={register({
+            required: {
+                value: true,
+                message: "You can't leave it blank silly."
+            },
+            pattern: {
+                value: /^[a-zA-Z]{2,20}$/,
+                message: "Name format is invalid."
+            },
+            
+        })}
         
+        />
+        {errors.firstname && <span>{errors.firstname.message}</span>}
+</div>
+<div className="form-group pop-up-form-group">
+    <label htmlFor="emailInput"><h4>Lastname</h4></label>
+    <input name="lastname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
+        ref={register({
+            required: {
+                value: true,
+                message: "You can't leave it blank silly."
+            },
+            pattern: {
+                value: /^[a-zA-Z]{2,20}$/,
+                message: "Name format is invalid."
+            },
+            
+        })}
         
-        </>
-    )
+        />
+        {errors.lastname && <span>{errors.lastname.message}</span>}
+</div>
+<button  type="submit"  className="btn save-button">Save</button>
+</form>
+</Modal>;
+
+    const statsEdit =    
+    <Modal 
+    isOpen={showPop}
+    onRequestClose={handleClose}
+    contentLabel="Minimal Modal Example"
+    className="popUp"
+    overlayClassName="overlay"
+    >     
+                        <form className="pop-form-stats-update" onSubmit={handleSubmit(onEditStyles)} noValidate>
+                        <ImCross className="exit-icon" onClick={handleClose}/>
+                        <h2 className="mt-2">Edit Stats</h2>
+                        <div className="form-group mb-0 mt-2">
+                            <label htmlFor="genderInput" style={{display:"block"}}><b>Gender</b></label>
+                            <select value={gender} onChange={dropDownGender} className="w-25 mx-auto text-center" aria-describedby="genderInput">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>          
+                            </select>          
+                        </div>
+                        <div className="form-group mb-0 mt-2">
+                            <label htmlFor="ageInput" style={{display:"block"}}><b>Age</b></label>
+                            <input name="age" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="emailInput"
+                                        ref={register({
+                                            validate: {                                              
+                                                positive: (value) => parseInt(value, 10) > 0,
+                                                tooOld: (value) => parseInt(value, 10) < 120,
+                                            },
+                                            pattern: {
+                                                value: /^[1-9][0-9]*$/,
+                                                message: "Incorrect age format!"
+                                            }                                                                           
+                                        })}                                
+                                        />   
+
+                            {errors.age && <span>{errors.age.message}</span>}
+                            {errors.age?.type === "tooOld" && <span>Too old.</span>}
+                            {errors.age?.type === "positive" && <span>You can't be 0 years old silly.</span>}
+                        </div>
+                        <div className="form-group mb-0 mt-4">
+                            <label htmlFor="feetInput"  className="mb-2"style={{display:"block"}}><b>Height</b></label>
+                            <label htmlFor="feetInput">Feet</label>
+                            <select value={feet} onChange={dropDownFeet} className="w-25 text-center ml-2 mr-2" aria-describedby="feetInput">
+                            <option value="3">3</option>
+                            <option value="4">4</option> 
+                            <option value="5">5</option>   
+                            <option value="6">6</option>
+                            <option value="7">7</option>                
+                            </select>
+                        <label htmlFor="inchesInput">Inches</label>
+                            <select value={inches}  onChange={dropDownInches} className="w-25 text-center ml-2" aria-describedby="feetInput">
+                            <option value="0">0</option>
+                            <option value="1">1</option> 
+                            <option value="2">2</option>   
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option> 
+                            <option value="7">7</option>   
+                            <option value="8">8</option>
+                            <option value="9">9</option>   
+                            <option value="10">10</option>
+                            <option value="11">11</option> 
+                            <option value="12">12</option>            
+                            </select>
+                        </div>
+
+                        <div className="form-group mt-3">
+                        <label htmlFor="weightInput"><b>Weight (lbs)</b></label>
+                        <input name="weight" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="weightInput"
+                        ref={register({              
+                        validate: {
+                        notPossible: (value) => parseInt(value, 10) <= 1000
+                        },
+                    pattern: {
+                        value: /^[1-9][0-9]*$/,
+                        message: "Incorrect weight format!"
+                    }   
+                    })}           
+                />
+                 {errors.weight && <span>{errors.weight.message}</span>}
+                 {errors.weight?.type === "notPossible" && <span>Not possible.</span>}
+                        </div>
+
+                        <button  type="submit"  className="btn save-button">Save</button>
+                        </form>
+    
+    </Modal>
+
+
+     
+        if (form === "userProfile")
+        {
+           return <> 
+           <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
+           {profileEdit}       
+           </>
+        } else if (form === "userStats") {
+            return <> 
+            <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
+           {statsEdit}              
+            </>
+        }
+
+
+        return (
+            <> 
+             <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>         
+            </>
+        );
+
+
+
+
+
 }
