@@ -36,6 +36,7 @@ const DashboardContainer = (props) => {
   }
 
   useEffect(() => {
+      let isMounted = true;
     // console.log(selectedSearchInputValue.userlogin_id);
     if(selectedSearchInputValue !== null) {
         localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);

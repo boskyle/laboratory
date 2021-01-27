@@ -38,9 +38,14 @@ function Dashboard() {
 
     const [dashUid,setDashUid] = useState(undefined);
     useEffect(() => {
+        let isMounted = true;
+
         getUidFromUsername(urlParam).then(uid => {
+            if(isMounted)
           setDashUid(uid);     
         })  
+
+        return () => {isMounted = false;}
     },[urlParam])
     
    

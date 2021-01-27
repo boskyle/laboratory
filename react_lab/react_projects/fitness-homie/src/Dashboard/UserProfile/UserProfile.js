@@ -25,11 +25,15 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
     const selector = useSelector(state => state.isLogged);
 
     useEffect( () => {
+        let isMounted = true;
+        
         getUidFromUsername(username).then(searchedUid => {
-            console.log(searchedUid);
+            if(isMounted)
             setSuid(searchedUid);
         })
 
+
+        return () => {isMounted = false};  
     },[username])
  
 
@@ -39,7 +43,9 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
                 edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname}/>
             }
             
-            console.log(userid);
+            console.log(selector);
+            console.log("loggedIn: "+userid);
+            console.log("current: "+suid);
 
  
 

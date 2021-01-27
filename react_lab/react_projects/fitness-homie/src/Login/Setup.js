@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useState,useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 import { FaInfoCircle } from 'react-icons/fa';
 import {loadFromLocalStorage} from '../LocalStorage';
@@ -28,10 +29,6 @@ const Setup = ()  => {
     const {register, handleSubmit, errors, reset} = useForm();
     let history = useHistory();
     const dispatch = useDispatch();
-
-  
-    
-    console.log(loadFromLocalStorage('isDataGiven'));
 
 let activity = [
     ['bmr', 1],
@@ -109,11 +106,13 @@ const onSubmit = formData => {
 // where all the submissions get posted
 
 const onSubmit2 = async formData => {
+
     console.log("submit 2 worked!");
     let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
     let bmr = calculateBMR(gender,formData.weight,height_cm,formData.age);
     let caloric_needs = calculateCalories(bmr,value);
 
+    
     basicInfo = {
         bmr: bmr,
         calories: caloric_needs,
@@ -125,6 +124,8 @@ const onSubmit2 = async formData => {
     }
     basicInfoArray.push(basicInfo);
     console.log(basicInfoArray);
+
+
 
     await fetch (registerBasicInfoApi, {
         method: 'POST',
@@ -161,30 +162,28 @@ const onSubmit2 = async formData => {
 
 
     // dispatch
-    dispatch(authenticateUserLoggedIn(null,basicInfoArray[0].username))
+    console.log(loadFromLocalStorage('isLogged').isLogged);
+    dispatch(authenticateUserLoggedIn(loadFromLocalStorage('isLogged').isLogged[1][0],basicInfoArray[0].username))
     // push to dashboard
     history.push(`/${basicInfoArray[0].username}`);
 
 }
 
-    const [username_boo, setUsername] = useState(undefined);
+    const [isNull, checkSecond] = useState(undefined);
 
+   
+    let selector = useSelector(state => state.isLogged);
 
     useEffect (() => {
-        let isMounted = true;
-
-        if (loadFromLocalStorage('isLogged').isLogged[0] === true) {
-            setUsername(loadFromLocalStorage('isLogged').isLogged[1][1]);    
+        if(loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
+        {
+            checkSecond(loadFromLocalStorage('isLogged').isLogged[1][1]);
         }
-
-        return () => {
-            isMounted = false;
-        };
-
-    },[])
+    },[loadFromLocalStorage('isLogged').isLogged[1]]);
+    
 
     // if user logged in but no username yet
-    if (loadFromLocalStorage('isLogged').isLogged[0] === true && username_boo === null) {
+    if (loadFromLocalStorage('isLogged').isLogged[0] === true && loadFromLocalStorage("isLogged").isLogged[1][1] === null) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
