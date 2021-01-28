@@ -5,7 +5,6 @@ import Register from './Register/Register';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
 import Feed from './Feed/Feed';
-import Journal from './Journal/Journal';
 import Setup from './Login/Setup';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 // css font import//
@@ -22,7 +21,6 @@ function App() {
       <Route path='/login' exact component={Login}></Route>
       <Route path='/login/setup' component={Setup}></Route>
       <Route path="/feed" exact component={Feed}></Route>
-      <Route path="/journal" exact component={Journal}></Route>
       <Route path='/:urlParam' component={Dashboard}></Route>
       </Switch>
     </div>

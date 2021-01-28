@@ -7,6 +7,7 @@ import "./dashboard.css";
 import AsyncSelect from 'react-select/async';
 import {searchBoxStyle} from './SearchBox/SearchBox';
 import Settings from './Settings/Settings';
+import Logbook from '../Logbook/Logbook';
 import {loadFromLocalStorage} from '../LocalStorage';
 
 
@@ -46,55 +47,73 @@ const DashboardContainer = (props) => {
 
 
   
-    if (props.urlParam !== "settings") {
-        return  (
-            // as part of row from parent (Dashboard)            
-                    <>
-                    <div className="col-9 col-sm-10 col-md-8 p-2">
-                        <UserProfile 
-                            userid={props.uid}
-                            username={props.username}
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            address={props.country}
-                            usernameSearched={props.urlParam}
-                            gender={props.gender}
-                            age={props.age}
-                            height={props.height}
-                            weight={props.weight}
-                            activityLevel={props.activityLevel}
-                            calories={props.calories}
-                        />                  
-                    </div>
-                    <div className="col-sm-2 col-md-2 d-none d-md-block text-center p-2">
-                          
-                        <div className="d-flex flex-column align-items-center" style={{width:"100%",height:"100%"}}>
-                            <AsyncSelect className="w-100 mt-3" 
-                            cacheOptions    
-                            placeholder="Discover.."                     
-                            loadingMessage={() => 'searching...'}
-                            noOptionsMessage={() => 'doesnt exist'} 
-                            loadOptions={filterUsername}              
-                            value={searchInputValue}
-                            getOptionValue={e => e.username}
-                            getOptionLabel={e => e.username}
-                            onInputChange={handleSearchInputChange}
-                            onChange={handleSelection}    
-                            styles={searchBoxStyle}
-                            components={{ DropdownIndicator:()=> null,IndicatorSeparator: () => null}}
+console.log(props.urlParam);
+
+   
+
+    switch(props.urlParam) {
+                // as part of row from parent (Dashboard)            
+        case "logbook":
+            return (<div className="col-9 col-md-10">
+                    <Logbook/>
+                    </div>);
+
+        case "settings":
+                 // as part of row from parent (Dashboard)            
+            return (<div className="col-9 col-md-10">
+                    <Settings/>
+                    </div>);
+
+        default:
+            return  (
+                // as part of row from parent (Dashboard)            
+                        <>
+                        <div className="col-9 col-sm-10 col-md-8 p-2">
+                            <UserProfile 
+                                userid={props.uid}
+                                username={props.username}
+                                firstname={props.firstname}
+                                lastname={props.lastname}
+                                address={props.country}
+                                usernameSearched={props.urlParam}
+                                gender={props.gender}
+                                age={props.age}
+                                height={props.height}
+                                weight={props.weight}
+                                activityLevel={props.activityLevel}
+                                calories={props.calories}
                             />                  
-                        </div> 
-                    </div>
-                    </>
-               
-              
-            
-        );
-    } else {return (
-        <div className="col-9 col-md-10">
-            <Settings/>
-        </div>
-    );}
+                        </div>
+                        <div className="col-sm-2 col-md-2 d-none d-md-block text-center p-2">
+                              
+                            <div className="d-flex flex-column align-items-center" style={{width:"100%",height:"100%"}}>
+                                <AsyncSelect className="w-100 mt-3" 
+                                cacheOptions    
+                                placeholder="Discover.."                     
+                                loadingMessage={() => 'searching...'}
+                                noOptionsMessage={() => 'doesnt exist'} 
+                                loadOptions={filterUsername}              
+                                value={searchInputValue}
+                                getOptionValue={e => e.username}
+                                getOptionLabel={e => e.username}
+                                onInputChange={handleSearchInputChange}
+                                onChange={handleSelection}    
+                                styles={searchBoxStyle}
+                                components={{ DropdownIndicator:()=> null,IndicatorSeparator: () => null}}
+                                />                  
+                            </div> 
+                        </div>
+                        </>
+                   
+                  
+                
+            );
+    }
+
+
+
+   
+
 
 }
 export default DashboardContainer;
