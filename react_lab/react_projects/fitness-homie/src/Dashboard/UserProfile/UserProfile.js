@@ -9,7 +9,7 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
-    console.log(activityLevel);
+
 
     let edit,edit2;
    
