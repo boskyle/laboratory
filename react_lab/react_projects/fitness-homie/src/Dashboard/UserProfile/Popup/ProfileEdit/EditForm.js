@@ -50,6 +50,45 @@ export const EditForm = (props) => {
         return ~~finalCentimeters;
     }
 
+    const calculateBMR = (gender,bodyweight,height,age) => {
+        if (gender === "Male")
+        {
+            // metric
+            let rounded = (10 * (bodyweight/2.205)) + (6.25 * height) - (5 * age) + 5;
+            // similar to casting to int
+            return ~~rounded;
+           
+        } else if (gender === "Female") {
+            // metric
+            let rounded = (10 * (bodyweight/2.205)) + (6.25 * height) - (5 * age) + 5 - 161;
+            // similar to casting to int
+            return ~~rounded;
+        }
+    }
+    
+
+
+        // used for progress update
+    const calculateCalories = (bmr,activity) => {
+        switch (activity) {
+            case "bmr":
+                return ~~(bmr * 1.0);
+            case "sedentary":
+                return ~~(bmr * 1.2);
+            case "lightly-active":
+                return ~~(bmr * 1.375);
+            case "moderately-active":
+                return ~~(bmr * 1.55);
+            case "very-active":
+                return ~~(bmr * 1.725);
+            case "extra-active":
+                return ~~(bmr * 1.9);
+            default:
+                return ~~(bmr);
+        }
+    
+    }
+
 
     const [showPop,setShowPop] = useState(false);
     const [userInfo,setUserInfo] = useState('');
@@ -70,7 +109,12 @@ export const EditForm = (props) => {
 
     const  handleClose = () => {
         console.log("close");
+        // if dont save save current (using props)
+        setGender(props.gender);
+        setFeet(takeFeet(props.height));
+        setInches(takeInches(props.height));
         setShowPop(false);
+
     }
 
     // stats functions
@@ -91,6 +135,7 @@ export const EditForm = (props) => {
     }
 
 
+  
 
     
     const onEditProfile = async formData => {
@@ -120,6 +165,7 @@ export const EditForm = (props) => {
 
     const onEditStyles = async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-stats.php';
+
         await fetch (editUrl,{
             method: 'POST',
             headers: {
@@ -132,8 +178,8 @@ export const EditForm = (props) => {
                 gender: gender,
                 age:    formData.age,
                 height: inchesToCentimeters(feet,parseInt(inches)),
-                weight: formData.weight
-
+                weight: formData.weight,
+                calories: calculateBMR(gender,formData.weight,inchesToCentimeters(feet,parseInt(inches)),formData.age)
             })
         })
       
