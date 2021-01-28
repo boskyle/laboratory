@@ -43,17 +43,17 @@ function Login() {
                 email: formData.email,
                 password: formData.password
             })
-        }).then(response => response.json())
-            .then(response => {
+        }).then(uid => uid.json())
+            .then(uid => {
                
                 /*  If the response returned back is an integer that means the php file fetched  ~ returned a uid 
                     which means the user had entered the right password.
                 */           
-                if (Number.isInteger(response)) {
+                if (Number.isInteger(uid)) {
                     
                     // added username to the redux payload along with his/her userid
-                    getUsernameFromId(response).then (username => {
-                        dispatch(authenticateUserLoggedIn(response,username));
+                    getUsernameFromId(uid).then (username => {
+                        dispatch(authenticateUserLoggedIn(uid,username));
                     });
                     // uid (response) dispatch send
                     /*  fetch uid from the logged in user, 
@@ -61,16 +61,18 @@ function Login() {
                         hat will return the username
                         associated with the userid and push it to the history stack to reroute to that username
                     */
-                     LoadBasicInfo(response).then(response => {
-                            console.log(response);
+                     LoadBasicInfo(uid).then(response => {
                                 if (response === false) {
-                                    history.push("login/setup");
+                                    history.push({
+                                        pathname: "/login/setup",
+                                        val: response
+                                    });
                             } else { history.push(`/${response.username}`);}
                            
                      })
 
                                          
-                } else {setError(response);}
+                } else {setError(uid);}
                 
             })
             .catch(err => console.log(err));

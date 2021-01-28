@@ -1,16 +1,21 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useState,useEffect} from 'react';
-import {useSelector} from 'react-redux';
-import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
 import { FaInfoCircle } from 'react-icons/fa';
 import {loadFromLocalStorage} from '../LocalStorage';
-import {getUsernameFromId} from './db-endpoints/db-fetch';
-import {useHistory} from 'react-router-dom';
+import {useHistory,useLocation} from 'react-router-dom';
 import {isUsernameExist} from '../DB/validation';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
+import {LoadBasicInfo} from '../Dashboard/db-endpoints/loadProfile';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import './setup.css';
+
+
+
+// let foo = loadFromLocalStorage('isLogged').isLogged[0];
+// let buff = loadFromLocalStorage('isLogged').isLogged[1];
+
+
 
 
 
@@ -28,7 +33,14 @@ const Setup = ()  => {
 
     const {register, handleSubmit, errors, reset} = useForm();
     let history = useHistory();
+    let location = useLocation();
     const dispatch = useDispatch();
+
+    const rState = useSelector(state => state.isLogged[0]);
+    console.log(rState);
+
+
+    
 
 let activity = [
     ['bmr', 1],
@@ -167,23 +179,13 @@ const onSubmit2 = async formData => {
     // push to dashboard
     history.push(`/${basicInfoArray[0].username}`);
 
+
 }
 
-    const [isNull, checkSecond] = useState(undefined);
 
-   
-    let selector = useSelector(state => state.isLogged);
-
-    useEffect (() => {
-        if(loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
-        {
-            checkSecond(loadFromLocalStorage('isLogged').isLogged[1][1]);
-        }
-    },[loadFromLocalStorage('isLogged').isLogged[1]]);
     
-
     // if user logged in but no username yet
-    if (loadFromLocalStorage('isLogged').isLogged[0] === true && loadFromLocalStorage("isLogged").isLogged[1][1] === null) {
+    if (loadFromLocalStorage('isLogged').isLogged[0] === true && loadFromLocalStorage('isLogged').isLogged [1][1] === null) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
@@ -248,13 +250,7 @@ const onSubmit2 = async formData => {
                                         />
                                         {errors.lastname && <span>{errors.lastname.message}</span>}
                                 </div>
-                                <div className="form-group">
-                                <label htmlFor="emailInput">Location (Optional)</label><br></br>
-                                <CountryDropdown value={country}  onChange={selectCountry}className="countryInput mr-4"/>
-                                <RegionDropdown country={country} value={region}  onChange={selectRegion} className="regionInput"/>
-                                
-        
-                                </div>
+                               
                                 <button type="submit" className="btn mx-auto">Next</button>
                             </form>
         
@@ -374,7 +370,8 @@ const onSubmit2 = async formData => {
         );}
   
                                
-    } else {return null}
+    }
+    return null;
 
   
 } 

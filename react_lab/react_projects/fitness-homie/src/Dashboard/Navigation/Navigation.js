@@ -7,7 +7,7 @@ import {loadFromLocalStorage} from '../../LocalStorage';
 import './navigation.css';
 import {ImProfile} from 'react-icons/im';
 import {RiUserSettingsLine} from 'react-icons/ri';
-import {BiLogOutCircle} from 'react-icons/bi';
+import {BiLogOutCircle,BiBook} from 'react-icons/bi';
 
 const Navigation = ({is_logged}) => {
  
@@ -24,15 +24,15 @@ const Navigation = ({is_logged}) => {
         return (
         <div className="navigation-container">
                 <div className="nav-item d-flex flex-column justify-content-center text-left">
-                    <NavLink to={`/${loadFromLocalStorage('isLogged').isLogged[1][1]}`} className="link" activeClassName="link-active"><span><h2 className="mr-2" style={{display:"inline"}}>Dashboard</h2><ImProfile className="nav-icon"/></span></NavLink>
+                    <NavLink to={`/${loadFromLocalStorage('isLogged').isLogged[1][1]}`} className="link" activeClassName="link-active"><span><ImProfile className="nav-icon"/><h2 className="ml-3" style={{display:"inline"}}>Dashboard</h2></span></NavLink>
                 </div>
                 <div className="nav-item d-flex flex-column justify-content-center text-left">
-                <NavLink to={`/logbook`} className="link"   activeClassName="link-active"><span><h2 className="mr-2" style={{display:"inline"}}>Logbook</h2><RiUserSettingsLine className="nav-icon"/></span></NavLink>
+                <NavLink to={`/logbook`} className="link"   activeClassName="link-active"><span><BiBook className="nav-icon"/><h2 className="ml-3" style={{display:"inline"}}>Logbook</h2></span></NavLink>
                 </div>   
                 <div className="nav-item d-flex flex-column justify-content-center text-left">    
-                    <NavLink to={`/settings`} className="link"   activeClassName="link-active"><span><h2 className="mr-2" style={{display:"inline"}}>Settings</h2><RiUserSettingsLine className="nav-icon"/></span></NavLink>
+                    <NavLink to={`/settings`} className="link"   activeClassName="link-active"><span><RiUserSettingsLine className="nav-icon"/><h2 className="ml-3" style={{display:"inline"}}>Settings</h2></span></NavLink>
                 </div>
-               <div className="nav-item d-flex flex-column justify-content-center text-left"><h3   onClick={logOut} className="link"><span><h2 className="mr-2" style={{display:"inline"}}>Log Out</h2><BiLogOutCircle className="nav-icon mb-2 ml-2"/></span></h3>
+               <div className="nav-item d-flex flex-column justify-content-center text-left"><h3   onClick={logOut} className="link"><span><BiLogOutCircle className="nav-icon mb-2 ml-2"/><h2 className="ml-3" style={{display:"inline"}}>Log Out</h2></span></h3>
                </div>
         </div>
         )
