@@ -32,7 +32,7 @@ const Navigation = ({is_logged}) => {
                 <div className="nav-item d-flex flex-column justify-content-center text-left">    
                     <NavLink to={`/settings`} className="link"   activeClassName="link-active"><span><RiUserSettingsLine className="nav-icon"/><h2 className="ml-3" style={{display:"inline"}}>Settings</h2></span></NavLink>
                 </div>
-               <div className="nav-item d-flex flex-column justify-content-center text-left"><h3   onClick={logOut} className="link"><span><BiLogOutCircle className="nav-icon mb-2 ml-2"/><h2 className="ml-3" style={{display:"inline"}}>Log Out</h2></span></h3>
+               <div className="nav-item d-flex flex-column justify-content-center text-left"><h3   onClick={logOut} className="link"><span><BiLogOutCircle className="nav-icon ml-1"/><h2 className="ml-3" style={{display:"inline"}}>Log Out</h2></span></h3>
                </div>
         </div>
         )

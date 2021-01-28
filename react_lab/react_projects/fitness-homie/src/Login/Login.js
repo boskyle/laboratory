@@ -65,7 +65,7 @@ function Login() {
                                 if (response === false) {
                                     history.push({
                                         pathname: "/login/setup",
-                                        val: response
+                                        val: false
                                     });
                             } else { history.push(`/${response.username}`);}
                            

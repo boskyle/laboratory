@@ -19,16 +19,20 @@
     flex-direction: row;
  
 }
+
+.nav-item h2 {
+    font-size: 0.65em;
+}
 .nav-item h3 {
     cursor: pointer;
+    font-size: 0.95em;
 }
 
 .nav-icon {
     position: relative;
     display: inline-block;
-    font-size: 1.25em;
-    align-self: flex-end;
-    margin-bottom: 0.25em;
+ 
+ 
 }
 
 
@@ -55,7 +59,7 @@
 .link > span:hover {
     transition: 0.25s;
     color: #EBCFC4;
-    font-size: 75%;
+    font-size: 125%;
 }
 
 
