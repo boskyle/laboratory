@@ -9,6 +9,7 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
+    console.log(activityLevel);
 
     let edit,edit2;
    
@@ -72,9 +73,9 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
 
 
                     <div className="user-profile-item">
-                        <h3 className="m-1">JOURNAL</h3>
+                        <h3 className="m-1">JOURNAL {edit2}</h3>
                         <div className="journal-items-container">
-                            <div className="journal-item"><h4>STATS {edit2}</h4>
+                            <div className="journal-item"><h4>STATS</h4>
                                 <ul>
                                     <li>gender: <span>{gender}</span></li>
                                     <li>age: <span>{age}</span></li>

@@ -25,6 +25,7 @@ export const EditForm = (props) => {
     });
 
 
+
     // mini functions to turn height in cm to feet & inches
     const takeFeet = (height) => {
         let feetTaken = height/30.48;
@@ -98,6 +99,7 @@ export const EditForm = (props) => {
     const [gender,setGender] = useState (props.gender);
     const [feet, setFeet] = useState(takeFeet(props.height));
     const [inches, setInches] = useState(takeInches(props.height));
+    const [actLevel, setLevel] = useState(props.activityLevel);
 
    
    
@@ -117,7 +119,7 @@ export const EditForm = (props) => {
 
     }
 
-    // stats functions
+    // Journal functions
 
     const dropDownGender = (e) => {
        let {value} = e.target;
@@ -132,6 +134,11 @@ export const EditForm = (props) => {
     const dropDownInches = (e) => {
         let {value} = e.target;
         setInches(value);
+    }
+
+    const dropDownActivity = (e) => {
+        let {value} = e.target;
+        setLevel(value);
     }
 
 
@@ -179,9 +186,11 @@ export const EditForm = (props) => {
                 age:    formData.age,
                 height: inchesToCentimeters(feet,parseInt(inches)),
                 weight: formData.weight,
-                calories: calculateBMR(gender,formData.weight,inchesToCentimeters(feet,parseInt(inches)),formData.age)
+                activity_level: actLevel,
+                calories: calculateCalories(calculateBMR(gender,formData.weight,inchesToCentimeters(feet,parseInt(inches)),formData.age),actLevel)
             })
-        })
+        }).then(response => response.json())
+            .then (response => console.log(response))
       
 
         window.location.reload();
@@ -345,6 +354,18 @@ export const EditForm = (props) => {
                 />
                  {errors.weight && <span>{errors.weight.message}</span>}
                  {errors.weight?.type === "notPossible" && <span>Not possible.</span>}
+                        </div>
+                        <div className="form-group mt-2">
+
+                        <label htmlFor="activityInput" style={{display:"block"}}><b>Activity</b></label>
+                        <select value={actLevel} onChange={dropDownActivity} className="w-75 mx-auto" aria-describedby="activityInput">
+                         <option value="bmr">no exercise</option>
+                         <option value="sedentary">little or no exercise, desk job</option>
+                         <option value="lightly-active">light exercise/ sports 1-3 days/week</option>
+                         <option value="moderately-active">moderate exercise/ sports 6-7 days/week</option>
+                         <option value="very-active">hard exercise every day, or exercising 2 xs/day</option>
+                         <option value="extra-active">hard exercise 2 or more times per day, or training for marathon, or triathlon, etc.. </option>
+                        </select>
                         </div>
 
                         <button  type="submit"  className="btn save-button">Save</button>
