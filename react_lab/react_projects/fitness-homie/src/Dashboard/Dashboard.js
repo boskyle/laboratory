@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState,useEffect,useRef} from 'react';
+import {useState,useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';

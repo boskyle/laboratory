@@ -14,7 +14,7 @@ export const EditForm = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const {register, handleSubmit, errors, reset} = useForm({
+    const {register, handleSubmit, errors} = useForm({
         defaultValues: {
             username : props.username,
             firstname: props.firstname,
@@ -92,7 +92,6 @@ export const EditForm = (props) => {
 
 
     const [showPop,setShowPop] = useState(false);
-    const [userInfo,setUserInfo] = useState('');
     const [form,setForm] = useState('');
 
 

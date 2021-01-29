@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form';
 import {useState} from 'react';
 import { FaInfoCircle } from 'react-icons/fa';
 import {loadFromLocalStorage} from '../LocalStorage';
-import {useHistory,useLocation} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {isUsernameExist} from '../DB/validation';
 import {useDispatch,useSelector} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
@@ -32,7 +32,6 @@ const Setup = ()  => {
 
     const {register, handleSubmit, errors, reset} = useForm();
     let history = useHistory();
-    let location = useLocation();
     const dispatch = useDispatch();
 
     const rState = useSelector(state => state.isLogged[0]);
@@ -52,8 +51,8 @@ let activity = [
 
     
     const [isFormSubmitted,setFlag] = useState(false);
-    const [country,setCountry] = useState('');
-    const [region, setRegion] = useState('');
+    // const [country,setCountry] = useState('');
+    // const [region, setRegion] = useState('');
    
     // dropdown
     const [value,setValue]=useState('bmr');
@@ -65,9 +64,9 @@ let activity = [
     
 
 
-const selectRegion = (val) => {
-    setRegion(val);
-}
+// const selectRegion = (val) => {
+//     setRegion(val);
+// }
 
 const dropDownChange = (e) => {
     setValue(e.target.value);   
@@ -101,8 +100,7 @@ const onSubmit = formData => {
         basicInfo = {   uid:loadFromLocalStorage("isLogged").isLogged[1][0],
                         username: formData.username,
                         firstname: formData.firstname,
-                        lastname: formData.lastname,
-                        country: country+','+region,                   
+                        lastname: formData.lastname,              
 };
 
     basicInfoArray.push(basicInfo);
@@ -182,7 +180,7 @@ const onSubmit2 = async formData => {
 
     
     // if user logged in but no username yet
-    if (loadFromLocalStorage('isLogged').isLogged[0] === true && loadFromLocalStorage('isLogged').isLogged [1][1] === null) {
+    if (loadFromLocalStorage('isLogged').isLogged[0] === true && loadFromLocalStorage('isLogged').isLogged[1][1] === null) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">

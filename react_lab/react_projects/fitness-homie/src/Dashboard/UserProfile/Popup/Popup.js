@@ -5,7 +5,7 @@ import {EditForm} from './ProfileEdit/EditForm';
 import './popup.css';
 
 
-export default (props) => {
+const Popup = (props) => {
 
     
     Modal.setAppElement('.App');
@@ -30,15 +30,8 @@ export default (props) => {
             );
         }
 
-        return null;
-
-
-
-
-
-   
-
-
-    
+        return null;  
    
 };
+
+export default Popup;

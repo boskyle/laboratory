@@ -1,6 +1,5 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
-import {useDispatch,useSelector} from 'react-redux';
 import {getUidFromUsername} from '../db-endpoints/loadProfile';
 import './userprofile.css';
 import Popup from './Popup/Popup';
