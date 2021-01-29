@@ -1,24 +1,17 @@
 import React from 'react';
 import {useEffect} from 'react';
+import {loadFromLocalStorage} from '../LocalStorage';
 import './logbook.css';
-
-// import {slide as Menu} from 'react-burger-menu';
-// import {Link} from 'react-router-dom';
-
-
-
-
-
-
-
-
 
 const Logbook = (props) => {
 
 
 
+
+
 useEffect( () => {
     console.log("logbook mounted");
+    console.log(loadFromLocalStorage('isLogged').isLogged);
 },[])
 
 useEffect( () => {
