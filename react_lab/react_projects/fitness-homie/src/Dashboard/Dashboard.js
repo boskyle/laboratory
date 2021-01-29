@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useRef} from 'react';
 import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
@@ -7,10 +7,6 @@ import '../assets/fonts/index.css';
 import "./dashboard.css";
 import Navigation from './Navigation/Navigation';
 import DashboardContainer from './DashboardContainer';
-
-
-
-
 
 function Dashboard() {
 
@@ -41,8 +37,9 @@ function Dashboard() {
         let isMounted = true;
 
         getUidFromUsername(urlParam).then(uid => {
-            if(isMounted)
-          setDashUid(uid);     
+            if(isMounted === true) {
+                setDashUid(uid);     
+            }
         })  
 
         return () => {isMounted = false;}
@@ -51,13 +48,11 @@ function Dashboard() {
    
     useEffect( () => {
        
-    
-        console.log("url param: "+urlParam);
-
         let isMounted = true;
+        let isMounted2 = true;
     //    comment added
         LoadBasicInfo(dashUid).then(data => {
-            if (isMounted) {
+            if (isMounted === true) {
                 if (data !== false) {
                     setUserInfo({
                         username: data.username,
@@ -70,7 +65,7 @@ function Dashboard() {
         })
         
         LoadFitnessInfo(dashUid).then(data => {
-            if (isMounted) {
+            if (isMounted2 === true) {
                 if (data !== false) {
                     setUserFitness({
                         gender: data.gender,
@@ -84,8 +79,9 @@ function Dashboard() {
                 }
             }
         })
-        return () => {isMounted = false};  
-            // prevents memory leak, make sure that it is mounted first
+         // prevents memory leak, make sure that it is mounted first
+        return () => {isMounted = false; isMounted2 = false;} 
+           
          
     },[dashUid])
 
@@ -100,6 +96,15 @@ function Dashboard() {
         }
         
 },[loadFromLocalStorage('isLogged').isLogged[1]])
+
+
+useEffect( () => {
+    console.log("dashboard mounted");
+},[])
+
+useEffect( () => {
+    return () => {console.log("dashboard unmounted");}
+},[])
 
 
 

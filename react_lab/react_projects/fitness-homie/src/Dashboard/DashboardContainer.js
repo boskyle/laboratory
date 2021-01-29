@@ -8,7 +8,7 @@ import AsyncSelect from 'react-select/async';
 import {searchBoxStyle} from './SearchBox/SearchBox';
 import Settings from './Settings/Settings';
 import Logbook from '../Logbook/Logbook';
-import {loadFromLocalStorage} from '../LocalStorage';
+
 
 
 
@@ -40,14 +40,16 @@ const DashboardContainer = (props) => {
       let isMounted = true;
     // console.log(selectedSearchInputValue.userlogin_id);
     if(selectedSearchInputValue !== null) {
+        if(isMounted)
         localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
         history.push(`/${selectedSearchInputValue.username}`);
-    }      
+    }
+    return () => {isMounted = false;}      
 },[selectedSearchInputValue,history])
 
 
   
-console.log(props.urlParam);
+// console.log(props.urlParam);
 
    
 

@@ -15,25 +15,20 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
    
     const [suid,setSuid] = useState(undefined);
 
-    const matched = (loggedUserName,currentUserName) => {
-        console.log(loggedUserName + ":"+ currentUserName);
-        if (loggedUserName === currentUserName)
-        {
-            return true;
-        } else return false;
-    }
+    useEffect(() => {
+        console.log("userprofile mounted");
+    },[])
 
-    const selector = useSelector(state => state.isLogged);
+    useEffect(() => {
+        return () => {console.log("userprofile unmounted")}
+    },[])
 
     useEffect( () => {
         let isMounted = true;
-        
         getUidFromUsername(username).then(searchedUid => {
             if(isMounted)
             setSuid(searchedUid);
-        })
-
-
+        },[username])
         return () => {isMounted = false};  
     },[username])
  
@@ -44,9 +39,9 @@ const UserProfile = ({userid,username,firstname,lastname,country,usernameSearche
                 edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
             }
             
-            console.log(selector);
-            console.log("loggedIn: "+userid);
-            console.log("current: "+suid);
+            // console.log(selector);
+            // console.log("loggedIn: "+userid);
+            // console.log("current: "+suid);
 
  
 

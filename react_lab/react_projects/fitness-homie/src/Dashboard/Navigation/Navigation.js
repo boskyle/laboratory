@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink,Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {userLoggedOut} from '../../redux/actions';

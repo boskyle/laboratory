@@ -3,7 +3,7 @@ import {isUsernameExistWithCheck} from  '../../../../DB/validation';
 import {authenticateUserLoggedIn} from '../../../../redux/actions';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import Modal from 'react-modal';
 import {ImCross} from 'react-icons/im';
 import '../popup.css';

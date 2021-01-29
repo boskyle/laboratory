@@ -1,12 +1,11 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import { FaInfoCircle } from 'react-icons/fa';
 import {loadFromLocalStorage} from '../LocalStorage';
 import {useHistory,useLocation} from 'react-router-dom';
 import {isUsernameExist} from '../DB/validation';
 import {useDispatch,useSelector} from 'react-redux';
-import {LoadBasicInfo} from '../Dashboard/db-endpoints/loadProfile';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import './setup.css';
 
@@ -64,9 +63,7 @@ let activity = [
 
 
     
-const selectCountry = (val) => {
-    setCountry(val);
-}
+
 
 const selectRegion = (val) => {
     setRegion(val);
