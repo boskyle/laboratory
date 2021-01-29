@@ -6,7 +6,9 @@ import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import Modal from 'react-modal';
 import {ImCross} from 'react-icons/im';
+import {BiEdit} from 'react-icons/bi';
 import '../popup.css';
+import './editform.css';
 
 export const EditForm = (props) => {
 
@@ -140,10 +142,6 @@ export const EditForm = (props) => {
         setLevel(value);
     }
 
-
-  
-
-    
     const onEditProfile = async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
         await fetch (editUrl,{
@@ -377,12 +375,12 @@ export const EditForm = (props) => {
         if (form === "userProfile")
         {
            return <> 
-           <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
+            <BiEdit  className=" mb-1 edit-icon"style={{position: "relative",display: "inline-block"}} onClick={handleOpen}/>    
            {profileEdit}       
            </>
         } else if (form === "userStats") {
             return <> 
-            <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>
+             <BiEdit  className=" mb-1 edit-icon"style={{position: "relative",display: "inline-block"}} onClick={handleOpen}/>    
            {statsEdit}              
             </>
         }
@@ -390,7 +388,7 @@ export const EditForm = (props) => {
 
         return (
             <> 
-             <button  type="button" className="btn edit-button m-0 mb-1" onClick={handleOpen}>Edit</button>         
+             <BiEdit  className=" mb-1 edit-icon"style={{position: "relative",display: "inline-block"}} onClick={handleOpen}/>        
             </>
         );
 
