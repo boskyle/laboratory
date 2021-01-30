@@ -29,7 +29,8 @@ function Dashboard() {
         gender: '',
         activity: '',
         bmr:'',
-        calories: ''
+        calories: '',
+        calories_target: ''
     });
 
     const [dashUid,setDashUid] = useState(undefined);
@@ -74,7 +75,7 @@ function Dashboard() {
                         weight: data.weight_lbs,
                         activity: data.activity_level,
                         calories: data.calories,
-                        
+                        calories_target: data.calories_target
                     })
                 }
             }
@@ -132,6 +133,7 @@ useEffect( () => {
                         weight={userFitness.weight}
                         activityLevel={userFitness.activity}
                         calories={userFitness.calories}
+                        caloriesTarget={userFitness.calories_target}
                         />
                 </div>   
             </div>

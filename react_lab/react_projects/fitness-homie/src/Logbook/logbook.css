@@ -36,6 +36,10 @@
     flex-flow: row wrap;
 }
 
+.myDate, h3 {
+    color: #EBCFC4;
+}
+
 
 
 

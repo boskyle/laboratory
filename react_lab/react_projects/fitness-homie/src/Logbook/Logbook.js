@@ -15,15 +15,16 @@ const Logbook = (props) => {
 
 
     let momentobj;
+    const [userId] = useState(loadFromLocalStorage('isLogged').isLogged[1][0]);
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
-    console.log(new Date ());
+    // console.log(new Date ());
 
 
     const [calories, setCalories] =  useState({
-        burning: "",
-        target: ""
+        burning: props.calories,
+        target: props.caloriesTarget
     });
 
     const handleOpenCalendar = () => {
@@ -59,11 +60,10 @@ const Logbook = (props) => {
     />
     
     isOpen ? myCal = myCal : myCal = null;
-
+    
 
 useEffect( () => {
     console.log("logbook mounted");
-    console.log(loadFromLocalStorage('isLogged').isLogged);
 },[])
 
 useEffect( () => {
@@ -77,19 +77,39 @@ useEffect( () => {
  setMyDate(momentobj);
 },[date])
 
-console.log(myDate);
+
+
 
 useEffect( () => {
-
-    LoadFitnessInfo(loadFromLocalStorage('isLogged').isLogged[1][0])
-        .then (data => {setCalories({
-            burning: data.calories
-        })})
-},[calories])
-
-
-console.log(calories.burning)
+    let isMounted = true;
+    {
     
+    setTimeout( () => {
+        if (isMounted === true)
+        LoadFitnessInfo(userId)
+        .then (data => {
+            setCalories({
+            burning: data.calories,
+            target: data.calories_target
+        })})
+    }
+    ,1500)
+   
+    }
+    return () => {isMounted = false;}
+})
+
+    let target_calories;
+
+    if (props.caloriesTarget === null) {
+        target_calories = <h2>Enter target calories</h2>
+    } else {target_calories = props.calories_target}
+
+
+
+
+
+
 
     return (
         <div className="logbook-container">
@@ -97,7 +117,7 @@ console.log(calories.burning)
             <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">
                 <BiChevronLeftSquare  className="mb-1 mr-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block' }} onClick={handleLeft}/>
-                {myDate}
+                <span className="myDate">{myDate}</span>
                 <ImCalendar className="mb-2 ml-2" style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleOpenCalendar}/>
                 <BiChevronRightSquare className="mb-1 ml-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleRight}/>
                 </h2>
@@ -108,11 +128,14 @@ console.log(calories.burning)
                
             </div>
             <div className="logbook-item text-center" id="log-calories">
-                Calories
+                <h3>TRACKING</h3>
                 <span style={{display: 'block'}}>Burn rate: {calories.burning}</span>
+                <span style={{display: 'block'}}>{target_calories}</span>
 
             </div>
-            <div className="logbook-item text-center" id="log-nurtrients">Nutrients</div>
+            <div className="logbook-item text-center" id="log-nurtrients">
+            <h3>FOOD</h3>
+            </div>
            
         </div>
         );

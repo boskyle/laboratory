@@ -57,7 +57,7 @@ const DashboardContainer = (props) => {
                 // as part of row from parent (Dashboard)            
         case "logbook":
             return (<div className="col-9 col-md-10">
-                    <Logbook/>
+                    <Logbook calories={props.calories} caloriesTarget={props.caloriesTarget}/>
                     </div>);
 
         case "settings":
