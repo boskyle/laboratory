@@ -1,23 +1,83 @@
-.log-container
+.logbook-container
 {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 100%;
     flex-wrap: wrap;
-    padding: 1em;
+    padding: 0.25em;
     background-color:#9088D4;
     border-radius:15px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;   
 
 }
-.log-item {
-    flex: 1;
+.logbook-item {
+    flex: 1 1 auto;
+    height: 100%;
     /* each item is also flex */
     display: flex column;
     border: 1px solid black;
+    border-radius:15px;
+    margin: 4px;
     text-align: center;
-    justify-content: center;
-    align-items:center;
+   
+}
 
+.logbook-item:first-child{
+    flex: 1 1 70%;
+}
+.logbook-item:not(:first-child){
+    flex: 1 1 auto;
+}
+.food-item {
+    flex: 1;
+}
+
+
+
+
+
+.tilesContainer{
+    background-color: #7872af;
+    width: 30%;
+    font-size: 0.75em;
+}
+.tiles {
+    color: black;
+    border: 1px solid black !important;
+
+}
+/* sm*/
+
+
+@media only screen and (max-width: 576px) {
+   
+  
+}
+
+@media only screen and (max-width: 991px){
+    .tilesContainer{
+        width:100% !important;
+    }
+    .logbook-container {
+        flex-direction: column;
+    }
+
+    .logbook-item:first-child{
+        flex: 1 1 20%;
+    }
+    
+
+    
+}
+
+/* will expand on  992 <=*/
+@media only screen and (min-width: 992px)  and (max-width: 1200px){
+    .tilesContainer{
+        width:80% !important;
+    }
+
+}
+@media only screen and (min-width: 1200px){
+   
 }

@@ -93,7 +93,7 @@ const DashboardContainer = (props) => {
                                 cacheOptions    
                                 placeholder="Discover.."                     
                                 loadingMessage={() => 'searching...'}
-                                noOptionsMessage={() => 'doesnt exist'} 
+                                noOptionsMessage={() => '@ username'} 
                                 loadOptions={filterUsername}              
                                 value={searchInputValue}
                                 getOptionValue={e => e.username}
