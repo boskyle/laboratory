@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import {loadFromLocalStorage} from '../LocalStorage';
+import {LoadFitnessInfo} from '../Dashboard/db-endpoints/loadProfile';
 import Modal from 'react-modal';
 import Calendar from 'react-calendar';
 import moment from 'moment';
@@ -18,6 +19,12 @@ const Logbook = (props) => {
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
     console.log(new Date ());
+
+
+    const [calories, setCalories] =  useState({
+        burning: "",
+        target: ""
+    });
 
     const handleOpenCalendar = () => {
         console.log("click");
@@ -40,7 +47,6 @@ const Logbook = (props) => {
         setMyDate(momentobj);
     }
 
-    
     let myCal = 
     <Calendar
     className="tilesContainer mx-auto"
@@ -53,7 +59,6 @@ const Logbook = (props) => {
     />
     
     isOpen ? myCal = myCal : myCal = null;
-
 
 
 useEffect( () => {
@@ -74,14 +79,22 @@ useEffect( () => {
 
 console.log(myDate);
 
+useEffect( () => {
+
+    LoadFitnessInfo(loadFromLocalStorage('isLogged').isLogged[1][0])
+        .then (data => {setCalories({
+            burning: data.calories
+        })})
+},[calories])
 
 
+console.log(calories.burning)
     
 
     return (
         <div className="logbook-container">
 
-            <div className="logbook-item text-center">
+            <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">
                 <BiChevronLeftSquare  className="mb-1 mr-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block' }} onClick={handleLeft}/>
                 {myDate}
@@ -89,8 +102,17 @@ console.log(myDate);
                 <BiChevronRightSquare className="mb-1 ml-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleRight}/>
                 </h2>
                 {myCal}
-                <div className=""></div>
+                <div className="log-food-container">
+
+                </div>
+               
             </div>
+            <div className="logbook-item text-center" id="log-calories">
+                Calories
+                <span style={{display: 'block'}}>Burn rate: {calories.burning}</span>
+
+            </div>
+            <div className="logbook-item text-center" id="log-nurtrients">Nutrients</div>
            
         </div>
         );

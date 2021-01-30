@@ -1,74 +1,68 @@
 .logbook-container
 {
-    display: flex;
-    flex-direction: row;
     width: 100%;
     height: 100%;
-    flex-wrap: wrap;
-    padding: 0.25em;
-    background-color:#9088D4;
-    border-radius:15px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;   
-
-}
-.logbook-item {
-    flex: 1 1 auto;
-    height: 100%;
-    /* each item is also flex */
-    display: flex column;
-    border: 1px solid black;
-    border-radius:15px;
-    margin: 4px;
-
-   
-}
-
-.logbook-item:first-child{
-    flex: 1 1 70%;
-}
-.logbook-item:not(:first-child){
-    flex: 1 1 auto;
-}
-.food-item {
-    flex: 1;
-}
-
-
-
-
-
-
-/* sm*/
-
-
-@media only screen and (max-width: 576px) {
-   
+    /* flex parent properties */
+    display: flex;
+    flex-flow: column wrap;
   
 }
+.logbook-item {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: inline-block;
+    /* border: 1px solid black; */
+    background-color:#9088d4;
+    margin: 0.25em;
+    padding: 0.75em;
+    font-family: raleway-bold;
+    border-radius:15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;     
+}
 
-@media only screen and (max-width: 991px){
-    .tilesContainer{
-        width:100% !important;
-    }
+.logbook-item:first-child {
+    flex: 1 1 100%;
+    position: relative;
+
+}
+.logbook-item:not(:first-child) {
+    flex:1 1 auto;
+}
+.log-food-container {
+    width: 100%;
+    height: 90%;
+    border: 1px solid black;
+    /* make container a flex */
+    flex-flow: row wrap;
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 700px){
+    
     .logbook-container {
-        flex-direction: column;
+        /* background-color: green; */
+        flex-direction: row wrap;
+    }
+    .logbook-item:first-child {
+      flex: 3;
+    }
+    .logbook-item:not(:first-child) {
+        flex: 1;
     }
 
-    .logbook-item:first-child{
-        flex: 1 1 20%;
+    .log-food-container {
+        height: 80%;
     }
     
 
+
+
     
-}
-
-/* will expand on  992 <=*/
-@media only screen and (min-width: 992px)  and (max-width: 1200px){
-    .tilesContainer{
-        width:80% !important;
-    }
-
-}
-@media only screen and (min-width: 1200px){
-   
 }
