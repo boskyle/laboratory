@@ -8,11 +8,15 @@ import './logbook.css';
 import 'react-calendar/dist/Calendar.css';
 import './calendar.css';
 import {ImCalendar} from 'react-icons/im'
+import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
 
 const Logbook = (props) => {
 
+
+    let momentobj;
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
+    const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
     console.log(new Date ());
 
     const handleOpenCalendar = () => {
@@ -22,6 +26,20 @@ const Logbook = (props) => {
                 setState(false);
             }
     }  
+    
+    const handleLeft = () => {
+        console.log("left");
+        date.setDate(date.getDate() -1);
+        momentobj = moment(date).format('MMM Do YYYY');
+        setMyDate(momentobj);
+    }
+    const handleRight = () => {
+        console.log("right");
+        date.setDate(date.getDate() +1);
+        momentobj = moment(date).format('MMM Do YYYY');
+        setMyDate(momentobj);
+    }
+
     
     let myCal = 
     <Calendar
@@ -49,13 +67,12 @@ useEffect( () => {
     })
 },[])
 
-let momentobj;
-
 useEffect( () => {
  momentobj = moment(date).format('MMM Do YYYY');
- console.log(momentobj);
+ setMyDate(momentobj);
 },[date])
 
+console.log(myDate);
 
 
 
@@ -64,9 +81,15 @@ useEffect( () => {
     return (
         <div className="logbook-container">
 
-            <div className="logbook-item">
-                <h2 className="">Food Logs <ImCalendar style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleOpenCalendar}/></h2>
+            <div className="logbook-item text-center">
+                <h2 className="w-100 mx-auto text-center mt-2">
+                <BiChevronLeftSquare  className="mb-1 mr-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block' }} onClick={handleLeft}/>
+                {myDate}
+                <ImCalendar className="mb-2 ml-2" style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleOpenCalendar}/>
+                <BiChevronRightSquare className="mb-1 ml-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleRight}/>
+                </h2>
                 {myCal}
+                <div className=""></div>
             </div>
            
         </div>

@@ -2,9 +2,15 @@
     background-color: #7872af;
     width: 40%;
     font-size: 0.75em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: none;
+    border-radius:15px;
 }
 .tiles {
     color: black;
-    border: 1px solid black !important;
+    
 
 }
