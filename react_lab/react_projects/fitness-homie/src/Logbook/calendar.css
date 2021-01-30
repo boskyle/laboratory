@@ -1,0 +1,10 @@
+.tilesContainer{
+    background-color: #7872af;
+    width: 40%;
+    font-size: 0.75em;
+}
+.tiles {
+    color: black;
+    border: 1px solid black !important;
+
+}

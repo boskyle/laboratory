@@ -1,15 +1,40 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import {loadFromLocalStorage} from '../LocalStorage';
+import Modal from 'react-modal';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import moment from 'moment';
 import './logbook.css';
+import 'react-calendar/dist/Calendar.css';
+import './calendar.css';
+import {ImCalendar} from 'react-icons/im'
 
 const Logbook = (props) => {
 
-
-    // by default assing current date
+    const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
+    console.log(new Date ());
+
+    const handleOpenCalendar = () => {
+        console.log("click");
+        setState(true);
+            if(isOpen === true)  {
+                setState(false);
+            }
+    }  
+    
+    let myCal = 
+    <Calendar
+    className="tilesContainer mx-auto"
+    tileClassName="tiles"
+    onChange={setDate}
+    value={date}
+    view={"month"}
+    dayHeaderFormat="Short"
+    // formatLongDate={'dd MMM'}
+    />
+    
+    isOpen ? myCal = myCal : myCal = null;
 
 
 
@@ -24,30 +49,26 @@ useEffect( () => {
     })
 },[])
 
+let momentobj;
 
 useEffect( () => {
-console.log(date);
+ momentobj = moment(date).format('MMM Do YYYY');
+ console.log(momentobj);
 },[date])
 
+
+
+
+    
 
     return (
         <div className="logbook-container">
 
             <div className="logbook-item">
-                <h2 className="">Food Logs</h2>
-                {/* <Calendar
-                className="tilesContainer mx-auto"
-                tileClassName="tiles"
-                onChange={setDate}
-                value={date}
-                view={"month"}
-                /> */}
+                <h2 className="">Food Logs <ImCalendar style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleOpenCalendar}/></h2>
+                {myCal}
             </div>
-            <div className="logbook-item">
-                <div className="food-item">Create food</div>
-                <div className="food-item">Search food api</div>
-                <div className="food-item">Recent food</div>    
-            </div>
+           
         </div>
         );
 }
