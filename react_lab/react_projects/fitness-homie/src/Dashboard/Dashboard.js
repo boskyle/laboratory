@@ -114,6 +114,7 @@ useEffect( () => {
 
 
 
+console.log(userFitness.calories_target);
   
 
 

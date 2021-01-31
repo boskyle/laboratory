@@ -54,7 +54,8 @@ const DashboardContainer = (props) => {
 // console.log(props.urlParam);
 
    
-
+console.log(props.caloriesTarget);
+  
     switch(props.urlParam) {
                 // as part of row from parent (Dashboard)            
         case "logbook":
@@ -86,6 +87,7 @@ const DashboardContainer = (props) => {
                                 weight={props.weight}
                                 activityLevel={props.activityLevel}
                                 calories={props.calories}
+                                caloriesTarget={props.caloriesTarget}
                             />                  
                         </div>
                         <div className="col-sm-2 col-md-2 d-none d-md-block text-center p-2">
