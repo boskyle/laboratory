@@ -93,22 +93,25 @@ useEffect( () => {
             target: data.calories_target
         })})
     }
-    ,1500)
+    ,500)
    
     }
     return () => {isMounted = false;}
 })
 
-    let target_calories;
+console.log(props);
 
-    if (props.caloriesTarget === null) {
-        target_calories = <h2>Enter target calories</h2>
-    } else {target_calories = props.calories_target}
-
+  
 
     return (
         <div className="logbook-container">
 
+            <div className="logbook-item text-center p-2">
+                <h3>TRACKING</h3>
+                <h4>Daily Burn rate: <span>{calories.burning} Calories</span></h4>
+                <h4> Daily Target: <span>{calories.target} Calories</span></h4>
+                <h3>MACRO NUTRIENTS</h3>
+            </div>
             <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">
                 <BiChevronLeftSquare  className="mb-1 mr-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block' }} onClick={handleLeft}/>
@@ -120,20 +123,7 @@ useEffect( () => {
                 <div className="log-food-container">
 
                 </div>
-               
             </div>
-            <div className="logbook-item text-center" id="log-calories">
-                <h3>TRACKING</h3>
-                <div className="tracking-items-container">
-                    <div className="tracking-item"><span style={{display: 'block'}}>Burn rate: {calories.burning}</span></div>
-                    <div className="tracking-item"><span style={{display: 'block'}}>{target_calories}</span></div>
-                </div>
-
-            </div>
-            <div className="logbook-item text-center" id="log-nurtrients">
-            <h3>FOOD</h3>
-            </div>
-           
         </div>
         );
 }

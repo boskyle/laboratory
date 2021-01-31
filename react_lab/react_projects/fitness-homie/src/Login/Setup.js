@@ -16,7 +16,7 @@ import './setup.css';
 
 
 
-
+console.log(loadFromLocalStorage('isLogged').isLogged);
 
 
 var basicInfo;
@@ -127,7 +127,8 @@ const onSubmit2 = async formData => {
         activity_level: value,
         gender: gender,
         height_cm: height_cm,
-        age: parseInt(formData.age)
+        age: parseInt(formData.age),
+        calorieTarget: parseInt(formData.calorieTarget)
     }
     basicInfoArray.push(basicInfo);
     console.log(basicInfoArray);
@@ -161,7 +162,8 @@ const onSubmit2 = async formData => {
             weight: basicInfoArray[1].weight_lbs,
             activity_level: basicInfoArray[1].activity_level,
             bmr: basicInfoArray[1].bmr,
-            calories: basicInfoArray[1].calories
+            calories: basicInfoArray[1].calories,
+            calorieTarget: basicInfoArray[1].calorieTarget
         })
     }).then(response => response.text())
             .then(response => console.log("SUCCESS"))
@@ -352,6 +354,25 @@ const onSubmit2 = async formData => {
                 />
                  {errors.weight && <span>{errors.weight.message}</span>}
                  {errors.weight?.type === "notPossible" && <span>Not possible.</span>}
+                </div>
+
+                <div className="form-group mb-1">
+                <label htmlFor="caloricTargetInput"><b>Caloric Target (kcal)</b></label>
+                <input name="calorieTarget" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="caloricTargetInput"
+                ref={register({
+                    required: {
+                        value: true,
+                        message: "Target calories is required"
+                    },
+                    pattern: {
+                        value: /^[1-9][0-9]*$/,
+                        message: "Incorrect calorie format"
+                    }
+
+                 })}
+                />
+                {errors.calorieTarget && <span>{errors.calorieTarget.message}</span>}
+
                 </div>
 
             <button type="submit" className="btn mx-auto">Done</button>

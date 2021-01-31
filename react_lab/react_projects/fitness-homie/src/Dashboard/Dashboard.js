@@ -89,12 +89,17 @@ function Dashboard() {
     const [loggedUid,setLoggedUid] = useState(undefined);
 
     useEffect( () => {
-           
+        let isMounted = true;
         // wait to fetch logged in Object (initially undefined)
         if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
         {
-        setLoggedUid(loadFromLocalStorage('isLogged').isLogged[1][0]);
+            if (isMounted === true)
+            {
+                setLoggedUid(loadFromLocalStorage('isLogged').isLogged[1][0]);
+                
+            }
         }
+        return () => {isMounted = false;}
         
 },[loadFromLocalStorage('isLogged').isLogged[1]])
 

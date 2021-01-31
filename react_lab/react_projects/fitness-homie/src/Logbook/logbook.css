@@ -4,7 +4,8 @@
     height: 100%;
     /* flex parent properties */
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
+   
   
 }
 .logbook-item {
@@ -21,13 +22,25 @@
 }
 
 .logbook-item:first-child {
-    flex: 1 1 100%;
-    position: relative;
+    flex: 1 1 auto;
+    height: 50%;
+    align-self: center;
+}
 
-}
+
 .logbook-item:not(:first-child) {
-    flex:1 1 auto;
+    flex:1 1 75%;
+    position: relative;
 }
+
+.logbook-item:first-child h4 {
+    font-size:0.5em;
+    padding: 1em;
+    border-radius:24px;
+    border: 1px solid black;
+}
+
+
 .log-food-container {
     width: 100%;
     height: 90%;
@@ -43,7 +56,7 @@
 .tracking-items-container {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: coulmn;
     flex-wrap: wrap;
     /* looks */
 }
@@ -53,7 +66,8 @@
     background-color: #706897;
     border-radius: 15px;
     padding: 0.25em;
-    width: 30%;
+    width: 100%;
+    height: 100%;
     margin: 0.25em;
 }
 
@@ -61,35 +75,23 @@
     font-size:0.5em;
 }
 
-
-
-
-
-
-
-
-
-
-
-@media only screen and (max-width: 700px){
-    
-    .logbook-container {
-        /* background-color: green; */
-        flex-direction: row wrap;
+@media only screen and (max-width: 1584px){
+    .logbook-container
+    {
+        flex-flow: column nowrap;
+        font-size: 0.5em;
     }
+    .logbook-container h3, .logbook-container h2
+    {
+        flex-flow: column nowrap;
+        font-size: 1em;
+    }
+
     .logbook-item:first-child {
-      flex: 3;
+        flex: 1 1 auto;
+        height: 25%;
+        align-self: center;
     }
-    .logbook-item:not(:first-child) {
-        flex: 1;
-    }
-
-    .log-food-container {
-        height: 80%;
-    }
-    
 
 
-
-    
 }

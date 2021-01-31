@@ -40,9 +40,11 @@ const DashboardContainer = (props) => {
       let isMounted = true;
     // console.log(selectedSearchInputValue.userlogin_id);
     if(selectedSearchInputValue !== null) {
-        if(isMounted)
-        localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
-        history.push(`/${selectedSearchInputValue.username}`);
+        if(isMounted === true) {
+
+            localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
+            history.push(`/${selectedSearchInputValue.username}`);
+        }
     }
     return () => {isMounted = false;}      
 },[selectedSearchInputValue,history])
