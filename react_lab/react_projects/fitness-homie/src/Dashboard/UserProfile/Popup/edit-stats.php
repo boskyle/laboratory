@@ -16,10 +16,11 @@ if (!$conn -> connect_error) {
 
    echo $content;
 
-    if(!$stmt = $conn->prepare("UPDATE UserFitness SET gender=?,age=?,height_cm=?,weight_lbs=?,activity_level=?,calories=? WHERE user_fitness_id=?")) {
+    if(!$stmt = $conn->prepare("UPDATE UserFitness SET gender=?,age=?,height_cm=?,weight_lbs=?,activity_level=?,calories=?,calories_target=? WHERE user_fitness_id=?")) {
            echo "Prepare failed: (". $conn->errno. ")". $conn->error;
        } else {
-           $stmt->bind_param("siiisii",$decoded['gender'],$decoded['age'],$decoded['height'],$decoded['weight'],$decoded['activity_level'],$decoded['calories'],$decoded['uid']);
+           $stmt->bind_param("siiisiii",$decoded['gender'],$decoded['age'],$decoded['height'],$decoded['weight'],$decoded['activity_level'],
+           $decoded['calories'],$decoded['caloriesTarget'],$decoded['uid']);
            $stmt->execute();
            $stmt->close();
            $conn->close();

@@ -23,10 +23,22 @@
   align-items: center;
 }
 
-
+.pop-form-stats-update {
+  position: relative;
+}
+.pop-form-stats-update label{
+  color: black;
+  font-size:0.5em !important;
+}
 .save-button {
-  margin-top: 4em;
   width: 50%;
+  height: 7%;
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0.5em;
+  margin: auto;
 }
 .edit-button{
   border: 2px solid black;

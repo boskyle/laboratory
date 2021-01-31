@@ -10,7 +10,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
       
 
 
-    let edit,edit2;
+    let edit,edit2,edit3;
    
     const [suid,setSuid] = useState(undefined);
 
@@ -35,7 +35,8 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
             if (userid === suid)
             {
                 edit =  <Popup identity="userProfile" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
-                edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
+                edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} caloriesTarget={caloriesTarget}/>
+                edit3 = <Popup identity="userTargetCalories" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
             }
             
             // console.log(selector);
@@ -81,7 +82,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
                                 <ul>
                                    <li>Activity Level: <span>{activityLevel}</span></li>
                                    <li>Daily Burn: <span>{calories} Calories</span></li>
-                                   <li>Daily Calories: <span>{caloriesTarget} Calories</span></li>
+                                   <li>Daily Calories:<span>{caloriesTarget} Calories</span></li>
                                 </ul>
                             </div>
                         </div>

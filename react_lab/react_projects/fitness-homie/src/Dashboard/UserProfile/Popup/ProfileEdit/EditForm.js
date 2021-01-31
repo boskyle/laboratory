@@ -22,7 +22,8 @@ export const EditForm = (props) => {
             firstname: props.firstname,
             lastname: props.lastname,
             weight:props.weight,
-            age: props.age
+            age: props.age,
+            calorieTarget: props.caloriesTarget
         }
     });
 
@@ -101,6 +102,8 @@ export const EditForm = (props) => {
     const [feet, setFeet] = useState(takeFeet(props.height));
     const [inches, setInches] = useState(takeInches(props.height));
     const [actLevel, setLevel] = useState(props.activityLevel);
+
+
 
    
    
@@ -184,7 +187,8 @@ export const EditForm = (props) => {
                 height: inchesToCentimeters(feet,parseInt(inches)),
                 weight: formData.weight,
                 activity_level: actLevel,
-                calories: calculateCalories(calculateBMR(gender,formData.weight,inchesToCentimeters(feet,parseInt(inches)),formData.age),actLevel)
+                calories: calculateCalories(calculateBMR(gender,formData.weight,inchesToCentimeters(feet,parseInt(inches)),formData.age),actLevel),
+                caloriesTarget: formData.calorieTarget
             })
         }).then(response => response.json())
             .then (response => console.log(response))
@@ -281,7 +285,6 @@ export const EditForm = (props) => {
     >     
                         <form className="pop-form-stats-update" onSubmit={handleSubmit(onEditStyles)} noValidate>
                         <ImCross className="exit-icon" onClick={handleClose}/>
-                        <h2 className="mt-2">Edit Stats</h2>
                         <div className="form-group mb-0 mt-2">
                             <label htmlFor="genderInput" style={{display:"block"}}><b>Gender</b></label>
                             <select value={gender} onChange={dropDownGender} className="w-25 mx-auto text-center" aria-describedby="genderInput">
@@ -336,7 +339,7 @@ export const EditForm = (props) => {
                             </select>
                         </div>
 
-                        <div className="form-group mt-3">
+                        <div className="form-group ">
                         <label htmlFor="weightInput"><b>Weight (lbs)</b></label>
                         <input name="weight" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="weightInput"
                         ref={register({              
@@ -352,7 +355,7 @@ export const EditForm = (props) => {
                  {errors.weight && <span>{errors.weight.message}</span>}
                  {errors.weight?.type === "notPossible" && <span>Not possible.</span>}
                         </div>
-                        <div className="form-group mt-2">
+                        <div className="form-group">
 
                         <label htmlFor="activityInput" style={{display:"block"}}><b>Activity</b></label>
                         <select value={actLevel} onChange={dropDownActivity} className="w-75 mx-auto" aria-describedby="activityInput">
@@ -364,12 +367,38 @@ export const EditForm = (props) => {
                          <option value="extra-active">hard exercise 2 or more times per day, or training for marathon, or triathlon, etc.. </option>
                         </select>
                         </div>
+                        <div className="form-group">
+                        <label htmlFor="caloricTargetInput"><b>Caloric Target (kcal)</b></label>
+                        <input name="calorieTarget" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="caloricTargetInput"
+                        ref={register({
+                            pattern: {
+                                value: /^[1-9][0-9]*$/,
+                                message: "Incorrect calorie format"
+                            }
+
+                        })}
+                        />
+                {errors.calorieTarget && <span>{errors.calorieTarget.message}</span>}
+
+                </div>
 
                         <button  type="submit"  className="btn save-button">Save</button>
                         </form>
     
     </Modal>
 
+    const caloricTargetEdit =
+    <Modal 
+    isOpen={showPop}
+    onRequestClose={handleClose}
+    contentLabel="Minimal Modal Example"
+    className="popUp"
+    overlayClassName="overlay"
+    >     
+    <form className="pop-form-stats-update" noValidate>
+    <ImCross className="exit-icon" onClick={handleClose}/>
+    </form>
+    </Modal>
 
      
         if (form === "userProfile")
@@ -383,8 +412,12 @@ export const EditForm = (props) => {
              <BiEdit  className=" mb-1 edit-icon"style={{position: "relative",display: "inline-block"}} onClick={handleOpen}/>    
            {statsEdit}              
             </>
+        } else if (form === "userTargetCalories") {
+            return <> 
+              <BiEdit  className=" mb-1 edit-icon"style={{position: "relative",display: "inline-block"}} onClick={handleOpen}/>    
+              {caloricTargetEdit}      
+                </>
         }
-
 
         return (
             <> 

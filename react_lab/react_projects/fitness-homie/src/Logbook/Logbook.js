@@ -110,7 +110,7 @@ console.log(props);
                 <h3>TRACKING</h3>
                 <h4>Daily Burn rate: <span>{calories.burning} Calories</span></h4>
                 <h4> Daily Target: <span>{calories.target} Calories</span></h4>
-                <h3>MACRO NUTRIENTS</h3>
+                <h3>TODAY</h3>
             </div>
             <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">

@@ -54,7 +54,7 @@ const DashboardContainer = (props) => {
 // console.log(props.urlParam);
 
    
-console.log(props.caloriesTarget);
+
   
     switch(props.urlParam) {
                 // as part of row from parent (Dashboard)            
