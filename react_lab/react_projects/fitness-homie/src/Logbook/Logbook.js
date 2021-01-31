@@ -106,11 +106,6 @@ useEffect( () => {
     } else {target_calories = props.calories_target}
 
 
-
-
-
-
-
     return (
         <div className="logbook-container">
 
@@ -129,8 +124,10 @@ useEffect( () => {
             </div>
             <div className="logbook-item text-center" id="log-calories">
                 <h3>TRACKING</h3>
-                <span style={{display: 'block'}}>Burn rate: {calories.burning}</span>
-                <span style={{display: 'block'}}>{target_calories}</span>
+                <div className="tracking-items-container">
+                    <div className="tracking-item"><span style={{display: 'block'}}>Burn rate: {calories.burning}</span></div>
+                    <div className="tracking-item"><span style={{display: 'block'}}>{target_calories}</span></div>
+                </div>
 
             </div>
             <div className="logbook-item text-center" id="log-nurtrients">

@@ -40,6 +40,29 @@
     color: #EBCFC4;
 }
 
+.tracking-items-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* looks */
+}
+
+.tracking-item {
+    /* border: 1px solid black; */
+    background-color: #706897;
+    border-radius: 15px;
+    padding: 0.25em;
+    width: 30%;
+    margin: 0.25em;
+}
+
+.tracking-item span, .tracking-item h2{
+    font-size:0.5em;
+}
+
+
+
 
 
 
