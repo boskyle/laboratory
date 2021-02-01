@@ -40,19 +40,6 @@
     background-color: #706897;
 }
 
-
-.log-food-container {
-    width: 100%;
-    height: 90%;
-    border: 1px solid black;
-    /* make container a flex */
-    flex-flow: row wrap;
-}
-
-.myDate, h3 {
-    color: #EBCFC4;
-}
-
 .tracking-items-container {
     width: 100%;
     display: flex;
@@ -74,6 +61,33 @@
 .tracking-item span, .tracking-item h2{
     font-size:0.5em;
 }
+
+.log-food-container {
+    width: 100%;
+    height: 90%;
+    border-radius:24px;
+    background-color: #706897;
+    position: relative;
+    padding: 1em;
+
+    /* make container a flex */
+    display: flex;
+    flex-flow: row wrap;
+    z-index: 1;
+  
+}
+
+.add-food {
+    color: #EBCFC4;
+    margin: 0em auto 0em auto;
+    align-self: center;
+    cursor: pointer;
+}
+
+.myDate, h3 {
+    color: #EBCFC4;
+}
+
 
 @media only screen and (max-width: 764px){
     .logbook-container

@@ -9,6 +9,7 @@ import './logbook.css';
 import 'react-calendar/dist/Calendar.css';
 import './calendar.css';
 import {ImCalendar} from 'react-icons/im'
+import {MdAddBox} from 'react-icons/md';
 import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
 
 const Logbook = (props) => {
@@ -102,7 +103,10 @@ useEffect( () => {
 },[props.calories,props.caloriesTarget])
 
 
-
+// anytime date changes
+useEffect( () => {
+console.log(myDate);
+},[myDate])
 
   
 
@@ -123,8 +127,10 @@ useEffect( () => {
                 <BiChevronRightSquare className="mb-1 ml-4" style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}} onClick={handleRight}/>
                 </h2>
                 {myCal}
+            
                 <div className="log-food-container">
-
+                    <div>hello</div>
+                    <h4 className="add-food">ADD FOOD<MdAddBox  className="mb-1 ml-1"style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}}/></h4>
                 </div>
             </div>
         </div>
