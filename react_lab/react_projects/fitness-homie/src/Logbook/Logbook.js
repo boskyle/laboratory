@@ -8,7 +8,7 @@ import moment from 'moment';
 import './logbook.css';
 import 'react-calendar/dist/Calendar.css';
 import './calendar.css';
-import {ImCalendar} from 'react-icons/im'
+import {ImCalendar,ImCross} from 'react-icons/im'
 import {MdAddBox} from 'react-icons/md';
 import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
 
@@ -20,6 +20,7 @@ const Logbook = (props) => {
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
+    const [isOpenFood,setOpenFood] = useState(false);
     // console.log(new Date ());
 
 
@@ -48,6 +49,15 @@ const Logbook = (props) => {
         momentobj = moment(date).format('MMM Do YYYY');
         setMyDate(momentobj);
     }
+    const handleOpenFood = () => {
+        console.log("Opened!");
+        setOpenFood(true);
+    }
+
+    const handleCloseFood = () => {
+        console.log("Opened!");
+        setOpenFood(false);
+    }
 
     let myCal = 
     <Calendar
@@ -57,7 +67,6 @@ const Logbook = (props) => {
     value={date}
     view={"month"}
     dayHeaderFormat="Short"
-    // formatLongDate={'dd MMM'}
     />
     
     isOpen ? myCal = myCal : myCal = null;
@@ -129,8 +138,26 @@ console.log(myDate);
                 {myCal}
             
                 <div className="log-food-container">
-                    <div>hello</div>
-                    <h4 className="add-food">ADD FOOD<MdAddBox  className="mb-1 ml-1"style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}}/></h4>
+                <Modal 
+                isOpen={isOpenFood}
+                onRequestClose={handleCloseFood}
+                contentLabel="Add food modal"
+                className="popUpFood"
+                overlayClassName="overlay"
+                >
+                  
+                    <ImCross className="exit-icon" onClick={handleCloseFood}/>
+                    <div className="popUpFood-item"><h4>Your food</h4></div>
+                    <div className="popUpFood-item"><h4>Create food</h4></div>
+                    <div className="popUpFood-item"><h4>Search food</h4></div>
+                    
+                    {/* <form className="pop-form-addfood" noValidate>
+                   
+                    <label htmlFor="caloricTargetInput"><b>Food Name</b></label>
+                    </form> */}
+                </Modal>
+                   
+                    <h4 className="add-food" onClick={handleOpenFood}>ADD FOOD<MdAddBox  className="mb-1 ml-1"style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}}/></h4>
                 </div>
             </div>
         </div>

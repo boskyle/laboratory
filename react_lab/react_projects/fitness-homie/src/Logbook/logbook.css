@@ -73,16 +73,57 @@
     /* make container a flex */
     display: flex;
     flex-flow: row wrap;
-    z-index: 1;
+   
   
 }
-
 .add-food {
     color: #EBCFC4;
     margin: 0em auto 0em auto;
     align-self: center;
     cursor: pointer;
+    border: 4px dotted #EBCFC4;
+    padding: 0.25em
 }
+
+
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+}
+
+  .popUpFood {
+    position: relative;
+    width: 50%;
+    height: 65%;
+    margin: auto;
+    top: 20%;
+    left: 16.5%;
+    background-color: #bbdfc8;
+    border-radius:24px;
+    padding: 1em;
+
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .popUpFood-item {
+      border: 1px solid black;
+      flex: 1;
+      /* each item is flex */
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+      padding: 0.5em;
+  }
+
+
+
 
 .myDate, h3 {
     color: #EBCFC4;
@@ -105,6 +146,12 @@
         flex: 1 1 auto;
         height: 25%;
         align-self: center;
+    }
+
+    .popUpFood {
+        width: 100%;
+        left:0%;
+        flex-direction: column;
     }
 
 
