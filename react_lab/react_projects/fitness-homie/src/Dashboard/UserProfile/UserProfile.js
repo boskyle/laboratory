@@ -91,7 +91,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
 
 
 
-                    <div className="user-profile-item"><h3>WORKOUT</h3></div>      
+                    <div className="user-profile-item"><h3>WORKOUT</h3> <ul>weekly workout playlist</ul></div>      
                 </div>  
             );
         } else {

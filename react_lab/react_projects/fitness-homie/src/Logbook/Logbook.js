@@ -96,10 +96,13 @@ useEffect( () => {
     ,500)
    
     }
+    
     return () => {isMounted = false;}
-})
+    
+},[props.calories,props.caloriesTarget])
 
-console.log(props);
+
+
 
   
 
