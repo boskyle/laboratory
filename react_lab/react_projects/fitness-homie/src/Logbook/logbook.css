@@ -4,7 +4,7 @@
     height: 100%;
     /* flex parent properties */
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
    
   
 }
@@ -113,15 +113,47 @@
   }
 
   .popUpFood-item {
-      border: 1px solid black;
+      position: relative;
+      /* border: 1px solid black; */
       flex: 1;
       /* each item is flex */
       display: flex;
       flex-flow: column wrap;
       align-items: center;
       padding: 0.5em;
+      margin: 0em 0.25em 0em 0.25em;
   }
 
+  .popUpFood-item:nth-child(3) {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+
+  }
+
+.pop-form-createfood {
+    width: 100%;
+    height: 100%;
+    font-size:2em;
+    text-align: center;
+    align-items: center;
+    background-color: transparent;
+    box-shadow:none;
+}
+.pop-form-createfood label{
+    color: black;
+}
+.pop-form-createfood input{
+    margin: 0em auto 0em auto;
+    width: 50%;
+}
+.pop-form-createfood button {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    background-color: transparent;
+    color: black;
+    border: 3px dotted black;
+}
 
 
 
@@ -150,7 +182,10 @@
 
     .popUpFood {
         width: 100%;
+        height: 100%;
+        /* font-size:40%; */
         left:0%;
+        top: 0%;
         flex-direction: column;
     }
 

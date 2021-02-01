@@ -11,9 +11,10 @@ import './calendar.css';
 import {ImCalendar,ImCross} from 'react-icons/im'
 import {MdAddBox} from 'react-icons/md';
 import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
-
+import {useForm} from 'react-hook-form';
 const Logbook = (props) => {
 
+   
 
     let momentobj;
     const [userId] = useState(loadFromLocalStorage('isLogged').isLogged[1][0]);
@@ -21,6 +22,8 @@ const Logbook = (props) => {
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
     const [isOpenFood,setOpenFood] = useState(false);
+    const {register, handleSubmit, errors, reset} = useForm();
+   
     // console.log(new Date ());
 
 
@@ -119,6 +122,15 @@ console.log(myDate);
 
   
 
+const onSubmit = async (formData,event) => {
+
+    event.preventDefault();
+
+
+
+
+}
+
     return (
         <div className="logbook-container">
 
@@ -144,12 +156,31 @@ console.log(myDate);
                 contentLabel="Add food modal"
                 className="popUpFood"
                 overlayClassName="overlay"
+                ariaHideApp={false}
                 >
                   
                     <ImCross className="exit-icon" onClick={handleCloseFood}/>
                     <div className="popUpFood-item"><h4>Your food</h4></div>
-                    <div className="popUpFood-item"><h4>Create food</h4></div>
-                    <div className="popUpFood-item"><h4>Search food</h4></div>
+                    <div className="popUpFood-item">
+                   
+                    <form className="pop-form-createfood"  onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <h4 className="mt-1">Create food</h4>
+                    <label htmlFor="caloricTargetInput"><b>Food name</b></label>
+                    <input name="foodName" type="text" className="form-control" id="" aria-describedby="emailInput"
+                                        ref={register({
+                                           
+                                          
+                                        })}
+                                        
+                                        />
+
+                    
+
+
+                        <button  className="btn mx-auto">Add</button>
+                    </form>
+                    </div>
+                    <div className="popUpFood-item"><h4>Search food (do this last)</h4></div>
                     
                     {/* <form className="pop-form-addfood" noValidate>
                    
