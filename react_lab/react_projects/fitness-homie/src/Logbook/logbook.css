@@ -127,7 +127,6 @@
   .popUpFood-item:nth-child(3) {
       border-left: 1px solid black;
       border-right: 1px solid black;
-
   }
 
 .pop-form-createfood {
@@ -135,7 +134,7 @@
     height: 100%;
     font-size:2em;
     text-align: center;
-    align-items: center;
+    align-items: center; 
     background-color: transparent;
     box-shadow:none;
 }
