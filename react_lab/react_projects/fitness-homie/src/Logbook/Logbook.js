@@ -126,7 +126,8 @@ const onSubmit = async (formData,event) => {
 
     event.preventDefault();
 
-
+    console.log(formData);
+    setOpenFood(false);
 
 
 }
@@ -165,16 +166,42 @@ const onSubmit = async (formData,event) => {
                    
                     <form className="pop-form-createfood"  onSubmit={handleSubmit(onSubmit)} noValidate>
                     <h4 className="mt-1">Create food</h4>
+                    <div className="form-group mx-auto">
+
                     <label htmlFor="caloricTargetInput"><b>Food name</b></label>
-                    <input name="foodName" type="text" className="form-control" id="" aria-describedby="emailInput"
+                    <input name="foodName" type="text" className="form-control" id="" aria-describedby="foodnameInput"
                                         ref={register({
-                                           
+                                            required: {
+                                                value: true,
+                                                message: "please provide a food name."
+                                            }
+                                          
+                                        })}                   
+                    />
+                    {errors.foodName && <span>{errors.foodName.message}</span>}
+                    </div>
+                    <div className="form-group mx-auto">
+                    <label htmlFor="caloricTargetInput"><b>Calories</b></label>
+                     <input name="foodCalories" type="text"  className="form-control" id="" aria-describedby="foodcaloriesInput"
+                                        ref={register({
+                                            required: {
+                                                value: true,
+                                                message: "please provide caloric amount."
+                                            },
+                                            pattern: {
+                                                value: /^[1-9][0-9]*$/,
+                                                message: "Numbers only allowed."
+                                            }    
                                           
                                         })}
                                         
-                                        />
-
-                    
+                    />
+                     {errors.foodCalories && <span>{errors.foodCalories.message}</span>}
+                    </div>
+                    <label htmlFor="caloricTargetInput" style={{display:"block"}}><b>Macronutrients (Optional)</b></label>
+                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="C(g)"/>
+                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="P(g)"/>
+                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="F(g)"/>
 
 
                         <button  className="btn mx-auto">Add</button>
