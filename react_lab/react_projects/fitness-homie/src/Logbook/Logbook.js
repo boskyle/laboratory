@@ -12,6 +12,7 @@ import {ImCalendar,ImCross} from 'react-icons/im'
 import {MdAddBox} from 'react-icons/md';
 import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
 import {useForm} from 'react-hook-form';
+import {FoodItem} from './FoodItem/FoodItem';
 const Logbook = (props) => {
 
    
@@ -120,6 +121,10 @@ useEffect( () => {
 console.log(myDate);
 },[myDate])
 
+useEffect( () => {
+console.log("do a pull from users foodlist");
+},[isOpenFood])
+
   
 
 const onSubmit = async (formData,event) => {
@@ -161,7 +166,16 @@ const onSubmit = async (formData,event) => {
                 >
                   
                     <ImCross className="exit-icon" onClick={handleCloseFood}/>
-                    <div className="popUpFood-item"><h4>Your food</h4></div>
+                
+                    <div className="popUpFood-item">
+                        <h4>Your food</h4>
+                        <div className="pop-userfoodlist w-100 h-100 mt-5">
+                        <FoodItem/>
+                           
+                        </div>
+                        
+
+                    </div>
                     <div className="popUpFood-item">
                    
                     <form className="pop-form-createfood"  onSubmit={handleSubmit(onSubmit)} noValidate>

@@ -124,10 +124,39 @@
       margin: 0em 0.25em 0em 0.25em;
   }
 
+
+    .popUpFood-item:nth-child(2) > h4 {
+        position: absolute; 
+    }
+    .pop-userfoodlist {
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-start;
+    }
+
+    .pop-userfoodlist > div {
+        flex:0 0 30%;
+        margin: 0.25em;
+        padding: 0.25em;
+        background-color:#706897;
+        cursor: pointer;
+        border-radius:14px;
+    }
+    .pop-userfoodlist > div ul{
+        padding: 0;
+        list-style-type: none;
+      
+    }
+
+
+
+
   .popUpFood-item:nth-child(3) {
       border-left: 1px solid black;
       border-right: 1px solid black;
   }
+
+
   .exit-icon {
       font-size:1.5em;
       color: red;
