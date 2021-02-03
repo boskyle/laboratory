@@ -18,7 +18,6 @@ export const EditForm = (props) => {
 
     const {register, handleSubmit, errors} = useForm({
         defaultValues: {
-            username : props.username,
             firstname: props.firstname,
             lastname: props.lastname,
             weight:props.weight,
@@ -155,7 +154,6 @@ export const EditForm = (props) => {
             },
             body: JSON.stringify({
                 userId: props.userId,
-                username: formData.username,
                 firstname: formData.firstname,
                 lastname: formData.lastname
             })
@@ -164,7 +162,7 @@ export const EditForm = (props) => {
         
         // instantly to redux state
         dispatch(authenticateUserLoggedIn(props.userId,formData.username));
-        history.push(`/${formData.username}`);
+        history.push(`/${props.username}`);
         console.log(formData);
         window.location.reload();
         // setShowPop(false);
@@ -208,32 +206,6 @@ export const EditForm = (props) => {
 >     
     <form className="pop-form-profile-update" onSubmit={handleSubmit(onEditProfile)} noValidate>
     <ImCross className="exit-icon" onClick={handleClose}/>
-    <div className="form-group pop-up-form-group mb-2">
-    <label htmlFor="emailInput"><h4>Username</h4></label>
-    <input name="username" type="text"  className="form-control w-50 mx-auto text-center" aria-describedby="usernameInput"
-        ref={register({
-            required: {
-                value: true,
-                message: "You can't leave it blank silly."
-            },
-            pattern: {
-                value: /^[a-zA-Z0-9]{4,10}$/,
-                message: "Length should be: 4-10 with no special characters."
-            },
-            validate: {
-                userNameExist: value => isUsernameExistWithCheck(value,props.username)
-            }
-        })}
-               
-        />
-        {errors.username && <span>{errors.username.message}</span>}
-        {errors.username?.type === "userNameExist" && (
-        <span>Username already exists.</span>
-        )}
-        {errors.username?.type === "sameUsername" && (
-        <span>Same username.</span>
-        )}
-    </div>
     {/* firstname */}
     <div className="form-group pop-up-form-group mb-2">
     <label htmlFor="emailInput"><h4>Firstname</h4></label>

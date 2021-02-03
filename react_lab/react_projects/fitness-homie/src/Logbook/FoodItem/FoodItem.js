@@ -6,8 +6,7 @@ import React from 'react';
 export const FoodItem = () => {
 
 
-    return (
-      
+    return (   
         <div>
         <span>food name</span>
         <ul>
