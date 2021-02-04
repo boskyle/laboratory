@@ -212,10 +212,41 @@ const onSubmit = async (formData,event) => {
                     />
                      {errors.foodCalories && <span>{errors.foodCalories.message}</span>}
                     </div>
+                    <div className="form-group mx-auto">
                     <label htmlFor="caloricTargetInput" style={{display:"block"}}><b>Macronutrients (Optional)</b></label>
-                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="C(g)"/>
-                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="P(g)"/>
-                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="F(g)"/>
+                    
+                    <input name="foodCarbs" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="C(g)"
+                      ref={register({
+                        pattern: {
+                            value: /^[1-9][0-9]*$/,
+                            message: "Enter only the NUMBER of carbs.."
+                        }    
+                      })}  
+                    />
+                    <input name="foodProtein" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="P(g)"
+                     ref={register({
+                        pattern: {
+                            value: /^[1-9][0-9]*$/,
+                            message: "Enter only the NUMBER of protein.."
+                        }    
+                      })}  
+                    />
+                    <input name="foodFat" type="text" className="form-control w-25 mx-1" style={{display: 'inline-block'}} placeholder="F(g)"
+                     ref={register({
+                        pattern: {
+                            value: /^[1-9][0-9]*$/,
+                            message: "Enter only the NUMBER of fat.."
+                        }    
+                      })}  
+                    />
+                   
+
+                    {errors.foodCarbs && <span  className="mt-2" style={{display: 'block', fontSize: '0.6em'}}>{errors.foodCarbs.message}</span>}
+                    {errors.foodProtein && <span  className="mt-2" style={{display: 'block', fontSize: '0.6em'}}>{errors.foodProtein.message}</span>}
+                    {errors.foodFat && <span  className="mt-2" style={{display: 'block', fontSize: '0.6em'}}>{errors.foodFat.message}</span>}
+                 
+                    </div>
+
 
 
                         <button  className="btn mx-auto">Add</button>
