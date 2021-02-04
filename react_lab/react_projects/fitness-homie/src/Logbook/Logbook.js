@@ -129,10 +129,38 @@ console.log("do a pull from users foodlist");
 
 const onSubmit = async (formData,event) => {
 
+    let createFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/createfood.php';
+    // prevents page from refeshing aswell as disable normal operations of a typical submit function of a form..
     event.preventDefault();
+    // get the username that is logged in
+   console.log(loadFromLocalStorage('isLogged').isLogged);
+   let uname = loadFromLocalStorage('isLogged').isLogged[1][1];
+    //send username + formData to the database
 
-    console.log(formData);
-    setOpenFood(false);
+    // assign food php url and convert formData object + username to JSON format
+    fetch(createFoodUrl,{
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: uname,
+            foodname: formData.foodName,
+            calories: parseInt(formData.foodCalories),
+            carbohydrates: parseInt(formData.foodCarbs),
+            protein: parseInt(formData.foodProtein),
+            fat: parseInt(formData.foodFat)
+        })
+    }).then(response => response.text())
+    .then(response =>console.log(response))
+        .catch(err => console.log(err))
+
+
+
+
+    // close the modal
+    // setOpenFood(false);
 
 
 }
