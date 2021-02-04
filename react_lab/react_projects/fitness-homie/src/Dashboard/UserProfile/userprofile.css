@@ -68,6 +68,7 @@
     padding: 1em;
     margin: 0px 4px 10px 4px;
     overflow: auto;   
+    font-size: 0.75em;
 }
 .journal-item:first-child {
     flex: 1 1 50%;
@@ -153,7 +154,7 @@
 
     .journal-item {
         height: 90%;
-        font-size: 0.85em;
+        font-size: 0.50em;
     }
   }
 

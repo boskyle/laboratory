@@ -160,7 +160,7 @@ const onSubmit = async (formData,event) => {
 
 
     // close the modal
-    // setOpenFood(false);
+    setOpenFood(false);
 
 
 }
@@ -198,7 +198,7 @@ const onSubmit = async (formData,event) => {
                     <div className="popUpFood-item">
                         <h4>Your food</h4>
                         <div className="pop-userfoodlist w-100 h-100 mt-5">
-                        <FoodItem/>
+                        <FoodItem />
                            
                         </div>
                         

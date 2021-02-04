@@ -135,12 +135,17 @@
     }
 
     .pop-userfoodlist > div {
-        flex:0 0 30%;
+        
         margin: 0.25em;
-        padding: 0.25em;
-        background-color:#706897;
+        padding: 0.5em;
+        background-color:#709DAF;
+        border-radius:8px;
         cursor: pointer;
-        border-radius:14px;
+    }
+
+    /* get the first ul (foodname) */
+    .pop-userfoodlist > div > ul > li:first-child{
+        text-decoration: underline;
     }
     .pop-userfoodlist > div ul{
         padding: 0;
