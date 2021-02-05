@@ -34,13 +34,19 @@ export const FoodItem = () => {
 
 
    
-    const deleteFoodItem = () => {
+    const deleteFoodItem = (e) => {
         let tempArray = foodItems;
-        tempArray.splice(0,1)
+
+        // get attribute
+        // let {target} = e.event;
+        let curDeletedIndex = e.target.getAttribute('food-index');
+        tempArray.splice(curDeletedIndex,1)
         console.log("spicer");
         setFoodItems([...tempArray]);
         
     }
+
+   
  
 
  
@@ -49,7 +55,9 @@ export const FoodItem = () => {
         {foodItems.map((foodItem,index) => (
         <div key={index}>
             <ul>
-                <li>{foodItem.foodname}<FaTrashAlt className="ml-1 mb-1 text-danger" style={{position: 'relative',float: 'right'}} onClick={deleteFoodItem}/></li>
+                <li>{foodItem.foodname}<FaTrashAlt className="ml-1 mb-1 text-danger" style={{position: 'relative',float: 'right'}} onClick={deleteFoodItem}
+                food-index={index}              
+                /></li>
                 <li className="mx-1" style={{display: 'inline-block'}}>cals:{foodItem.calories}</li>
                 <li className="mx-1" style={{display: 'inline-block'}}>c: {foodItem.carbohydrates}</li>
                 <li className="mx-1" style={{display: 'inline-block'}}>p: {foodItem.protein} </li>
