@@ -1,5 +1,4 @@
 import {useForm} from 'react-hook-form';
-import {isUsernameExistWithCheck} from  '../../../../DB/validation';
 import {authenticateUserLoggedIn} from '../../../../redux/actions';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';

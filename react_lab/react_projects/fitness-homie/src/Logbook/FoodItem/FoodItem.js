@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import {loadFromLocalStorage} from '../../LocalStorage';
-
+import {FaTrashAlt} from 'react-icons/fa';
 
 
 
@@ -26,19 +26,30 @@ export const FoodItem = () => {
 
     const [foodItems, setFoodItems] = useState(undefined);
 
+
+
     useEffect(() =>{
         fetchUserFoods();
     },[])
 
-    console.log(foodItems);
 
+   
+    const deleteFoodItem = () => {
+        let tempArray = foodItems;
+        tempArray.splice(0,1)
+        console.log("spicer");
+        setFoodItems([...tempArray]);
+        
+    }
+ 
 
+ 
     if(foodItems !== undefined)
     return ( <>
         {foodItems.map((foodItem,index) => (
         <div key={index}>
             <ul>
-                <li>{foodItem.foodname}</li>
+                <li>{foodItem.foodname}<FaTrashAlt className="ml-1 mb-1 text-danger" style={{position: 'relative',float: 'right'}} onClick={deleteFoodItem}/></li>
                 <li className="mx-1" style={{display: 'inline-block'}}>cals:{foodItem.calories}</li>
                 <li className="mx-1" style={{display: 'inline-block'}}>c: {foodItem.carbohydrates}</li>
                 <li className="mx-1" style={{display: 'inline-block'}}>p: {foodItem.protein} </li>

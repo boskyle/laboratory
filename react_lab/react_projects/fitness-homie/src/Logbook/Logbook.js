@@ -189,7 +189,7 @@ const onSubmit = async (formData,event) => {
                 onRequestClose={handleCloseFood}
                 contentLabel="Add food modal"
                 className="popUpFood"
-                overlayClassName="overlay"
+                overlayClassName="lg-overlay"
                 ariaHideApp={false}
                 >
                   
