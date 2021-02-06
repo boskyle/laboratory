@@ -152,10 +152,7 @@ const onSubmit = async (formData,event) => {
             protein: parseInt(formData.foodProtein),
             fat: parseInt(formData.foodFat)
         })
-    }).then(response => response.text())
-    .then(response =>console.log(response))
-        .catch(err => console.log(err))
-
+    })
 
 
 

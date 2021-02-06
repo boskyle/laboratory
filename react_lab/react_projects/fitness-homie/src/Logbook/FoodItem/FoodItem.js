@@ -25,9 +25,7 @@ export const FoodItem = () => {
 
 
     const [foodItems, setFoodItems] = useState(undefined);
-
-
-
+  
     useEffect(() =>{
         fetchUserFoods();
     },[])
@@ -35,24 +33,44 @@ export const FoodItem = () => {
 
    
     const deleteFoodItem = (e) => {
+
+        const deleteFoodFromDatabase = async (uname,arrayIndex) => {
+            let url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/deletefood.php';
+            
+                await fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username: uname,
+                        rowNumber: parseInt(arrayIndex)
+                    })
+                })
+
+                 
+        }
+
         let tempArray = foodItems;
 
         /*  get attribute 'food-index' which contains the cur .index (location of the clicked element)
             and use it as a reference for deletion (splice)
         */
-        let curDeletedIndex = e.target.getAttribute('food-index');
+
+        /*
+        Use e.currentTarget.getAttribute('data-value'). The target property refers to the dom 
+        element on which the event originated (which will be the svg element), whereas currentTarget refers to the 
+        element to which the handler was attached.        
+        */
+
+        let curDeletedIndex = e.currentTarget.getAttribute('food-index');
+        // setIndex(e.currentTarget.getAttribute('food-index'));
         tempArray.splice(curDeletedIndex,1)
-        // change the current array stored in state 'foodItems
+        // change the current array stored in state 'foodItems'
         setFoodItems([...tempArray]);
-   
-        
-        const deleteFoodFromDatabase = () => {
-            let url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/deletefood.php';
-            
-
-        }
-
+        let username = loadFromLocalStorage('isLogged').isLogged[1][1];
+        deleteFoodFromDatabase(username,curDeletedIndex);    
     }
+
+    
+
 
 
  
