@@ -15,7 +15,7 @@ if (!$conn-> connect_error) {
 
 
   
-    if (!$stmt = $conn->prepare("SELECT foodname,calories,carbohydrates,protein,fat FROM UserFoodsList WHERE username = ?")) {
+    if (!$stmt = $conn->prepare("SELECT foodname,calories,carbohydrates,protein,fat FROM UserFoodsList WHERE username = ? ORDER by foodname ASC")) {
         echo "Prepare failed: (". $conn->errno. ")". $conn->error;
     } else {
     

@@ -190,17 +190,16 @@ const onSubmit = async (formData,event) => {
                 contentLabel="Add food modal"
                 className="popUpFood"
                 overlayClassName="lg-overlay"
-                ariaHideApp={false}
+                ariaHideApp={false}  
                 >
                   
                     <ImCross className="exit-icon" onClick={handleCloseFood}/>
                 
                     <div className="popUpFood-item">
                         <h4>Your food</h4>
-                        <div className="pop-userfoodlist w-100 h-100 mt-5">
-                        <FoodItem />
-                           
-                        </div>
+                            <div className="pop-userfoodlist w-100 h-100 mt-5">
+                                <FoodItem />   
+                            </div>
                         
 
                     </div>

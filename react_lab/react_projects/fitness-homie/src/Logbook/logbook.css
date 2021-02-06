@@ -110,6 +110,7 @@
 
     display: flex;
     flex-flow: row wrap;
+    overflow-y: auto;
   }
 
   .popUpFood-item {
@@ -126,7 +127,7 @@
 
 
     .popUpFood-item:nth-child(2) > h4 {
-        position: absolute; 
+        position: absolute;
     }
     .pop-userfoodlist {
         display: flex;
@@ -152,12 +153,10 @@
         list-style-type: none;
     }
 
-
-
-
   .popUpFood-item:nth-child(3) {
       border-left: 1px solid black;
       border-right: 1px solid black;
+  
   }
 
 

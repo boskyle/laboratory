@@ -37,16 +37,24 @@ export const FoodItem = () => {
     const deleteFoodItem = (e) => {
         let tempArray = foodItems;
 
-        // get attribute
-        // let {target} = e.event;
+        /*  get attribute 'food-index' which contains the cur .index (location of the clicked element)
+            and use it as a reference for deletion (splice)
+        */
         let curDeletedIndex = e.target.getAttribute('food-index');
         tempArray.splice(curDeletedIndex,1)
-        console.log("spicer");
+        // change the current array stored in state 'foodItems
         setFoodItems([...tempArray]);
+   
         
+        const deleteFoodFromDatabase = () => {
+            let url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/deletefood.php';
+            
+
+        }
+
     }
 
-   
+
  
 
  

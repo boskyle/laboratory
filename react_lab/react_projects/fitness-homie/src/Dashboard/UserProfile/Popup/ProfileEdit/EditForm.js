@@ -160,8 +160,7 @@ export const EditForm = (props) => {
 
         
         // instantly to redux state
-        dispatch(authenticateUserLoggedIn(props.userId,formData.username));
-        history.push(`/${props.username}`);
+       
         console.log(formData);
         window.location.reload();
         // setShowPop(false);
