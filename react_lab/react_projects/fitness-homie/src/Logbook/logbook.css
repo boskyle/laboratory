@@ -73,17 +73,30 @@
     /* make container a flex */
     display: flex;
     flex-flow: row wrap;
-   
-  
+    align-content: flex-start;
 }
 .add-food {
-    color: #EBCFC4;
-    margin: 0em auto 0em auto;
-    align-self: center;
+    position: absolute;
+    color: #A1CF67;
     cursor: pointer;
-    border: 4px dotted #EBCFC4;
-    padding: 0.25em
+    padding: 0.25em;
+    left: 0;
+    right: 0;
+    top: 3%;
+    margin: auto;
+
 }
+.food-log {
+    flex: 1 30%;
+    height: 15%;
+    border: 1px solid black;
+    margin-top:1.5em;
+    margin-left: 4px;
+    margin-right: 4px;
+    /* background-color:red; */
+}
+
+
 
 
 

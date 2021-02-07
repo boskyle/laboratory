@@ -24,7 +24,7 @@ export const FoodItem = () => {
     }
 
 
-    const [foodItems, setFoodItems] = useState(undefined);
+    const [foodItems, setFoodItems] = useState([]);
   
     useEffect(() =>{
         fetchUserFoods();
@@ -69,9 +69,7 @@ export const FoodItem = () => {
         deleteFoodFromDatabase(username,curDeletedIndex);    
     }
 
-    
-
-
+ 
 
  
 
@@ -85,7 +83,8 @@ export const FoodItem = () => {
                 food-index={index}              
                 /></li>
                 <li className="mx-1" style={{display: 'inline-block'}}>cals:{foodItem.calories}</li>
-                <li className="mx-1" style={{display: 'inline-block'}}>c: {foodItem.carbohydrates}</li>
+                <li className="mx-1" style={{display: 'inline-block'}}>c: {foodItem.carbohydrates}
+                </li>
                 <li className="mx-1" style={{display: 'inline-block'}}>p: {foodItem.protein} </li>
                 <li className="mx-1" style={{display: 'inline-block'}}>f:{foodItem.fat}</li>
             </ul>

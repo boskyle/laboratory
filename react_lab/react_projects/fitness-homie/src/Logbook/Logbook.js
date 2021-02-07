@@ -17,15 +17,17 @@ const Logbook = (props) => {
 
    
 
-    let momentobj;
+    let momentobj,momentobj2;
     const [userId] = useState(loadFromLocalStorage('isLogged').isLogged[1][0]);
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
+    // same date format as datetime (mysql)
+    const[loggedDate,setLoggedDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
     const [isOpenFood,setOpenFood] = useState(false);
-    const {register, handleSubmit, errors, reset} = useForm();
+    const {register, handleSubmit,errors} = useForm();
    
-    // console.log(new Date ());
+
 
 
     const [calories, setCalories] =  useState({
@@ -45,13 +47,17 @@ const Logbook = (props) => {
         console.log("left");
         date.setDate(date.getDate() -1);
         momentobj = moment(date).format('MMM Do YYYY');
+        momentobj2 = moment(date).format('YYYY-MM-DD HH:mm:ss');
         setMyDate(momentobj);
+        setLoggedDate(momentobj2);
     }
     const handleRight = () => {
         console.log("right");
         date.setDate(date.getDate() +1);
         momentobj = moment(date).format('MMM Do YYYY');
+        momentobj2 = moment(date).format('YYYY-MM-DD HH:mm:ss');
         setMyDate(momentobj);
+        setLoggedDate(momentobj2);
     }
     const handleOpenFood = () => {
         console.log("Opened!");
@@ -91,9 +97,6 @@ useEffect( () => {
  setMyDate(momentobj);
 },[date])
 
-
-
-
 useEffect( () => {
     let isMounted = true;
     {
@@ -127,18 +130,21 @@ console.log("do a pull from users foodlist");
 
   
 
+
 const onSubmit = async (formData,event) => {
 
     let createFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/createfood.php';
+    let logFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/logfood.php'
     // prevents page from refeshing aswell as disable normal operations of a typical submit function of a form..
     event.preventDefault();
     // get the username that is logged in
-   console.log(loadFromLocalStorage('isLogged').isLogged);
    let uname = loadFromLocalStorage('isLogged').isLogged[1][1];
     //send username + formData to the database
 
+
+
     // assign food php url and convert formData object + username to JSON format
-    fetch(createFoodUrl,{
+   await fetch(createFoodUrl,{
         method: 'POST',
         headers: {
             'accept': 'application/json',
@@ -154,8 +160,23 @@ const onSubmit = async (formData,event) => {
         })
     })
 
-
-
+   await fetch(logFoodUrl,{
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: uname,
+            loggedDate: loggedDate,
+            foodname: formData.foodName,
+            calories: parseInt(formData.foodCalories),
+            carbohydrates: parseInt(formData.foodCarbs),
+            protein: parseInt(formData.foodProtein),
+            fat: parseInt(formData.foodFat)
+        })
+    }).then(response => response.text())
+        .then(response => console.log(response));
     // close the modal
     setOpenFood(false);
 
@@ -181,6 +202,7 @@ const onSubmit = async (formData,event) => {
                 {myCal}
             
                 <div className="log-food-container">
+                <h4 className="add-food" onClick={handleOpenFood}>ADD FOOD<MdAddBox  className="mb-1 ml-1"style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}}/></h4>
                 <Modal 
                 isOpen={isOpenFood}
                 onRequestClose={handleCloseFood}
@@ -280,8 +302,14 @@ const onSubmit = async (formData,event) => {
                     
                 
                 </Modal>
-                   
-                    <h4 className="add-food" onClick={handleOpenFood}>ADD FOOD<MdAddBox  className="mb-1 ml-1"style={{position: 'relative', cursor: 'pointer',display: 'inline-block'}}/></h4>
+                <div className="food-log">Hello</div>
+                <div className="food-log">Hello</div>
+                <div className="food-log">Hello</div>
+                <div className="food-log">Hello</div>
+                <div className="food-log">Hello</div>
+                
+               
+                    
                 </div>
             </div>
         </div>
