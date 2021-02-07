@@ -17,16 +17,20 @@ const Logbook = (props) => {
 
    
 
-    let momentobj,momentobj2;
+    let momentobj,momentobj2,momentobj3;
     const [userId] = useState(loadFromLocalStorage('isLogged').isLogged[1][0]);
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
     // same date format as datetime (mysql)
-    const[loggedDate,setLoggedDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
+    const[loggedDate,setLoggedDate] = useState(moment(date).format('YYYY-MM-DD'));
+    const[preciseLoggedDate,setPreciseLoggedDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
     const [isOpenFood,setOpenFood] = useState(false);
+    const [loggedItems,setLoggedItems] = useState([]);
     const {register, handleSubmit,errors} = useForm();
    
+
+
 
 
 
@@ -42,22 +46,40 @@ const Logbook = (props) => {
                 setState(false);
             }
     }  
+
+    const newDate = (direction) => {
+
+        let buff = new Date();
+        // console.log(buff.getFullYear()+'-'+(buff.getMonth()+1)+'-'+buff.getDay());
+        console.log(date);
+
+        switch (direction) {
+            case "left":    
+            return  date.getDate() - 1;
+            case "right":
+            return  date.getDate() + 1;
+        }
+    }
+
+  
     
     const handleLeft = () => {
-        console.log("left");
-        date.setDate(date.getDate() -1);
+        date.setDate(newDate("left"));
         momentobj = moment(date).format('MMM Do YYYY');
-        momentobj2 = moment(date).format('YYYY-MM-DD HH:mm:ss');
+        momentobj2 = moment(date).format('YYYY-MM-DD');
+        momentobj3 = moment(date).format('YYYY-MM-DD HH:mm:ss')
         setMyDate(momentobj);
         setLoggedDate(momentobj2);
+        setPreciseLoggedDate(momentobj3);
     }
     const handleRight = () => {
-        console.log("right");
-        date.setDate(date.getDate() +1);
+        date.setDate(newDate("right"));
         momentobj = moment(date).format('MMM Do YYYY');
-        momentobj2 = moment(date).format('YYYY-MM-DD HH:mm:ss');
+        momentobj2 = moment(date).format('YYYY-MM-DD');
+        momentobj3 = moment(date).format('YYYY-MM-DD HH:mm:ss')
         setMyDate(momentobj);
         setLoggedDate(momentobj2);
+        setPreciseLoggedDate(momentobj3);
     }
     const handleOpenFood = () => {
         console.log("Opened!");
@@ -94,7 +116,10 @@ useEffect( () => {
 
 useEffect( () => {
  momentobj = moment(date).format('MMM Do YYYY');
+ momentobj2 = moment(date).format('YYYY-MM-DD');
+ momentobj3 = moment(date).format('YYYY-MM-DD HH:mm:ss');
  setMyDate(momentobj);
+ setPreciseLoggedDate(momentobj3);
 },[date])
 
 useEffect( () => {
@@ -119,9 +144,30 @@ useEffect( () => {
 },[props.calories,props.caloriesTarget])
 
 
+const fetchUserLoggedFoods = async () => {
+    let username = loadFromLocalStorage('isLogged').isLogged[1][1];
+    let displayLoggedFoods = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${loggedDate}`
+
+    await fetch(displayLoggedFoods, {
+        method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json',
+            }
+    }).then(response => response.json())
+        .then(response => console.log(response))
+            .catch(err => console.log(err));
+
+    
+}
+
+
+
 // anytime date changes
 useEffect( () => {
-console.log(myDate);
+console.log(date.toLocaleString());
+fetchUserLoggedFoods();
+console.log(loggedItems);
 },[myDate])
 
 useEffect( () => {
@@ -168,7 +214,8 @@ const onSubmit = async (formData,event) => {
         },
         body: JSON.stringify({
             username: uname,
-            loggedDate: loggedDate,
+            loggedDateSimple: loggedDate,
+            preciseLoggedDate: preciseLoggedDate,
             foodname: formData.foodName,
             calories: parseInt(formData.foodCalories),
             carbohydrates: parseInt(formData.foodCarbs),

@@ -15,21 +15,24 @@ if (!$conn-> connect_error) {
 
 
   
-    if (!$stmt = $conn->prepare("SELECT foodname,calories,carbohydrates,protein,fat FROM UserFoodsList WHERE username = ? ORDER by foodname ASC")) {
+    if (!$stmt = $conn->prepare("SELECT food_name,food_log_date,calories,carbohydrates,protein,fat FROM UserFoodsLog WHERE username = ? AND food_log_date_simple = ? ORDER by food_name ASC")) {
         echo "Prepare failed: (". $conn->errno. ")". $conn->error;
     } else {
     
-      $stmt->bind_param('s',$_GET['username']);
+      $stmt->bind_param('ss',$_GET['username'],$_GET['dateSelected']);
       $stmt->execute();
       $result = $stmt->get_result();
 
-      $foodList = array();
+      $foodLogsList = array();
 
       while ($row = $result->fetch_object()) {
-            $foodList[] = $row;
+            $foodLogsList[] = $row;
+
       }
     //   turn the array of objects into json format
-      echo json_encode($foodList);
+      
+    // echo $_GET['dateSelected'];
+      echo json_encode($foodLogsList);
       $stmt->close();
       $conn->close();
 
@@ -38,13 +41,5 @@ if (!$conn-> connect_error) {
 
 
 } else { die("Connection error: ". $conn->connect_error);}
-
-
-
-
-
-
-
-
 
 ?>

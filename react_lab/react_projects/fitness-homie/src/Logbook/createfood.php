@@ -13,7 +13,7 @@ if (!$conn-> connect_error) {
 
     $content = file_get_contents('php://input');
     $decoded = json_decode($content, true);
-    echo $content;
+
     if(!$stmt = $conn->prepare("INSERT INTO UserFoodsList (username,foodname,calories,carbohydrates,protein,fat) VALUES
         (?,?,?,?,?,?)")) {
         echo "Prepare failed: (". $conn->errno. ")". $conn->error;
