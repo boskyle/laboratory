@@ -11,6 +11,7 @@ import './calendar.css';
 import {ImCalendar,ImCross} from 'react-icons/im'
 import {MdAddBox} from 'react-icons/md';
 import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
+import {TiDelete} from 'react-icons/ti';
 import {useForm} from 'react-hook-form';
 import {FoodItem} from './FoodItem/FoodItem';
 const Logbook = (props) => {
@@ -151,6 +152,13 @@ const Logbook = (props) => {
             setAddClicked(false);
         }
     }
+
+    const deleteLoggedFood = (e) => {
+
+
+        let tempArray = loggedItems;
+
+    }
     
     let myCal = 
     <Calendar
@@ -208,18 +216,17 @@ loggedItems.map((item,index) => {
     foodLogDivArray[index] = (
     <div className="food-log" key={index}>
     <h4>{item.food_name}</h4>
+    <TiDelete className="mb-2 text-danger" style={{position: 'absolute' ,cursor: 'pointer',top: '0.4em',right:'0.5em',fontSize: '1.5em',display: 'inline-block'}}/>
+   
     <span className="mx-1" style={{display: 'inline-block'}}>{item.calories} Cals</span>
     <span className="mx-1" style={{display: 'inline-block'}}>{carbs} C</span>
     <span className="mx-1" style={{display: 'inline-block'}}>{protein} P</span>
     <span className="mx-1" style={{display: 'inline-block'}}>{fat} F</span>
+    <small className="mt-1" style={{display: 'block',fontSize: '0.95em'}}>{moment(item.food_log_date).format('hh:mm A')}</small>
     
     
     </div>);
 })
-
-
-
-
 
 
 useEffect( () => {
@@ -242,20 +249,6 @@ useEffect( () => {
     return () => {isMounted = false;}
     
 },[props.calories,props.caloriesTarget])
-
-
-
-
-
-useEffect( () => {
-console.log("do a pull from users foodlist");
-},[isOpenFood])
-// anytime date changes
-
-
-
-  
-
 
 
 
