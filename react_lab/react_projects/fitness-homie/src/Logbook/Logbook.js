@@ -14,10 +14,10 @@ import {BiChevronLeftSquare,BiChevronRightSquare} from 'react-icons/bi';
 import {useForm} from 'react-hook-form';
 import {FoodItem} from './FoodItem/FoodItem';
 const Logbook = (props) => {
-
-   
-
-    let momentobj,momentobj2,momentobj3;
+    
+    
+    
+    
     const [userId] = useState(loadFromLocalStorage('isLogged').isLogged[1][0]);
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -26,28 +26,100 @@ const Logbook = (props) => {
     // same date format as datetime (mysql)
     const [isOpenFood,setOpenFood] = useState(false);
     const [loggedItems,setLoggedItems] = useState([]);
+    const[addClicked,setAddClicked] = useState(false);
     const {register, handleSubmit,errors} = useForm();
-   
-
-
-
-
-
+    let foodLogDivArray = [];
+    
+    
+    const onSubmit = async (formData,event) => {
+        
+        let createFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/createfood.php';
+        let logFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/logfood.php'
+        // prevents page from refeshing aswell as disable normal operations of a typical submit function of a form..
+        event.preventDefault();
+        // get the username that is logged in
+        let uname = loadFromLocalStorage('isLogged').isLogged[1][1];
+        //send username + formData to the database
+        
+        
+        
+        // assign food php url and convert formData object + username to JSON format
+        await fetch(createFoodUrl,{
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: uname,
+                foodname: formData.foodName,
+                calories: parseInt(formData.foodCalories),
+                carbohydrates: parseInt(formData.foodCarbs),
+                protein: parseInt(formData.foodProtein),
+                fat: parseInt(formData.foodFat)
+            })
+        })
+        
+        await fetch(logFoodUrl,{
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: uname,
+                loggedDateSimple: moment(date).format('YYYY-MM-DD'),
+                preciseLoggedDate: preciseDate,
+                foodname: formData.foodName,
+                calories: parseInt(formData.foodCalories),
+                carbohydrates: parseInt(formData.foodCarbs),
+                protein: parseInt(formData.foodProtein),
+                fat: parseInt(formData.foodFat)
+            })
+        })
+        // close the modal
+        fetchUserLoggedFoods();
+        setOpenFood(false);
+        
+        
+    }
+    
+    
+    
+    const fetchUserLoggedFoods = async () => {
+        let username = loadFromLocalStorage('isLogged').isLogged[1][1];
+        let displayLoggedFoods = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${moment(date).format('YYYY-MM-DD')}`
+        
+        const loggedFoods = await fetch(displayLoggedFoods, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'content-Type': 'application/json',
+            }
+        });
+        const loggedFoodItems = await loggedFoods.json();
+        setLoggedItems(loggedFoodItems);   
+        console.log("fetch food called");
+    }
+    
+    
+    
     const [calories, setCalories] =  useState({
         burning: props.calories,
         target: props.caloriesTarget
     });
-
+    
     const handleOpenCalendar = () => {
         console.log("click");
         setState(true);
-            if(isOpen === true)  {
-                setState(false);
-            }
-    }  
-
-
-  
+        if(isOpen === true)  {
+            setState(false);
+        }
+    } 
+    
+    
+    
+    
     
     const handleLeft = () => {
         date.setDate(date.getDate()-1);
@@ -55,7 +127,7 @@ const Logbook = (props) => {
         setPreciseDate(moment(date).format('YYYY-MM-DD') +' '+moment(curTime).format('HH:mm:ss'))
         // visuals update
         setMyDate(moment(date).format('MMM Do YYYY'));
-       
+        
     }
     const handleRight = () => {
         date.setDate(date.getDate()+1);
@@ -68,12 +140,18 @@ const Logbook = (props) => {
         console.log("Opened!");
         setOpenFood(true);
     }
-
+    
     const handleCloseFood = () => {
         console.log("Opened!");
         setOpenFood(false);
     }
-   
+    const handleClickAdd = () => {
+        setAddClicked(true);
+        if(addClicked === true)  {
+            setAddClicked(false);
+        }
+    }
+    
     let myCal = 
     <Calendar
     className="tilesContainer mx-auto"
@@ -97,6 +175,8 @@ useEffect( () => {
     })
 },[])
 
+
+
 useEffect( () => {
 
 
@@ -105,11 +185,39 @@ useEffect( () => {
  setPreciseDate(curDate+' '+(moment(curTime).format('HH:mm:ss')))
  setMyDate(moment(date).format('MMM Do YYYY'));
  fetchUserLoggedFoods();
+ console.log(curDate); 
+},[date,preciseDate])
 
-},[date])
 
-console.log(preciseDate);
-console.log(date);
+
+
+loggedItems.map((item,index) => {
+ 
+    let carbs,protein,fat;
+    carbs = item.carbohydrates;
+    protein = item.protein;
+    fat = item.protein;
+    if (item.carbohydrates === null) {
+        carbs = 0;  
+    }  if(item.protein === null) {
+        protein = 0;
+    }  if (item.fat === null) {
+        fat = 0;
+    }
+
+    foodLogDivArray[index] = (
+    <div className="food-log" key={index}>
+    <h4>{item.food_name}</h4>
+    <span className="mx-1" style={{display: 'inline-block'}}>{item.calories} Cals</span>
+    <span className="mx-1" style={{display: 'inline-block'}}>{carbs} C</span>
+    <span className="mx-1" style={{display: 'inline-block'}}>{protein} P</span>
+    <span className="mx-1" style={{display: 'inline-block'}}>{fat} F</span>
+    
+    
+    </div>);
+})
+
+
 
 
 
@@ -136,22 +244,6 @@ useEffect( () => {
 },[props.calories,props.caloriesTarget])
 
 
-const fetchUserLoggedFoods = async () => {
-    let username = loadFromLocalStorage('isLogged').isLogged[1][1];
-    let displayLoggedFoods = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${moment(date).format('YYYY-MM-DD')}`
-
-    await fetch(displayLoggedFoods, {
-        method: 'GET',
-            headers: {
-                'accept': 'application/json',
-                'content-Type': 'application/json',
-            }
-    }).then(response => response.json())
-        .then(response => console.log(response))
-            .catch(err => console.log(err));
-
-    
-}
 
 
 
@@ -159,68 +251,13 @@ useEffect( () => {
 console.log("do a pull from users foodlist");
 },[isOpenFood])
 // anytime date changes
-useEffect( () => {
 
-fetchUserLoggedFoods();
-console.log(loggedItems);
-},[date])
 
 
   
 
 
-const onSubmit = async (formData,event) => {
 
-    let createFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/createfood.php';
-    let logFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/logfood.php'
-    // prevents page from refeshing aswell as disable normal operations of a typical submit function of a form..
-    event.preventDefault();
-    // get the username that is logged in
-   let uname = loadFromLocalStorage('isLogged').isLogged[1][1];
-    //send username + formData to the database
-
-
-
-    // assign food php url and convert formData object + username to JSON format
-   await fetch(createFoodUrl,{
-        method: 'POST',
-        headers: {
-            'accept': 'application/json',
-            'content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: uname,
-            foodname: formData.foodName,
-            calories: parseInt(formData.foodCalories),
-            carbohydrates: parseInt(formData.foodCarbs),
-            protein: parseInt(formData.foodProtein),
-            fat: parseInt(formData.foodFat)
-        })
-    })
-
-   await fetch(logFoodUrl,{
-        method: 'POST',
-        headers: {
-            'accept': 'application/json',
-            'content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: uname,
-            loggedDateSimple: moment(date).format('YYYY-MM-DD'),
-            preciseLoggedDate: preciseDate,
-            foodname: formData.foodName,
-            calories: parseInt(formData.foodCalories),
-            carbohydrates: parseInt(formData.foodCarbs),
-            protein: parseInt(formData.foodProtein),
-            fat: parseInt(formData.foodFat)
-        })
-    }).then(response => response.text())
-        .then(response => console.log(response));
-    // close the modal
-    setOpenFood(false);
-
-
-}
 
     return (
         <div className="logbook-container">
@@ -334,19 +371,14 @@ const onSubmit = async (formData,event) => {
 
 
 
-                        <button  className="btn mx-auto">Add</button>
+                        <button  className="btn mx-auto" onClick={handleClickAdd}>Add</button>
                     </form>
                     </div>
                     <div className="popUpFood-item"><h4>Search food api (do this last)</h4></div>
                     
                 
                 </Modal>
-                <div className="food-log">Hello</div>
-                <div className="food-log">Hello</div>
-                <div className="food-log">Hello</div>
-                <div className="food-log">Hello</div>
-                <div className="food-log">Hello</div>
-                
+                {foodLogDivArray}
                
                     
                 </div>

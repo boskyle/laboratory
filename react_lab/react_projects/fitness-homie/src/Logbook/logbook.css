@@ -87,13 +87,24 @@
 
 }
 .food-log {
-    flex: 1 30%;
+    flex: 1 1 200px;
     height: 15%;
-    border: 1px solid black;
-    margin-top:1.5em;
+    /* border: 1px solid black; */
+    background-color: #ebcfc4;
+    border-radius:45px;
+    margin-top:3em;
     margin-left: 4px;
     margin-right: 4px;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 0.5em;
+    font-family:raleway-regular;
     /* background-color:red; */
+}
+
+.food-log h4 {
+    text-align: center;
+    text-decoration: underline;
 }
 
 
@@ -246,4 +257,11 @@
     }
 
 
+}
+
+@media only screen and (max-width: 1250px){
+
+    .food-log {
+        font-size:0.4em;
+    }
 }
