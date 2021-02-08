@@ -22,9 +22,8 @@ const Logbook = (props) => {
     const [isOpen,setState] = useState(false);
     const [date, setDate] = useState(new Date());
     const [myDate,setMyDate] = useState(moment(date).format('MMM Do YYYY'));
+    const [preciseDate,setPreciseDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'))
     // same date format as datetime (mysql)
-    const[loggedDate,setLoggedDate] = useState(moment(date).format('YYYY-MM-DD'));
-    const[preciseLoggedDate,setPreciseLoggedDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
     const [isOpenFood,setOpenFood] = useState(false);
     const [loggedItems,setLoggedItems] = useState([]);
     const {register, handleSubmit,errors} = useForm();
@@ -47,39 +46,23 @@ const Logbook = (props) => {
             }
     }  
 
-    const newDate = (direction) => {
-
-        let buff = new Date();
-        // console.log(buff.getFullYear()+'-'+(buff.getMonth()+1)+'-'+buff.getDay());
-        console.log(date);
-
-        switch (direction) {
-            case "left":    
-            return  date.getDate() - 1;
-            case "right":
-            return  date.getDate() + 1;
-        }
-    }
 
   
     
     const handleLeft = () => {
-        date.setDate(newDate("left"));
-        momentobj = moment(date).format('MMM Do YYYY');
-        momentobj2 = moment(date).format('YYYY-MM-DD');
-        momentobj3 = moment(date).format('YYYY-MM-DD HH:mm:ss')
-        setMyDate(momentobj);
-        setLoggedDate(momentobj2);
-        setPreciseLoggedDate(momentobj3);
+        date.setDate(date.getDate()-1);
+        let curTime = new Date();
+        setPreciseDate(moment(date).format('YYYY-MM-DD') +' '+moment(curTime).format('HH:mm:ss'))
+        // visuals update
+        setMyDate(moment(date).format('MMM Do YYYY'));
+       
     }
     const handleRight = () => {
-        date.setDate(newDate("right"));
-        momentobj = moment(date).format('MMM Do YYYY');
-        momentobj2 = moment(date).format('YYYY-MM-DD');
-        momentobj3 = moment(date).format('YYYY-MM-DD HH:mm:ss')
-        setMyDate(momentobj);
-        setLoggedDate(momentobj2);
-        setPreciseLoggedDate(momentobj3);
+        date.setDate(date.getDate()+1);
+        let curTime = new Date();
+        setPreciseDate(moment(date).format('YYYY-MM-DD') +' '+moment(curTime).format('HH:mm:ss'));
+        // visuals update
+        setMyDate(moment(date).format('MMM Do YYYY'));
     }
     const handleOpenFood = () => {
         console.log("Opened!");
@@ -90,7 +73,7 @@ const Logbook = (props) => {
         console.log("Opened!");
         setOpenFood(false);
     }
-
+   
     let myCal = 
     <Calendar
     className="tilesContainer mx-auto"
@@ -115,12 +98,21 @@ useEffect( () => {
 },[])
 
 useEffect( () => {
- momentobj = moment(date).format('MMM Do YYYY');
- momentobj2 = moment(date).format('YYYY-MM-DD');
- momentobj3 = moment(date).format('YYYY-MM-DD HH:mm:ss');
- setMyDate(momentobj);
- setPreciseLoggedDate(momentobj3);
+
+
+ let curTime = new Date();
+ let curDate = moment(date).format('YYYY-MM-DD');
+ setPreciseDate(curDate+' '+(moment(curTime).format('HH:mm:ss')))
+ setMyDate(moment(date).format('MMM Do YYYY'));
+ fetchUserLoggedFoods();
+
 },[date])
+
+console.log(preciseDate);
+console.log(date);
+
+
+
 
 useEffect( () => {
     let isMounted = true;
@@ -146,7 +138,7 @@ useEffect( () => {
 
 const fetchUserLoggedFoods = async () => {
     let username = loadFromLocalStorage('isLogged').isLogged[1][1];
-    let displayLoggedFoods = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${loggedDate}`
+    let displayLoggedFoods = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${moment(date).format('YYYY-MM-DD')}`
 
     await fetch(displayLoggedFoods, {
         method: 'GET',
@@ -163,16 +155,16 @@ const fetchUserLoggedFoods = async () => {
 
 
 
-// anytime date changes
-useEffect( () => {
-console.log(date.toLocaleString());
-fetchUserLoggedFoods();
-console.log(loggedItems);
-},[myDate])
-
 useEffect( () => {
 console.log("do a pull from users foodlist");
 },[isOpenFood])
+// anytime date changes
+useEffect( () => {
+
+fetchUserLoggedFoods();
+console.log(loggedItems);
+},[date])
+
 
   
 
@@ -214,8 +206,8 @@ const onSubmit = async (formData,event) => {
         },
         body: JSON.stringify({
             username: uname,
-            loggedDateSimple: loggedDate,
-            preciseLoggedDate: preciseLoggedDate,
+            loggedDateSimple: moment(date).format('YYYY-MM-DD'),
+            preciseLoggedDate: preciseDate,
             foodname: formData.foodName,
             calories: parseInt(formData.foodCalories),
             carbohydrates: parseInt(formData.foodCarbs),
