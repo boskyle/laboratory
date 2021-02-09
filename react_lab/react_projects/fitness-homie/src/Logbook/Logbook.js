@@ -318,6 +318,7 @@ useEffect( () => {
                                 <FoodItem 
                                 loggedItems={loggedItems}
                                 setLoggedItems={setLoggedItems}
+                                setOpenFood={setOpenFood}
                                 simpleDate={moment(date).format('YYYY-MM-DD')}
                                 />   
                             </div>

@@ -7,7 +7,7 @@ import moment from 'moment';
 
 
 
-export const FoodItem = ({loggedItems,setLoggedItems,simpleDate}) => {
+export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood}) => {
     
     const fetchUserFoods = async () => {
     let username = loadFromLocalStorage('isLogged').isLogged[1][1];
@@ -89,7 +89,7 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate}) => {
                 )
         
         
-
+        setOpenFood(false);
 
     }
 

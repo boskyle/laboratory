@@ -14,14 +14,8 @@ if (!$conn-> connect_error) {
     $decoded = json_decode($content, true);
     echo $content;
 
-    if(!$stmt = $conn->prepare("DELETE uflog FROM UserFoodsLog uflog INNER JOIN
-    (
-        SELECT * FROM
-        UserFoodsLog
-        WHERE username = ?
-        ORDER by food_log_date DESC
-        LIMIT 1 OFFSET ?
-    ) uflog2 ON uflog.foodname = uflog2.foodname;")){
+    if(!$stmt = $conn->prepare("DELETE FROM UserFoodsLog 
+    WHERE food_log_date IN ( SELECT food_log_date FROM ( SELECT  food_log_date FROM UserFoodsLog WHERE username=? ORDER BY food_log_date DESC LIMIT 1 OFFSET ?) a ) ")){
 
     } else {
         $stmt->bind_param('si',$decoded['username'],$decoded['rowNumber']);
