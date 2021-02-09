@@ -90,7 +90,7 @@
 }
 .food-log {
     position: relative;
-    flex: 0 1 200px;
+    flex: 0 1 22%;
     height: 20%;
     /* border: 1px solid black; */
     background-color: #a3ddcb;
@@ -110,6 +110,9 @@
     text-align: center;
     font-family: raleway-bold;
     /* text-decoration: underline; */
+}
+.food-log small {
+    font-weight: bold;
 }
 
 

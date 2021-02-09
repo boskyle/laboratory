@@ -118,6 +118,9 @@ const Logbook = (props) => {
         }
     } 
     
+    // const daySelected = () => {
+    //     setState(false);
+    // }
     
     
     
@@ -157,6 +160,10 @@ const Logbook = (props) => {
 
 
         let tempArray = loggedItems;
+        let curDeletedIndex = e.currentTarget.getAttribute('logged-food-index');
+        tempArray.splice(curDeletedIndex,1);
+        setLoggedItems([...tempArray]);
+        console.log(tempArray);
 
     }
     
@@ -164,8 +171,9 @@ const Logbook = (props) => {
     <Calendar
     className="tilesContainer mx-auto"
     tileClassName="tiles"
-    onChange={setDate}
     value={date}
+    onChange={setDate}
+    // onClickDay={daySelected}
     view={"month"}
     dayHeaderFormat="Short"
     />
@@ -216,13 +224,13 @@ loggedItems.map((item,index) => {
     foodLogDivArray[index] = (
     <div className="food-log" key={index}>
     <h4>{item.food_name}</h4>
-    <TiDelete className="mb-2 text-danger" style={{position: 'absolute' ,cursor: 'pointer',top: '0.4em',right:'0.5em',fontSize: '1.5em',display: 'inline-block'}}/>
+    <TiDelete logged-food-index={index} className="mb-2 text-danger" style={{position: 'absolute' ,cursor: 'pointer',top: '0.4em',right:'0.5em',fontSize: '1.5em',display: 'inline-block'}} onClick={deleteLoggedFood}/>
    
     <span className="mx-1" style={{display: 'inline-block'}}>{item.calories} Cals</span>
     <span className="mx-1" style={{display: 'inline-block'}}>{carbs} C</span>
     <span className="mx-1" style={{display: 'inline-block'}}>{protein} P</span>
     <span className="mx-1" style={{display: 'inline-block'}}>{fat} F</span>
-    <small className="mt-1" style={{display: 'block',fontSize: '0.95em'}}>{moment(item.food_log_date).format('hh:mm A')}</small>
+    <small className="mt-3" style={{display: 'block',fontSize: '0.95em'}}>{moment(item.food_log_date).format('hh:mm A')}</small>
     
     
     </div>);
