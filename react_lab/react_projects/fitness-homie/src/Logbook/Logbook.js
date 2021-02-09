@@ -35,7 +35,7 @@ const Logbook = (props) => {
     const onSubmit = async (formData,event) => {
         
         let createFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/createfood.php';
-        let logFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/logfood.php'
+        let logFoodUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/logfood.php';
         // prevents page from refeshing aswell as disable normal operations of a typical submit function of a form..
         event.preventDefault();
         // get the username that is logged in
@@ -100,7 +100,7 @@ const Logbook = (props) => {
         });
         const loggedFoodItems = await loggedFoods.json();
         setLoggedItems(loggedFoodItems);   
-        console.log("fetch food called");
+        console.log(loggedFoodItems);
     }
     
     
@@ -158,13 +158,29 @@ const Logbook = (props) => {
 
     const deleteLoggedFood = (e) => {
 
+        console.log('food  deleted clicked');
+        const deleteLoggedFoodFromDatabase = async (uname, arrayIndex) => {
+            let url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/deleteLoggedFood.php';
+
+            await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: uname,
+                    rowNumber: parseInt(arrayIndex)
+                })
+            }).then( response => response.text())
+                .then(response => console.log(response));       
+        }
+
+
 
         let tempArray = loggedItems;
         let curDeletedIndex = e.currentTarget.getAttribute('logged-food-index');
+        console.log(curDeletedIndex);
         tempArray.splice(curDeletedIndex,1);
         setLoggedItems([...tempArray]);
-        console.log(tempArray);
-
+        let username = loadFromLocalStorage('isLogged').isLogged[1][1];
+        deleteLoggedFoodFromDatabase(username,curDeletedIndex);
     }
     
     let myCal = 
@@ -210,20 +226,23 @@ useEffect( () => {
 loggedItems.map((item,index) => {
  
     let carbs,protein,fat;
-    carbs = item.carbohydrates;
-    protein = item.protein;
-    fat = item.protein;
-    if (item.carbohydrates === null) {
-        carbs = 0;  
-    }  if(item.protein === null) {
-        protein = 0;
-    }  if (item.fat === null) {
-        fat = 0;
-    }
+    if (item !== undefined) {
+
+        carbs = item.carbohydrates;
+        protein = item.protein;
+        fat = item.protein;
+        if (item.carbohydrates === null) {
+            carbs = 0;  
+        }  if(item.protein === null) {
+            protein = 0;
+        }  if (item.fat === null) {
+            fat = 0;
+        }
+    
 
     foodLogDivArray[index] = (
     <div className="food-log" key={index}>
-    <h4>{item.food_name}</h4>
+    <h4>{item.foodname}</h4>
     <TiDelete logged-food-index={index} className="mb-2 text-danger" style={{position: 'absolute' ,cursor: 'pointer',top: '0.4em',right:'0.5em',fontSize: '1.5em',display: 'inline-block'}} onClick={deleteLoggedFood}/>
    
     <span className="mx-1" style={{display: 'inline-block'}}>{item.calories} Cals</span>
@@ -234,6 +253,8 @@ loggedItems.map((item,index) => {
     
     
     </div>);
+
+    }
 })
 
 
@@ -294,7 +315,11 @@ useEffect( () => {
                     <div className="popUpFood-item">
                         <h4>Your food</h4>
                             <div className="pop-userfoodlist w-100 h-100 mt-5">
-                                <FoodItem />   
+                                <FoodItem 
+                                loggedItems={loggedItems}
+                                setLoggedItems={setLoggedItems}
+                                simpleDate={moment(date).format('YYYY-MM-DD')}
+                                />   
                             </div>
                         
 
