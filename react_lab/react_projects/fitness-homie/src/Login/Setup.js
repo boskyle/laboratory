@@ -9,16 +9,6 @@ import {useDispatch,useSelector} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import './setup.css';
 
-
-
-// let foo = loadFromLocalStorage('isLogged').isLogged[0];
-// let buff = loadFromLocalStorage('isLogged').isLogged[1];
-
-
-
-console.log(loadFromLocalStorage('isLogged').isLogged);
-
-
 var basicInfo;
 var basicInfoArray = new Array();
 
@@ -51,9 +41,7 @@ let activity = [
 
     
     const [isFormSubmitted,setFlag] = useState(false);
-    // const [country,setCountry] = useState('');
-    // const [region, setRegion] = useState('');
-   
+  
     // dropdown
     const [value,setValue]=useState('bmr');
     const [gender,setGender]=useState('Male');
@@ -155,7 +143,7 @@ const onSubmit2 = async formData => {
             'content-type': 'application/json'
         },
         body: JSON.stringify({
-            uid: basicInfoArray[0].uid,
+            uid: loadFromLocalStorage('isLogged').isLogged[1][0],
             age: basicInfoArray[1].age,
             gender: basicInfoArray[1].gender,
             height: basicInfoArray[1].height_cm,
@@ -165,11 +153,9 @@ const onSubmit2 = async formData => {
             calories: basicInfoArray[1].calories,
             calorieTarget: basicInfoArray[1].calorieTarget
         })
-    }).then(response => response.text())
-            .then(response => console.log("SUCCESS"))
-                .catch(error => console.log(error))
-
-
+    })
+   
+    
     // dispatch
     console.log(loadFromLocalStorage('isLogged').isLogged);
     dispatch(authenticateUserLoggedIn(loadFromLocalStorage('isLogged').isLogged[1][0],basicInfoArray[0].username))

@@ -124,8 +124,8 @@ function Login() {
                 {<span>{error}</span>}
                 </div>
     
-                 <button type="submit" className="btn mx-auto">Login</button>
-                 <Link to="/register" className="mx-auto mt-2" style={{textDecoration:"none"}}><span>Not a member ? Register here</span></Link>
+                 <button type="submit" className="btn mx-auto login-btn">LOGIN</button>
+                 <Link to="/register" className="mx-auto reg-link" style={{textDecoration:"none"}}><span>Not a member ? Register here</span></Link>
         </form>
 
 

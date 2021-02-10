@@ -27,7 +27,16 @@ button {
     text-align: center;
     margin-top:5em;
     height: 12%;
-    border-radius:0 !important;
+    border-radius:40px !important;
+}
+.rg-btn{
+    font-size:0.75em !important;
+    font-family: raleway-regular;
+    letter-spacing: 1px;
+    position: absolute;
+    bottom: 30%;
+    left: 0;
+    right: 0;
 }
 
 input {
@@ -62,6 +71,17 @@ input {
     -webkit-box-shadow:none;
     box-shadow:none;
     outline:0;
+}
+
+.log-link{
+    margin-top: 8em;
+    color: purple;
+    font-family: raleway-thin;
+}
+.log-link:hover{
+    color: purple;
+    text-decoration: underline !important;
+   
 }
 
 
