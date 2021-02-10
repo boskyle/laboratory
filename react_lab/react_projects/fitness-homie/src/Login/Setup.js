@@ -83,8 +83,7 @@ const dropDownInches = (e) => {
     reset() the react-hook-form object to clean and re-use for the second form.
 */
 const onSubmit = formData => {
-    
-    console.log("submit worked!");
+ 
         basicInfo = {   uid:parseInt(loadFromLocalStorage("isLogged").isLogged[1][0]),
                         username: formData.username,
                         firstname: formData.firstname,
@@ -98,6 +97,7 @@ const onSubmit = formData => {
 }
 
 
+console.log(loadFromLocalStorage('isLogged').isLogged);
 // where all the submissions get posted
 
 const onSubmit2 = async formData => {
@@ -153,7 +153,9 @@ const onSubmit2 = async formData => {
             calories: basicInfoArray[1].calories,
             calorieTarget: basicInfoArray[1].calorieTarget
         })
-    })
+    }).then(response => response.text())
+    .then(response => console.log(response))
+        .catch(error => console.log(error));
    
     
     // dispatch

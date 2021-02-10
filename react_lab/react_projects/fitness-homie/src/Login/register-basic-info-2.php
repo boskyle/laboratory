@@ -12,6 +12,7 @@ if (!$conn->connect_error) {
     $content = trim(file_get_contents("php://input"));
     // gets the key values of the json format to asscoiate them with their matching pair
     $decoded = json_decode($content, true);
+    echo $content;
 
     if(!$stmt = $conn->prepare("INSERT INTO UserFitness (user_fitness_id,age,height_cm,weight_lbs,calories,calories_target,BMR,gender,activity_level) VALUES
 	((SELECT userlogin_id FROM UserBasic WHERE userlogin_id = ?),?,?,?,?,?,?,?,?)")) {
