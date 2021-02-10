@@ -7,7 +7,7 @@ import moment from 'moment';
 
 
 
-export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood}) => {
+export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood,setCaloriesEaten}) => {
     
     const fetchUserFoods = async () => {
     let username = loadFromLocalStorage('isLogged').isLogged[1][1];
@@ -24,6 +24,21 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood}) =>
         const items = await foodData.json();
         setFoodItems(items);
     }
+
+     
+    const fetchUserLoggedFoods = async () => {
+
+        const calculateCalories = (lfitems) => {
+            let total = 0;
+            lfitems.map((item) => {
+                total += item.calories;
+            })
+            return total;
+        }
+       let total = calculateCalories(loggedItems);
+       setCaloriesEaten(total);
+    }
+    
 
 
     const [foodItems, setFoodItems] = useState([]);
@@ -62,8 +77,7 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood}) =>
                     protein: protein,
                     fat: fat
                 })
-            }).then(response => response.text())
-                .then(response => console.log(response));
+            })
         }
 
 
@@ -90,6 +104,7 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood}) =>
         
         
         setOpenFood(false);
+        fetchUserLoggedFoods();
 
     }
 

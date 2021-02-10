@@ -28,6 +28,7 @@ const Logbook = (props) => {
     const [isOpenFood,setOpenFood] = useState(false);
     const [loggedItems,setLoggedItems] = useState([]);
     const[addClicked,setAddClicked] = useState(false);
+    const [caloriesEaten,setCaloriesEaten] = useState(0);
     const {register, handleSubmit,errors} = useForm();
     let foodLogDivArray = [];
     
@@ -84,10 +85,21 @@ const Logbook = (props) => {
         
         
     }
+
+
+
     
     
     
     const fetchUserLoggedFoods = async () => {
+
+        const calculateCalories = (lfitems) => {
+            let total = 0;
+            lfitems.map((item) => {
+                total += item.calories;
+            })
+            return total;
+        }
         let username = loadFromLocalStorage('isLogged').isLogged[1][1];
         let displayLoggedFoods = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${moment(date).format('YYYY-MM-DD')}`
         
@@ -100,7 +112,9 @@ const Logbook = (props) => {
         });
         const loggedFoodItems = await loggedFoods.json();
         setLoggedItems(loggedFoodItems);   
-        console.log(loggedFoodItems);
+       let total;
+     total =  calculateCalories(loggedFoodItems);
+     setCaloriesEaten(total);
     }
     
     
@@ -182,6 +196,7 @@ const Logbook = (props) => {
         setLoggedItems([...tempArray]);
         let username = loadFromLocalStorage('isLogged').isLogged[1][1];
         deleteLoggedFoodFromDatabase(username,curDeletedIndex);
+        fetchUserLoggedFoods();
     }
     
     let myCal = 
@@ -225,9 +240,10 @@ useEffect( () => {
  setToday(<h3>TODAY</h3>);
  } else {setToday(<h3>{myDate}</h3>);}
 
-
 },[date,preciseDate])
 
+
+console.log(caloriesEaten);
 
 
 
@@ -296,7 +312,7 @@ useEffect( () => {
                 {/* <h3>TRACKING</h3>
                 <h4>Daily Burn rate: <span>{calories.burning} Calories</span></h4> */}
                 {today}
-                <h4><span>Remaining: {calories.target} Calories</span></h4>
+                <h4><span>Remaining: {calories.target - caloriesEaten} Calories</span></h4>
             </div>
             <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">
@@ -328,6 +344,8 @@ useEffect( () => {
                                 setLoggedItems={setLoggedItems}
                                 setOpenFood={setOpenFood}
                                 simpleDate={moment(date).format('YYYY-MM-DD')}
+                                setCaloriesEaten={setCaloriesEaten}
+
                                 />   
                             </div>
                         
