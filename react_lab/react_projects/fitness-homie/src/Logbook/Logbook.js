@@ -312,7 +312,7 @@ useEffect( () => {
                 {/* <h3>TRACKING</h3>
                 <h4>Daily Burn rate: <span>{calories.burning} Calories</span></h4> */}
                 {today}
-                <h4><span>Remaining: {calories.target - caloriesEaten} Calories</span></h4>
+                <h4><span>Remaining: <span>{calories.target - caloriesEaten}</span> Calories</span></h4>
             </div>
             <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">

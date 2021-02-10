@@ -42,7 +42,7 @@
   
 
 .user-profile-item > h2, .user-profile-item > h3 {
-    color: #ebcfc4;
+    color: #A3DDCB;
     font-size: 2em;
 }
 
@@ -92,6 +92,7 @@
 }
 .journal-item > h4 {
     font-size: 1.75em;
+    /* color: #A3DDCB; */
 }
 
 .journal-item ul {
@@ -111,7 +112,7 @@
 /* fancy way of selecting the second div's ul (PROGRESS) */
 .journal-items-container > div + div ul {
  /* margin-top: 3em; */
- font-size: 1em;
+ font-size: 1.3em;
 }
 
 .journal-item:not(:first-child) {
