@@ -85,7 +85,7 @@ const dropDownInches = (e) => {
 const onSubmit = formData => {
     
     console.log("submit worked!");
-        basicInfo = {   uid:loadFromLocalStorage("isLogged").isLogged[1][0],
+        basicInfo = {   uid:parseInt(loadFromLocalStorage("isLogged").isLogged[1][0]),
                         username: formData.username,
                         firstname: formData.firstname,
                         lastname: formData.lastname,              
@@ -143,7 +143,7 @@ const onSubmit2 = async formData => {
             'content-type': 'application/json'
         },
         body: JSON.stringify({
-            uid: loadFromLocalStorage('isLogged').isLogged[1][0],
+            uid: basicInfoArray[0].uid,
             age: basicInfoArray[1].age,
             gender: basicInfoArray[1].gender,
             height: basicInfoArray[1].height_cm,
