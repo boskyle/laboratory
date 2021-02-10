@@ -15,10 +15,10 @@ if (!$conn-> connect_error) {
     echo $content;
 
     if(!$stmt = $conn->prepare("DELETE FROM UserFoodsLog 
-    WHERE food_log_date IN ( SELECT food_log_date FROM ( SELECT  food_log_date FROM UserFoodsLog WHERE username=? ORDER BY food_log_date DESC LIMIT 1 OFFSET ?) a ) ")){
+    WHERE food_log_date IN ( SELECT food_log_date FROM ( SELECT  food_log_date FROM UserFoodsLog WHERE username=? AND food_log_date_simple=? ORDER BY food_log_date DESC LIMIT 1 OFFSET ?) a ) ")){
 
     } else {
-        $stmt->bind_param('si',$decoded['username'],$decoded['rowNumber']);
+        $stmt->bind_param('ssi',$decoded['username'],$decoded['simpleDate'],$decoded['rowNumber']);
         $stmt->execute();
         $stmt->close();
         $conn->close();

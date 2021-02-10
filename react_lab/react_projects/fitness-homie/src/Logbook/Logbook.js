@@ -166,7 +166,8 @@ const Logbook = (props) => {
                 method: 'POST',
                 body: JSON.stringify({
                     username: uname,
-                    rowNumber: parseInt(arrayIndex)
+                    rowNumber: parseInt(arrayIndex),
+                    simpleDate:moment(date).format('YYYY-MM-DD')
                 })
             }).then( response => response.text())
                 .then(response => console.log(response));       
