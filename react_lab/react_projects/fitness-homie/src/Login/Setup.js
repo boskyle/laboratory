@@ -25,7 +25,7 @@ const Setup = ()  => {
     const dispatch = useDispatch();
 
     const rState = useSelector(state => state.isLogged[0]);
-    console.log(rState);
+
 
 
     
@@ -97,12 +97,12 @@ const onSubmit = formData => {
 }
 
 
-console.log(loadFromLocalStorage('isLogged').isLogged);
+
 // where all the submissions get posted
 
 const onSubmit2 = async formData => {
 
-    console.log("submit 2 worked!");
+
     let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
     let bmr = calculateBMR(gender,formData.weight,height_cm,formData.age);
     let caloric_needs = calculateCalories(bmr,value);
@@ -119,7 +119,7 @@ const onSubmit2 = async formData => {
         calorieTarget: parseInt(formData.calorieTarget)
     }
     basicInfoArray.push(basicInfo);
-    console.log(basicInfoArray);
+   
 
 
 
@@ -130,10 +130,7 @@ const onSubmit2 = async formData => {
             'content-type':'application/json'
         },
         body: JSON.stringify(basicInfoArray[0])
-    }).then(response => response.text())
-        .then(response => console.log("SUCCESS"))
-            .catch(error => console.log(error));
-
+    })
 
     
     await fetch (registerFitnessInfoApi, {
@@ -153,13 +150,10 @@ const onSubmit2 = async formData => {
             calories: basicInfoArray[1].calories,
             calorieTarget: basicInfoArray[1].calorieTarget
         })
-    }).then(response => response.text())
-    .then(response => console.log(response))
-        .catch(error => console.log(error));
-   
+    })
     
     // dispatch
-    console.log(loadFromLocalStorage('isLogged').isLogged);
+   
     dispatch(authenticateUserLoggedIn(loadFromLocalStorage('isLogged').isLogged[1][0],basicInfoArray[0].username))
     // push to dashboard
     history.push(`/${basicInfoArray[0].username}`);

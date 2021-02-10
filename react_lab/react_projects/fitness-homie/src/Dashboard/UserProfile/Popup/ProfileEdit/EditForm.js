@@ -1,7 +1,4 @@
 import {useForm} from 'react-hook-form';
-import {authenticateUserLoggedIn} from '../../../../redux/actions';
-import {useHistory} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import Modal from 'react-modal';
 import {ImCross} from 'react-icons/im';
@@ -12,8 +9,7 @@ import './editform.css';
 export const EditForm = (props) => {
 
 
-    const dispatch = useDispatch();
-    const history = useHistory();
+   
 
     const {register, handleSubmit, errors} = useForm({
         defaultValues: {

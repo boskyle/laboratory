@@ -243,7 +243,7 @@ useEffect( () => {
 },[date,preciseDate])
 
 
-console.log(caloriesEaten);
+
 
 
 
