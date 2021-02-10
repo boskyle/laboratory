@@ -1,0 +1,323 @@
+.logbook-container
+{
+    width: 100%;
+    height: 100%;
+    /* flex parent properties */
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.myDate {
+    font-size: 1em;
+    font-family:raleway-bold;
+    color: #ece2e1 !important;
+}
+.logbook-item {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: inline-block;
+    /* border: 1px solid black; */
+    background-color:#9088d4;
+    margin: 0.25em;
+    padding: 0.75em;
+    font-family: raleway-bold;
+    border-radius:15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;     
+}
+
+.logbook-item:first-child {
+    flex: 1 1 auto;
+    height: 50%;
+    align-self: center;
+    /* make first logbook item flex */
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+}
+
+
+.logbook-item:not(:first-child) {
+    flex:1 1 75%;
+    position: relative;
+}
+
+.logbook-item:first-child h4 {
+    font-size:0.75em;
+    padding: 0.3em;
+    border-radius:24px;
+    background-color: #706897;
+    font-family: raleway-regular;
+}
+
+
+/* get the number of calories */
+.logbook-item:first-child h4 > span span {
+color: #a6f0c6;
+}
+
+.logbook-item:first-child h3 {
+    color:#ece2e1;
+}
+
+
+
+.tracking-items-container {
+    width: 100%;
+    display: flex;
+    flex-direction: coulmn;
+    flex-wrap: wrap;
+    /* looks */
+}
+
+.tracking-item {
+    /* border: 1px solid black; */
+    background-color: #706897;
+    border-radius: 15px;
+    padding: 0.25em;
+    width: 100%;
+    height: 100%;
+    margin: 0.25em;
+}
+
+.tracking-item span, .tracking-item h2{
+    font-size:0.5em;
+}
+
+.log-food-container {
+    width: 100%;
+    height: 90%;
+    border-radius:24px;
+    background-color: #706897;
+    position: relative;
+    padding: 1em;
+
+    /* make container a flex */
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: center;
+}
+.add-food {
+    position: absolute;
+    color: #f9f871;
+    cursor: pointer;
+    padding: 0.25em;
+    left: 0;
+    right: 0;
+    top: 3%;
+    margin: auto;
+    z-index: 2;
+
+}
+.food-log {
+    position: relative;
+    flex: 0 1 22%;
+    height: 20%;
+    /* border: 1px solid black; */
+    background-color: #a3ddcb;
+    box-shadow: 0 8px 8px -6px black;
+    border-radius: 5px;
+    margin-top:3em;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 0.5em;
+    font-family:raleway-regular;
+   
+}
+
+.food-log h4 {
+    text-align: center;
+    font-family: raleway-bold;
+    /* text-decoration: underline; */
+}
+.food-log small {
+    font-weight: bold;
+}
+
+.yf-delete {
+    color: black;
+}
+
+
+
+
+
+.lg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+}
+
+  .popUpFood {
+    position: relative;
+    width: 50%;
+    height: 65%;
+    margin: auto;
+    top: 20%;
+    left: 16.5%;
+    background-color: #bbdfc8;
+    border-radius:24px;
+    padding: 0.5em;
+
+    display: flex;
+    flex-flow: row wrap;
+    overflow-y: auto;
+  }
+
+  .popUpFood-item {
+      position: relative;
+      /* border: 1px solid black; */
+      flex: 1;
+      /* each item is flex */
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+      padding: 0.5em;
+      margin: 0em 0.25em 0em 0.25em;
+      
+  }
+  .popUpFood-item > div > div{
+   background-color:#F9F871;
+  }
+
+
+    .popUpFood-item:nth-child(2) > h4 {
+        position: absolute;
+    }
+    .pop-userfoodlist {
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-start;
+    }
+
+    .pop-userfoodlist > div {
+        
+        margin: 0.25em;
+        padding: 0.5em;
+        background-color:#709DAF;
+        border-radius:8px;
+        cursor: pointer;
+    }
+
+    /* get the first ul (foodname) */
+    .pop-userfoodlist > div > ul > li:first-child{
+        text-decoration: underline;
+    }
+    .pop-userfoodlist > div ul{
+        padding: 0;
+        list-style-type: none;
+    }
+
+  .popUpFood-item:nth-child(3) {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+  
+  }
+
+
+  .exit-icon {
+      font-size:1em;
+      color: red;
+      right: 0.5em;
+      z-index: 2;
+  }
+
+.pop-form-createfood {
+    width: 100%;
+    height: 100%;
+    font-size:1.5em;
+    text-align: center;
+    align-items: center; 
+    background-color: transparent;
+    box-shadow:none;
+}
+
+.pop-form-createfood .form-group {
+    margin-top: 0em;
+}
+
+.pop-form-createfood label{
+    color: black;
+}
+.pop-form-createfood input{
+    margin: 0em auto 0em auto;
+    width: 50%;
+    text-align: center;
+}
+.pop-form-createfood button {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    background-color: transparent;
+    color: black;
+    border: 3px dotted black;
+}
+
+
+
+.myDate, h3 {
+    color: #EBCFC4;
+}
+
+
+@media only screen and (max-width: 764px){
+    .logbook-container
+    {
+        flex-flow: row nowrap;
+        font-size: 0.5em;
+    }
+    .logbook-container h3, .logbook-container h2
+    {
+        flex-flow: column nowrap;
+        font-size: 1em;
+    }
+
+    .logbook-item:first-child {
+        flex: 1 1 auto;
+        height: 25%;
+        align-self: center;
+    }
+
+    .popUpFood {
+        width: 100%;
+        height: 100%;
+        font-size:40%;
+        left:0%;
+        top: 0%;
+        flex-direction: column;
+    }
+
+
+}
+
+@media only screen and (max-width: 1250px){
+    .log-food-container {
+        overflow-y: auto;
+    }
+
+    .food-log {
+        font-size:0.6em;
+    }
+  
+}
+
+@media only screen and (max-width: 600px){
+    .add-food {
+        font-size:1em;
+    }
+
+    .food-log {
+        font-size:0.6em;
+        border-radius: 20px;
+    }
+    .food-log h4 {
+        font-size:2em;
+        margin-top: 0.5em;
+    }
+}
+

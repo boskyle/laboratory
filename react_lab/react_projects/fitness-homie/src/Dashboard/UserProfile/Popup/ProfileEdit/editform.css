@@ -1,0 +1,16 @@
+/* just for the edit buttons (icons) */
+
+
+.edit-icon {
+    color: black;
+    cursor: pointer;
+    float: right;
+    transition: color 0.5s;
+}
+
+
+.edit-icon:hover {
+    color: #EBCFC4;
+}
+
+

@@ -1,0 +1,58 @@
+form {
+    font-size: 0.85em;
+}
+
+
+.form-group span {
+    font-size:0.5em;
+    font-weight: bold;
+    color:red;   
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+.countryInput{
+font-size: 0.75em;
+width: 50%;
+/* margin-top: 1em; */
+border: 0px solid black;
+border-bottom: 1px solid black;
+}
+.regionInput {
+font-size: 0.75em;
+border: 0px solid black;
+border-bottom: 1px solid black;
+}
+
+button {
+    width: 50%;
+    margin-top:2em;
+}
+select {
+    font-size: 0.75em;
+}
+label {
+    color: purple;
+}
+
+input[type=text],input[type=text]:focus {
+    color: black;
+}
+
+
+
+
+@media only screen and (max-width: 400px) {
+
+    form {
+        width: 80%;
+        font-size:0.75em;
+    }
+}
+
+

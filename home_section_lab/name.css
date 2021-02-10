@@ -1,0 +1,119 @@
+html,body {
+    margin: 0;
+    padding: 0;
+    background-color: lightblue;
+
+    /*  */
+
+-webkit-user-select: none; /* Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
+}
+
+.fn {
+    /* background-color: wheat; */
+    margin-right: 4em;
+
+  
+}
+
+.ln {
+    /* background-color: gray; */
+    margin-top: 16em;
+}
+
+/* letter two and eight (1), letter five and ten (2)*/
+
+/* fn */
+#letter-one {
+animation: appear 0s reverse forwards, appear 0.15s 4.6s forwards;   
+}
+#letter-two {
+
+    animation: appear 0s reverse forwards, appear 0.15s 1s forwards;
+}
+#letter-three {
+    animation: appear 0s reverse forwards, appear 0.15s 3.2s forwards;
+}
+
+#letter-four {
+    animation: appear 0s reverse forwards, appear 0.15s 3.4s forwards;
+       
+}
+#letter-five {
+    
+ animation: appear 0s reverse forwards,appear 0.15s 2.5s forwards;
+}
+
+ #letter-six {
+        animation: appear 0s reverse forwards, appear 0.15s 3.7s forwards;
+    }
+
+#letter-seven {
+        animation: appear 0s reverse forwards, appear 0.15s 4.1s forwards;    
+    }
+
+/* zzzzzzzzzzzz */
+
+#letter-eight {
+    animation: appear 0s reverse forwards,appear 0.15s 1s forwards;
+}
+
+#letter-nine {
+    animation: appear 0s reverse forwards, appear 0.15s 2.6s forwards;
+       
+}
+#letter-ten {
+    
+ animation: appear 0s reverse forwards,appear 0.15s 2.5s forwards;
+}
+    
+#letter-11 {
+            animation: appear 0s reverse forwards, appear 0.15s 4.5s forwards;
+        }
+    
+ #letter-12 {
+            animation: appear 0s reverse forwards, appear 0.15s 4.2s forwards;    
+        }   
+        
+#letter-13 {
+        
+            animation: appear 0s reverse forwards, appear 0.15s 3.15s forwards;
+           }
+           
+#letter-14 {
+                   animation: appear 0s reverse forwards, appear 0.15s 3.6s forwards;
+               }
+           
+#letter-15 {
+                   animation: appear 0s reverse forwards, appear 0.15s 2.8s forwards;    
+               }    
+
+
+
+
+
+
+    
+
+
+    
+
+@keyframes appear_border {
+    from {border-bottom: white 0px solid;}
+    to {border-bottom: white 3px solid;}
+}
+
+
+@keyframes appear{
+    from{opacity: 0%;}
+    to{opacity: 100%;}
+}
+
+
+
+
+
+
+
