@@ -209,9 +209,10 @@ useEffect( () => {
 },[])
 
 
+const [today,setToday] = useState(<h3>{myDate}</h3>);
+
 
 useEffect( () => {
-
 
  let curTime = new Date();
  let curDate = moment(date).format('YYYY-MM-DD');
@@ -219,6 +220,12 @@ useEffect( () => {
  setMyDate(moment(date).format('MMM Do YYYY'));
  fetchUserLoggedFoods();
  console.log(curDate); 
+
+ if (moment(curTime).format('YYYY-MM-DD') === curDate) {
+ setToday(<h3>TODAY</h3>);
+ } else {setToday(<h3>{myDate}</h3>);}
+
+
 },[date,preciseDate])
 
 
@@ -286,10 +293,10 @@ useEffect( () => {
         <div className="logbook-container">
 
             <div className="logbook-item text-center p-2">
-                <h3>TRACKING</h3>
-                <h4>Daily Burn rate: <span>{calories.burning} Calories</span></h4>
-                <h4> Daily Target: <span>{calories.target} Calories</span></h4>
-                <h3>TODAY</h3>
+                {/* <h3>TRACKING</h3>
+                <h4>Daily Burn rate: <span>{calories.burning} Calories</span></h4> */}
+                {today}
+                <h4><span>Remaining: {calories.target} Calories</span></h4>
             </div>
             <div className="logbook-item text-center" id="log">
                 <h2 className="w-100 mx-auto text-center mt-2">
