@@ -11,6 +11,37 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
 
 
     let edit,edit2,edit3;
+
+
+
+    const netLostGainCalories = (burning,consuming,display) => {
+
+        let caloriesPerPound = 3500;
+
+        switch(display) {
+            case 'daily':
+            if (Math.sign(burning - consuming) === 1) {
+                return   "You are losing: "+((burning - consuming) / caloriesPerPound).toFixed(4)+" lbs per day.";
+            }
+            else if (Math.sign(burning-consuming) === -1) {
+                return   "You are gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4))+" lbs per day.";           
+            }
+            else {return "You are  not losing/gaining  weight."}
+            case 'weekly':
+
+            if (Math.sign(burning - consuming) === 1) {
+                return  "You are losing: "+((burning - consuming) / caloriesPerPound).toFixed(4) * 7 +" lbs per week.";
+            }
+            else if (Math.sign(burning-consuming) === -1) {
+                return  "You are gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4)) * 7+" lbs per week.";
+            }
+            else {return "You are not losing/gaining  weight."}
+           
+        }
+    }
+
+
+
    
     const [suid,setSuid] = useState(undefined);
 
@@ -44,7 +75,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
             // console.log("current: "+suid);
 
  
-
+            console.log(netLostGainCalories(calories,caloriesTarget,'weekly'));
 
 
         // validate that username exists
@@ -83,6 +114,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
                                    <li>Activity Level: <span>{activityLevel}</span></li>
                                    <li>Daily Burn: <span>{calories} Calories</span></li>
                                    <li>Daily Calories:<span>{caloriesTarget} Calories</span></li>
+                                    <li className="lossGainCalories">{netLostGainCalories(calories,caloriesTarget,'weekly')}</li>
                                 </ul>
                             </div>
                         </div>

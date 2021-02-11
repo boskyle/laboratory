@@ -111,12 +111,23 @@
 /* fancy way of selecting the second div's ul (PROGRESS) */
 .journal-items-container > div + div ul {
  /* margin-top: 3em; */
- font-size: 1.3em;
+ font-size: 1.2em;
 }
 
 .journal-item:not(:first-child) {
     flex: 1 1 45%;
    
+}
+
+.lossGainCalories {
+    letter-spacing:1px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: black;
+    background-color: #A3DDCB;
+    border-radius:15px;
+    text-align: center;
+    margin-top:2em;
 }
 
 
