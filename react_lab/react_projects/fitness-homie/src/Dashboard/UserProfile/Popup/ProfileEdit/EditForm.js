@@ -9,7 +9,6 @@ import './editform.css';
 export const EditForm = (props) => {
 
 
-   
 
     const {register, handleSubmit, errors} = useForm({
         defaultValues: {

@@ -12,11 +12,41 @@
 .pop-form-stats-update {
   position: relative;
 }
-.pop-form-stats-update label{
-  color: black;
-  font-size:0.3em;
+
+
+
+
+.pop-form-stats-update label, .pop-form-profile-update label{
+  color: #350b40 !important;
+  font-size:0.4em;
   margin-top:0em;
 }
+
+.pop-form-stats-update .form-group input, .pop-form-profile-update .form-group input{
+  color: white;
+  font-size:0.4em;
+  margin-top:0em;
+}
+
+/* remove select drop down */
+.pop-form-stats-update .form-group select{
+  -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    font-size:0.7em;
+    text-align: center;
+    border-radius:5px;
+   
+}
+
+/* error messages */
+.pop-form-stats-update .form-group > span, .pop-form-profile-update .form-group > span{
+font-weight:normal;
+color: orange;
+}
+
+
 .save-button {
   width: 50%;
   height: 7%;
@@ -61,9 +91,7 @@
   overflow: hidden;
   border-radius:15px;
 }
-.pop-form-profile-update h4{
-  color:black;
-}
+
 
 /* .pop-up-form-group {
 
