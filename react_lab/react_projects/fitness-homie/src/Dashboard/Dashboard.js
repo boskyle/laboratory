@@ -18,8 +18,8 @@ function Dashboard() {
         username: '',
         firstname: '',
         lastname: '',
-        address: '',
-        country: '',
+        profile_picture: ''
+
     });
 
     const [userFitness,setUserFitness] = useState({
@@ -55,11 +55,12 @@ function Dashboard() {
         LoadBasicInfo(dashUid).then(data => {
             if (isMounted === true) {
                 if (data !== false) {
+                    console.log(data);
                     setUserInfo({
                         username: data.username,
                         firstname: data.firstname,
                         lastname: data.lastname,
-                        country: data.country
+                        profile_picture: data.profile_picture                     
                     })
                 }
             }
@@ -130,7 +131,7 @@ useEffect( () => {
                         username={userInfo.username}
                         firstname={userInfo.firstname}
                         lastname={userInfo.lastname}
-                        country={userInfo.country}
+                        profile_picture={userInfo.profile_picture}
                         // fitness Information
                         gender={userFitness.gender}
                         age={userFitness.age}

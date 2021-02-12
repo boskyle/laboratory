@@ -4,7 +4,7 @@ import {getUidFromUsername} from '../db-endpoints/loadProfile';
 import './userprofile.css';
 import Popup from './Popup/Popup';
 
-const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender,age,height,weight,activityLevel,calories,caloriesTarget}) => {
+const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernameSearched,gender,age,height,weight,activityLevel,calories,caloriesTarget}) => {
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
@@ -94,6 +94,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
                         <div>
                         <span className="userName">{username}</span>
                         <span className="name">{firstname +" "+lastname}</span>
+                        {profile_picture}
                         </div>
                     </div>
 

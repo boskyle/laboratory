@@ -7,6 +7,7 @@ import '../popup.css';
 import './editform.css';
 // image upload imports
 import ImageUploader from 'react-images-upload';
+import imageCompression from 'browser-image-compression';
 import defaultImage from '../../../../assets/images/defaulProfilePicture.png';
 
 export const EditForm = (props) => {
@@ -92,13 +93,15 @@ export const EditForm = (props) => {
 
     const [showPop,setShowPop] = useState(false);
     const [form,setForm] = useState('');
-
-
+    
+    
     const [gender,setGender] = useState (props.gender);
     const [feet, setFeet] = useState(takeFeet(props.height));
     const [inches, setInches] = useState(takeInches(props.height));
     const [actLevel, setLevel] = useState(props.activityLevel);
-
+    const [pictures,setPictures] = useState([defaultImage]);
+    const [uploadPicture,setUploadPicture] = useState([defaultImage]);
+    
 
 
    
@@ -152,10 +155,13 @@ export const EditForm = (props) => {
             body: JSON.stringify({
                 userId: props.userId,
                 firstname: formData.firstname,
-                lastname: formData.lastname
-            })
-        })
+                lastname: formData.lastname,
+                picture: uploadPicture,
 
+            })
+        }).then(response => response.text())
+        .then (response => console.log(response))
+            .catch(err => console.log(err))
         
         // instantly to redux state
        
@@ -184,24 +190,42 @@ export const EditForm = (props) => {
                 calories: calculateCalories(calculateBMR(gender,formData.weight,inchesToCentimeters(feet,parseInt(inches)),formData.age),actLevel),
                 caloriesTarget: formData.calorieTarget
             })
-        }).then(response => response.json())
-            .then (response => console.log(response))
+        })
       
 
         window.location.reload();
 
     }
 
-    const [pictures,setPictures] = useState([defaultImage]);
+
+
+  
+
 
     const onDrop = (image) => {
-        setPictures(URL.createObjectURL(image[0]));
-        console.log(image);
+        // compression options, limit to 64kb size of blob
+        const options = {
+            maxSizeMB: 1,
+        }
+
+        imageCompression(image[0],options)
+            .then(cf => {
+                // compressed file output
+                // turn output (blob) into a url to be referenced by img using useState
+                setPictures(URL.createObjectURL(cf));
+                // the actual blob file
+                setUploadPicture(cf);
+                console.log(cf);
+            })
+
+
+        // setPictures(URL.createObjectURL(image[0]));
+       
         // compress the img;
     }
 
     useEffect(() => {
-
+        // here we load the user's photo
        
     },[])
 

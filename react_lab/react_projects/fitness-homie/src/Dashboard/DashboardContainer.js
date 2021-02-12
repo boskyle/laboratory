@@ -79,7 +79,8 @@ const DashboardContainer = (props) => {
                                 username={props.username}
                                 firstname={props.firstname}
                                 lastname={props.lastname}
-                                address={props.country}
+                                profile_picture={props.profile_picture}
+                                // address={props.country}
                                 usernameSearched={props.urlParam}
                                 gender={props.gender}
                                 age={props.age}
