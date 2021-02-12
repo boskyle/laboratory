@@ -1,5 +1,5 @@
 import {useForm} from 'react-hook-form';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import Modal from 'react-modal';
 import {ImCross} from 'react-icons/im';
 import {BiEdit} from 'react-icons/bi';
@@ -7,7 +7,7 @@ import '../popup.css';
 import './editform.css';
 // image upload imports
 import ImageUploader from 'react-images-upload';
-
+import defaultImage from '../../../../assets/images/defaulProfilePicture.png';
 
 export const EditForm = (props) => {
 
@@ -192,12 +192,19 @@ export const EditForm = (props) => {
 
     }
 
-    const [picture,setPicture] = useState([]);
+    const [pictures,setPictures] = useState([defaultImage]);
 
     const onDrop = (image) => {
-        console.log('clicked');
-        setPicture(image);
+        setPictures(URL.createObjectURL(image[0]));
+        console.log(image);
+        // compress the img;
     }
+
+    useEffect(() => {
+
+       
+    },[])
+
 
 
 
@@ -252,7 +259,7 @@ export const EditForm = (props) => {
 
 
 
-        <img className="border h-50 w-75 editProfilePicture" src={picture}/>
+        <img className="h-50 w-75 editProfilePicture" src={pictures} alt='profilePicture'/>
 
 
 
@@ -263,6 +270,7 @@ export const EditForm = (props) => {
                 onChange={onDrop}
                 withIcon={false}
                 buttonText='Choose a picture'
+                buttonClassName='imageUploaderButton'
                 imgExtension={['.jpg', '.gif', '.png', '.gif']}
                 maxFileSize={5242880}
                 label={''}
