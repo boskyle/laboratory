@@ -13,4 +13,15 @@
     color: #EBCFC4;
 }
 
+.iup {
+   margin-top: 25% !important;
+}
 
+.editProfilePicture {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top:1em;
+
+}

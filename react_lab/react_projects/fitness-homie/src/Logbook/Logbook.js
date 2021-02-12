@@ -427,7 +427,7 @@ useEffect( () => {
                         <button  className="btn mx-auto" onClick={handleClickAdd}>Add</button>
                     </form>
                     </div>
-                    <div className="popUpFood-item"><h4>Search food api (do this last)</h4></div>
+                    <div className="popUpFood-item"><h4>FOOD API (coming to v1.1)</h4></div>
                     
                 
                 </Modal>

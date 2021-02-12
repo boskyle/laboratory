@@ -5,6 +5,9 @@ import {ImCross} from 'react-icons/im';
 import {BiEdit} from 'react-icons/bi';
 import '../popup.css';
 import './editform.css';
+// image upload imports
+import ImageUploader from 'react-images-upload';
+
 
 export const EditForm = (props) => {
 
@@ -189,6 +192,15 @@ export const EditForm = (props) => {
 
     }
 
+    const [picture,setPicture] = useState([]);
+
+    const onDrop = (image) => {
+        console.log('clicked');
+        setPicture(image);
+    }
+
+
+
     const profileEdit =
     <Modal 
     isOpen={showPop}
@@ -236,6 +248,35 @@ export const EditForm = (props) => {
         />
         {errors.lastname && <span>{errors.lastname.message}</span>}
 </div>
+
+
+
+
+        <img className="border h-50 w-75 editProfilePicture" src={picture}/>
+
+
+
+        <ImageUploader
+                className=" w-75 mx-auto iup"
+                fileContainerStyle={{backgroundColor: 'transparent',boxShadow: 'none'}}
+                singleImage={true}
+                onChange={onDrop}
+                withIcon={false}
+                buttonText='Choose a picture'
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+                label={''}
+                buttonStyles={{}}
+            />
+
+
+
+
+
+
+
+
+
 <button  type="submit"  className="btn save-button">Save</button>
 </form>
 </Modal>;

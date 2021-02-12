@@ -21,21 +21,21 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
         switch(display) {
             case 'daily':
             if (Math.sign(burning - consuming) === 1) {
-                return   "You are losing: "+((burning - consuming) / caloriesPerPound).toFixed(4)+" lbs per day.";
+                return   "Loosing: "+((burning - consuming) / caloriesPerPound).toFixed(4)+" lbs per day.";
             }
             else if (Math.sign(burning-consuming) === -1) {
-                return   "You are gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4))+" lbs per day.";           
+                return   "Gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4))+" lbs per day.";           
             }
-            else {return "You are  not losing/gaining  weight."}
+            else {return "not loosing/gaining  weight."}
             case 'weekly':
 
             if (Math.sign(burning - consuming) === 1) {
-                return  "You are losing: "+((burning - consuming) / caloriesPerPound).toFixed(4) * 7 +" lbs per week.";
+                return  "Loosing: "+((burning - consuming) / caloriesPerPound).toFixed(4) * 7 +" lbs per week.";
             }
             else if (Math.sign(burning-consuming) === -1) {
-                return  "You are gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4)) * 7+" lbs per week.";
+                return  "Gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4)) * 7+" lbs per week.";
             }
-            else {return "You are not losing/gaining  weight."}
+            else {return "Not loosing/gaining  weight."}
            
         }
     }
@@ -123,7 +123,7 @@ const UserProfile = ({userid,username,firstname,lastname,usernameSearched,gender
 
 
 
-                    <div className="user-profile-item"><h3>WORKOUT</h3> <ul>weekly workout playlist</ul></div>      
+                    <div className="user-profile-item"><h3>WORKOUT</h3> <ul>weekly workout playlist (coming to v1.1)</ul></div>      
                 </div>  
             );
         } else {
