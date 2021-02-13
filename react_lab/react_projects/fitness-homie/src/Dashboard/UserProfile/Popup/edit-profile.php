@@ -6,6 +6,19 @@ header('Access-Control-Allow-Methods: GET,POST');
 
 require_once '../../../Register/connect.php';
 
+
+
+function savePicture($picture) {
+echo $picture;
+
+
+}
+
+
+
+
+
+
 if (!$conn -> connect_error) {
     
      // json format

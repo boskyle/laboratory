@@ -2,7 +2,7 @@ import React from 'react';
 import {useState,useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
-import {LoadBasicInfo,LoadProfilePicture,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
+import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
 import '../assets/fonts/index.css';
 import "./dashboard.css";
 import Navigation from './Navigation/Navigation';
@@ -67,11 +67,11 @@ function Dashboard() {
 
 
 
-        LoadProfilePicture(dashUid).then(data => {
-            if (data !== false) {
-                console.log(data);
-            }
-        })
+        // LoadProfilePicture(dashUid).then(data => {
+        //     if (data !== false) {
+        //         console.log(data);
+        //     }
+        // })
         
         LoadFitnessInfo(dashUid).then(data => {
             if (isMounted2 === true) {
