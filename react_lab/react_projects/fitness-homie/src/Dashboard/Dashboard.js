@@ -2,7 +2,7 @@ import React from 'react';
 import {useState,useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
-import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
+import {LoadBasicInfo,LoadProfilePicture,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
 import '../assets/fonts/index.css';
 import "./dashboard.css";
 import Navigation from './Navigation/Navigation';
@@ -59,10 +59,17 @@ function Dashboard() {
                     setUserInfo({
                         username: data.username,
                         firstname: data.firstname,
-                        lastname: data.lastname,
-                        profile_picture: data.profile_picture                     
+                        lastname: data.lastname,       
                     })
                 }
+            }
+        })
+
+
+
+        LoadProfilePicture(dashUid).then(data => {
+            if (data !== false) {
+                console.log(data);
             }
         })
         

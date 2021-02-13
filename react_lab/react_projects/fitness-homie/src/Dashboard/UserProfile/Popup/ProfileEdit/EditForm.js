@@ -99,7 +99,9 @@ export const EditForm = (props) => {
     const [feet, setFeet] = useState(takeFeet(props.height));
     const [inches, setInches] = useState(takeInches(props.height));
     const [actLevel, setLevel] = useState(props.activityLevel);
+    // used for visual on edit
     const [pictures,setPictures] = useState([defaultImage]);
+    // actual
     const [uploadPicture,setUploadPicture] = useState([defaultImage]);
     
 
@@ -204,6 +206,7 @@ export const EditForm = (props) => {
 
     const onDrop = (image) => {
         // compression options, limit to 64kb size of blob
+        console.log(image[0]);
         const options = {
             maxSizeMB: 1,
         }

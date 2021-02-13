@@ -75,7 +75,7 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
             // console.log("current: "+suid);
 
  
-            console.log(netLostGainCalories(calories,caloriesTarget,'weekly'));
+            // console.log(netLostGainCalories(calories,caloriesTarget,'weekly'));
 
 
         // validate that username exists
