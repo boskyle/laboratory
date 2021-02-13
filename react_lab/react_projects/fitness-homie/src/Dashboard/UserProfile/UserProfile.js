@@ -21,19 +21,19 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
         switch(display) {
             case 'daily':
             if (Math.sign(burning - consuming) === 1) {
-                return   "Loosing: "+((burning - consuming) / caloriesPerPound).toFixed(4)+" lbs per day.";
+                return   "Loosing: "+Math.round( (((burning - consuming) / caloriesPerPound)) * 1e2 ) / 1e2+" lbs per day.";
             }
             else if (Math.sign(burning-consuming) === -1) {
-                return   "Gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4))+" lbs per day.";           
+                return   "Gaining: "+Math.round( Math.abs(((burning - consuming) / caloriesPerPound)) * 1e2 ) / 1e2+" lbs per day.";           
             }
             else {return "not loosing/gaining  weight."}
             case 'weekly':
 
             if (Math.sign(burning - consuming) === 1) {
-                return  "Loosing: "+((burning - consuming) / caloriesPerPound).toFixed(4) * 7 +" lbs per week.";
+                return  "Loosing: "+Math.round( (((burning - consuming) / caloriesPerPound) * 7) * 1e2 ) / 1e2+" lbs per week.";
             }
             else if (Math.sign(burning-consuming) === -1) {
-                return  "Gaining: "+(Math.abs((burning - consuming) / caloriesPerPound).toFixed(4)) * 7+" lbs per week.";
+                return  "Gaining: "+Math.round( Math.abs(((burning - consuming) / caloriesPerPound) * 7) * 1e2 ) / 1e2+" lbs per week.";
             }
             else {return "Not loosing/gaining  weight."}
            
