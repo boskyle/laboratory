@@ -148,6 +148,7 @@ export const EditForm = (props) => {
 
     const onEditProfile = async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
+        
         await fetch (editUrl,{
             method: 'POST',
             headers: {
@@ -156,6 +157,7 @@ export const EditForm = (props) => {
             },
             body: JSON.stringify({
                 userId: props.userId,
+                username:props.username,
                 firstname: formData.firstname,
                 lastname: formData.lastname,
                 picture: uploadPicture,
@@ -217,7 +219,8 @@ export const EditForm = (props) => {
                 // turn output (blob) into a url to be referenced by img using useState
                 setPictures(URL.createObjectURL(cf));
                 // the actual blob file
-                setUploadPicture(cf);
+                setUploadPicture(URL.createObjectURL(cf));
+                console.log(URL.createObjectURL(cf));
                 console.log(cf);
             })
 

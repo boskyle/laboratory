@@ -55,7 +55,7 @@ function Dashboard() {
         LoadBasicInfo(dashUid).then(data => {
             if (isMounted === true) {
                 if (data !== false) {
-                    console.log(data);
+                    // console.log(data);
                     setUserInfo({
                         username: data.username,
                         firstname: data.firstname,
