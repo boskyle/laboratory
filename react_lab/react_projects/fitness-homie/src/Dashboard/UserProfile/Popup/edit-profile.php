@@ -13,7 +13,7 @@ function savePicture($picture,$username,$ext) {
 $path='../../../assets/user_assets/'.$username.'/images';
 $fileName='../../../assets/user_assets/'.$username.'/images'.'/'.'profilePicture.'.$ext;
 
-// echo $picture;
+
 
 
 if (!is_dir($path)) {
@@ -41,9 +41,9 @@ if (!$conn -> connect_error) {
      $decoded = json_decode($content, true);
  
      echo $content;
-   
+     echo $_FILES['uploadPicture']['name'];
     
-     savePicture($decoded['picture'],$decoded['username'],$decoded['picExtension']);
+    //  savePicture($decoded['picture'],$decoded['username'],$decoded['picExtension']);
 
      if(!$stmt = $conn->prepare("UPDATE UserBasic SET firstname = ?,lastname = ? WHERE userlogin_id = ?")) {
             echo "Prepare failed: (". $conn->errno. ")". $conn->error;

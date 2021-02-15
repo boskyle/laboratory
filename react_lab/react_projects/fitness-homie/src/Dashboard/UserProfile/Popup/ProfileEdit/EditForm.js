@@ -161,10 +161,9 @@ export const EditForm = (props) => {
                 username:props.username,
                 firstname: formData.firstname,
                 lastname: formData.lastname,
-                picture: uploadPicture,
-                picExtension: picExtension
 
-            })
+            }),
+
         }).then(response => response.text())
         .then (response => console.log(response))
             .catch(err => console.log(err))
@@ -227,6 +226,12 @@ export const EditForm = (props) => {
 
     
     }
+    const uploadFile = () => {
+        console.log("upload file");
+        const fd = new FormData();
+        let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
+     
+    }
 
     useEffect(() => {
         // here we load the user's photo
@@ -288,7 +293,7 @@ export const EditForm = (props) => {
 
 
         <img className="h-50 w-75 editProfilePicture" src={pictures} alt='profilePicture'/>
-        <input type='file' className='iup' accept="image/x-png,image/gif,image/jpeg" onChange={onDrop}/>
+        <input type='file' name='uploadPicture' className='iup' accept="image/x-png,image/gif,image/jpeg" onChange={onDrop}/>
 
 
 
@@ -316,7 +321,7 @@ export const EditForm = (props) => {
 
 
 
-<button  type="submit"  className="btn save-button">Save</button>
+<button  type="submit"  className="btn save-button" onClick={uploadFile}>Save</button>
 </form>
 </Modal>;
 
