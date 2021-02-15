@@ -103,6 +103,7 @@ export const EditForm = (props) => {
     const [pictures,setPictures] = useState([defaultImage]);
     // actual
     const [uploadPicture,setUploadPicture] = useState([defaultImage]);
+    const [picExtension,setPicExtension] = useState(undefined);
     
 
 
@@ -161,6 +162,7 @@ export const EditForm = (props) => {
                 firstname: formData.firstname,
                 lastname: formData.lastname,
                 picture: uploadPicture,
+                picExtension: picExtension
 
             })
         }).then(response => response.text())
@@ -219,9 +221,9 @@ export const EditForm = (props) => {
                 // turn output (blob) into a url to be referenced by img using useState
                 setPictures(URL.createObjectURL(cf));
                 // the actual blob file
-                setUploadPicture(URL.createObjectURL(cf));
-                console.log(URL.createObjectURL(cf));
+                setUploadPicture(cf);
                 console.log(cf);
+                setPicExtension(cf.name.split('.').pop());
             })
 
 
