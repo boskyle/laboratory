@@ -10,18 +10,18 @@ function savePicture($picture,$username,$ext) {
 
 
 
-$path='../../../assets//user_assets/'.$username;
-$fileName='../../../assets//user_assets/'.$username.'/'.'profilepic.'.$ext;
+$path='../../../assets/user_assets/'.$username.'/images';
+$fileName='../../../assets/user_assets/'.$username.'/images'.'/'.'profilePicture.'.$ext;
 
-echo $picture;
+// echo $picture;
 
 
 if (!is_dir($path)) {
     mkdir($path,0757,true);
 }
 
-
-array_map('unlink',glob($path.'/'.'profilepic*'));
+// delete all images then add your new one
+array_map('unlink',glob($path.'/'.'*'));
 file_put_contents($fileName,$picture);
 
 
@@ -36,8 +36,11 @@ if (!$conn -> connect_error) {
     
      // json format
      $content = (file_get_contents("php://input"));
+    
      // gets the key values of the json format to asscoiate them with their matching pair
      $decoded = json_decode($content, true);
+ 
+     echo $content;
    
     
      savePicture($decoded['picture'],$decoded['username'],$decoded['picExtension']);

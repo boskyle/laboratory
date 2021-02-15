@@ -153,8 +153,8 @@ export const EditForm = (props) => {
         await fetch (editUrl,{
             method: 'POST',
             headers: {
-                'accept': 'application/json',
-                'content-Type': 'application/json'
+                'accept': '*',
+                'content-Type': '*'
             },
             body: JSON.stringify({
                 userId: props.userId,
@@ -172,7 +172,7 @@ export const EditForm = (props) => {
         // instantly to redux state
        
         console.log(formData);
-        window.location.reload();
+        // window.location.reload();
         // setShowPop(false);
     }
 
@@ -209,27 +209,23 @@ export const EditForm = (props) => {
 
 
     const onDrop = (image) => {
+        console.log(image.target.files[0]);
         // compression options, limit to 64kb size of blob
-        console.log(image[0]);
+        // console.log(image[0]);
         const options = {
             maxSizeMB: 1,
         }
 
-        imageCompression(image[0],options)
+        imageCompression(image.target.files[0],options)
             .then(cf => {
                 // compressed file output
-                // turn output (blob) into a url to be referenced by img using useState
                 setPictures(URL.createObjectURL(cf));
-                // the actual blob file
-                setUploadPicture(cf);
-                console.log(cf);
                 setPicExtension(cf.name.split('.').pop());
+                setUploadPicture(cf); 
             })
 
 
-        // setPictures(URL.createObjectURL(image[0]));
-       
-        // compress the img;
+    
     }
 
     useEffect(() => {
@@ -248,7 +244,7 @@ export const EditForm = (props) => {
     className="popUp"
     overlayClassName="overlay"
 >     
-    <form className="pop-form-profile-update" onSubmit={handleSubmit(onEditProfile)} noValidate>
+    <form className="pop-form-profile-update" onSubmit={handleSubmit(onEditProfile)} noValidate encType="multipart/form-data">
     <ImCross className="exit-icon" onClick={handleClose}/>
     {/* firstname */}
     <div className="form-group pop-up-form-group mb-2">
@@ -292,10 +288,11 @@ export const EditForm = (props) => {
 
 
         <img className="h-50 w-75 editProfilePicture" src={pictures} alt='profilePicture'/>
+        <input type='file' className='iup' accept="image/x-png,image/gif,image/jpeg" onChange={onDrop}/>
 
 
 
-        <ImageUploader
+        {/* <ImageUploader
                 className=" w-75 mx-auto iup"
                 fileContainerStyle={{backgroundColor: 'transparent',boxShadow: 'none'}}
                 singleImage={true}
@@ -306,8 +303,10 @@ export const EditForm = (props) => {
                 imgExtension={['.jpg', '.gif', '.png', '.gif']}
                 maxFileSize={5242880}
                 label={''}
-                buttonStyles={{}}
-            />
+                type ='file'
+                name='profilePictureUpload'
+            /> */}
+          
 
 
 
