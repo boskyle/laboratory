@@ -149,26 +149,37 @@ export const EditForm = (props) => {
 
     const onEditProfile = async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
+        const fd = new FormData();
+        fd.append('uid',props.userId);
+        fd.append('profilePicture',uploadPicture);
         
+
+
         await fetch (editUrl,{
             method: 'POST',
-            headers: {
-                'accept': '*',
-                'content-Type': '*'
-            },
             body: JSON.stringify({
                 userId: props.userId,
                 username:props.username,
                 firstname: formData.firstname,
                 lastname: formData.lastname,
-
+                picExtension: picExtension
             }),
 
         }).then(response => response.text())
         .then (response => console.log(response))
             .catch(err => console.log(err))
+
+ 
+          await  fetch (editUrl,{
+                method: 'POST',    
+                body: fd
+            }).then((response) => response.text())
+            .then(response => {console.log(response)})
+                .catch(err => console.log(err));
+
         
-      
+       
+       
         // window.location.reload();
         // setShowPop(false);
     }
@@ -207,6 +218,7 @@ export const EditForm = (props) => {
 
     const onDrop = (image) => {
         console.log(image.target.files[0]);
+  
         // compression options, limit to 64kb size of blob
         // console.log(image[0]);
         const options = {
@@ -222,23 +234,30 @@ export const EditForm = (props) => {
             })
 
 
+
+           
+         
+            
+
+
     
     }
-    const uploadFile = () => {
+    const uploadFile = async () => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
         console.log("upload file");
-        const fd = new FormData();
-        fd.append('uploadedImage',uploadPicture);        
-        fetch (editUrl,{
-            method: 'POST',
-            headers: {
-                'accept': '*',
-                'Content-Type': 'multipart/form-data'
-            },
-            body: fd
-        }).then((response) => response.text())
-        .then(response => {console.log(response)})
-            .catch(err => console.log(err));
+    //     const fd = new FormData();
+    //     fd.append('uploadedImage',uploadPicture);
+     
+        
+    //    await fetch (editUrl,{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         },
+    //         body: fd
+    //     }).then((response) => response.text())
+    //     .then(response => {console.log(response)})
+    //         .catch(err => console.log(err));
 
 
     }
@@ -279,8 +298,8 @@ export const EditForm = (props) => {
         
         />
         {errors.firstname && <span>{errors.firstname.message}</span>}
-</div>
-<div className="form-group pop-up-form-group">
+    </div>
+<   div className="form-group pop-up-form-group">
     <label htmlFor="emailInput"><h4>Lastname</h4></label>
     <input name="lastname" type="text" className="form-control w-50 mx-auto text-center" id="" aria-describedby="firstnameInput"
         ref={register({
@@ -297,7 +316,7 @@ export const EditForm = (props) => {
         
         />
         {errors.lastname && <span>{errors.lastname.message}</span>}
-</div>
+    </div>
 
 
 
@@ -307,31 +326,11 @@ export const EditForm = (props) => {
 
 
 
-        {/* <ImageUploader
-                className=" w-75 mx-auto iup"
-                fileContainerStyle={{backgroundColor: 'transparent',boxShadow: 'none'}}
-                singleImage={true}
-                onChange={onDrop}
-                withIcon={false}
-                buttonText='Choose a picture'
-                buttonClassName='imageUploaderButton'
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-                label={''}
-                type ='file'
-                name='profilePictureUpload'
-            /> */}
-          
-
-
-
-
-
-
-
-
-
 <button  type="submit"  className="btn save-button" onClick={uploadFile}>Save</button>
+</form>
+<form>
+
+
 </form>
 </Modal>;
 

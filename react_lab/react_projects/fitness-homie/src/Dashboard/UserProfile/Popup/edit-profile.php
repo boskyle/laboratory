@@ -10,9 +10,11 @@ function savePicture($picture,$username,$ext) {
 
 
 
+$newFileName = "profilePicture.".$ext;
 $path='../../../assets/user_assets/'.$username.'/images';
 $fileName='../../../assets/user_assets/'.$username.'/images'.'/'.'profilePicture.'.$ext;
 
+echo $newFileName;
 
 
 
@@ -22,8 +24,7 @@ if (!is_dir($path)) {
 
 // delete all images then add your new one
 array_map('unlink',glob($path.'/'.'*'));
-file_put_contents($fileName,$picture);
-
+move_uploaded_file($picture,"../../../assets/user_assets/".$username."/images"."/"."profilePicture.");
 
 }
 
@@ -33,19 +34,23 @@ file_put_contents($fileName,$picture);
 
 
 if (!$conn -> connect_error) {
-    
+
      // json format
      $content = (file_get_contents("php://input"));
+     $decoded = json_decode($content,true);
     
      // gets the key values of the json format to asscoiate them with their matching pair
-     $decoded = json_decode($content, true);
- 
-
-    echo $content;
-    echo $_POST['uploadedImage'];
+     //  echo $content;
+     var_dump($_FILES["profilePicture"]);
+    echo $decoded['username'];
+    
+    
+    
+  
+  
  
     
-    //  savePicture($decoded['picture'],$decoded['username'],$decoded['picExtension']);
+    //  savePicture($_FILES["profilePicture"]["tmp_name"],$decoded['username'],$decoded['picExtension']);
 
      if(!$stmt = $conn->prepare("UPDATE UserBasic SET firstname = ?,lastname = ? WHERE userlogin_id = ?")) {
             echo "Prepare failed: (". $conn->errno. ")". $conn->error;
