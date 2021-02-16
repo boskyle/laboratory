@@ -168,9 +168,7 @@ export const EditForm = (props) => {
         .then (response => console.log(response))
             .catch(err => console.log(err))
         
-        // instantly to redux state
-       
-        console.log(formData);
+      
         // window.location.reload();
         // setShowPop(false);
     }
@@ -227,10 +225,22 @@ export const EditForm = (props) => {
     
     }
     const uploadFile = () => {
+        let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
         console.log("upload file");
         const fd = new FormData();
-        let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
-     
+        fd.append('uploadedImage',uploadPicture);        
+        fetch (editUrl,{
+            method: 'POST',
+            headers: {
+                'accept': '*',
+                'Content-Type': 'multipart/form-data'
+            },
+            body: fd
+        }).then((response) => response.text())
+        .then(response => {console.log(response)})
+            .catch(err => console.log(err));
+
+
     }
 
     useEffect(() => {

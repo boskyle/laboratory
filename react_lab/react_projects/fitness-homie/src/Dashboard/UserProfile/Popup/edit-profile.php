@@ -40,8 +40,10 @@ if (!$conn -> connect_error) {
      // gets the key values of the json format to asscoiate them with their matching pair
      $decoded = json_decode($content, true);
  
-     echo $content;
-     echo $_FILES['uploadPicture']['name'];
+
+    echo $content;
+    echo $_POST['uploadedImage'];
+ 
     
     //  savePicture($decoded['picture'],$decoded['username'],$decoded['picExtension']);
 
