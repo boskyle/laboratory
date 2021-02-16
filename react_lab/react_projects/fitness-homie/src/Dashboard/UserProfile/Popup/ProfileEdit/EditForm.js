@@ -147,38 +147,58 @@ export const EditForm = (props) => {
         setLevel(value);
     }
 
-    const onEditProfile = async formData => {
+    const onEditProfile =  async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
+        let editPhotoUrl ='';
         const fd = new FormData();
-        fd.append('uid',props.userId);
         fd.append('profilePicture',uploadPicture);
         
-
-
-        await fetch (editUrl,{
-            method: 'POST',
-            body: JSON.stringify({
-                userId: props.userId,
-                username:props.username,
-                firstname: formData.firstname,
-                lastname: formData.lastname,
-                picExtension: picExtension
-            }),
-
-        }).then(response => response.text())
-        .then (response => console.log(response))
-            .catch(err => console.log(err))
-
- 
-          await  fetch (editUrl,{
+        
+        let [f1,f2] = await  Promise.allSettled([
+            
+            fetch (editUrl,{
+                method: 'POST',
+                body: JSON.stringify({
+                    userId: props.userId,
+                    username:props.username,
+                    firstname: formData.firstname,
+                    lastname: formData.lastname,
+                    picExtension: picExtension
+                }),
+                
+            }).then(value => value.text()),
+        fetch (editUrl,{
                 method: 'POST',    
                 body: fd
-            }).then((response) => response.text())
-            .then(response => {console.log(response)})
-                .catch(err => console.log(err));
+            }).then(value => value.text())
+        ]);
 
+        console.log(f1,f2);
+    
+        //   fetch (editUrl,{
+        //     method: 'POST',    
+        //     body:fd
+        // }).then((response) => response.text())
+        // .then(response => {console.log(response)})
+        //     .catch(err => console.log(err));
         
+        
+        // fetch (editUrl,{
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         userId: props.userId,
+        //         username:props.username,
+        //         firstname: formData.firstname,
+        //         lastname: formData.lastname,
+        //         picExtension: picExtension,
+        //     })
+            
+        // }).then(response => response.text())
+        //     .then(response => {console.log(response)})
+        //         .catch(err => console.log(err));
+                
        
+               
        
         // window.location.reload();
         // setShowPop(false);
