@@ -6,28 +6,13 @@ header('Access-Control-Allow-Methods: GET,POST');
 
 require_once '../../../Register/connect.php';
 
-function savePicture($picture,$username,$ext) {
 
 
 
-$newFileName = "profilePicture.".$ext;
-$path='../../../assets/user_assets/'.$username.'/images';
-$fileName='../../../assets/user_assets/'.$username.'/images'.'/'.$newFileName;
-
-echo $username;
-echo $newFileName;
 
 
-if (!is_dir($path)) {
-    mkdir($path,0757,true);
-}
 
-// delete all images then add your new one
-array_map('unlink',glob($path.'/'.'*'));
 
- move_uploaded_file($picture,$fileName);
-
-}
 
 
 
@@ -42,21 +27,22 @@ if (!$conn -> connect_error) {
     
      // gets the key values of the json format to asscoiate them with their matching pair
     //  var_dump($_FILES);
-    echo $decoded['username'];
     
-    
-    
-    
-  
-  
- 
-    
-    //  savePicture($_FILES["profilePicture"]["tmp_name"],$decoded['username'],$decoded['picExtension']);
+    $fn = $decoded['username'].'.'.$decoded['picExtension'];
 
-     if(!$stmt = $conn->prepare("UPDATE UserBasic SET firstname = ?,lastname = ? WHERE userlogin_id = ?")) {
+
+    $url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/assets/user_assets/'.$decoded['username'].'/images/'.$fn;
+  
+    
+    
+    
+    
+  
+
+     if(!$stmt = $conn->prepare("UPDATE UserBasic SET firstname = ?,lastname = ?,profile_picture_path = ? WHERE userlogin_id = ?")) {
             echo "Prepare failed: (". $conn->errno. ")". $conn->error;
         } else {
-            $stmt->bind_param("ssi",$decoded['firstname'],$decoded['lastname'],$decoded['userId']);
+            $stmt->bind_param("sssi",$decoded['firstname'],$decoded['lastname'],$url,$decoded['userId']);
             // $stmt->send_long_data(2,$pic);
             $stmt->execute();
             $stmt->close();

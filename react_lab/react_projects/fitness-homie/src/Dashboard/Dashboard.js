@@ -18,7 +18,7 @@ function Dashboard() {
         username: '',
         firstname: '',
         lastname: '',
-        profile_picture: ''
+        pp_path: ''
 
     });
 
@@ -55,11 +55,12 @@ function Dashboard() {
         LoadBasicInfo(dashUid).then(data => {
             if (isMounted === true) {
                 if (data !== false) {
-                    // console.log(data);
+                    console.log(data);
                     setUserInfo({
                         username: data.username,
                         firstname: data.firstname,
-                        lastname: data.lastname,       
+                        lastname: data.lastname,   
+                        pp_path: data.profile_picture_path
                     })
                 }
             }
@@ -138,7 +139,7 @@ useEffect( () => {
                         username={userInfo.username}
                         firstname={userInfo.firstname}
                         lastname={userInfo.lastname}
-                        profile_picture={userInfo.profile_picture}
+                        profile_picture={userInfo.pp_path}
                         // fitness Information
                         gender={userFitness.gender}
                         age={userFitness.age}

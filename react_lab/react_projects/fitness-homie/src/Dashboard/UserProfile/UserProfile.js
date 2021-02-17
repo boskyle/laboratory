@@ -3,6 +3,8 @@ import {useState,useEffect} from 'react';
 import {getUidFromUsername} from '../db-endpoints/loadProfile';
 import './userprofile.css';
 import Popup from './Popup/Popup';
+import defaultPicture from '../../assets//images/defaulProfilePicture.png';
+
 
 
 
@@ -12,11 +14,13 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
-
+   
+    console.log(profile_picture);
 
     let edit,edit2,edit3;
 
-    const profilePictureImg = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/assets/user_assets/${username}/images/${username}.jpeg`;
+    // const profilePictureImg = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/assets/user_assets/${username}/images/${username}.jpeg`;
+    const [picture,setPicture] = useState(defaultPicture);
 
 
 
@@ -50,10 +54,19 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
 
    
     const [suid,setSuid] = useState(undefined);
+  
 
     useEffect(() => {
         console.log("userprofile mounted");
+ 
     },[])
+
+    useEffect( () => {
+        console.log(profile_picture);
+        if (profile_picture !== null) {
+            setPicture(profile_picture);
+        } else {setPicture(defaultPicture)}
+    },[profile_picture])
 
     useEffect(() => {
         return () => {console.log("userprofile unmounted")}
@@ -71,7 +84,7 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
 
             if (userid === suid)
             {
-                edit =  <Popup identity="userProfile" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
+                edit =  <Popup identity="userProfile" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} profile_picture={profile_picture}/>
                 edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} caloriesTarget={caloriesTarget}/>
                 edit3 = <Popup identity="userTargetCalories" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
             }
@@ -98,7 +111,7 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
                     
                     
                     </h2>
-                        <img src={profilePictureImg}  alt="" className="profilePicture mx-auto"/>
+                        <img src={picture}  alt="" className="profilePicture mx-auto"/>
                         <div className="mx-auto text-center mt-3">
                         <span className="userName">{username}</span>
                         <span className="name">{firstname +" "+lastname}</span>

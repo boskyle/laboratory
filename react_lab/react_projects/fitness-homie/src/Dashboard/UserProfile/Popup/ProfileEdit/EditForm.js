@@ -14,6 +14,7 @@ export const EditForm = (props) => {
 
 
 
+   
     const {register, handleSubmit, errors} = useForm({
         defaultValues: {
             firstname: props.firstname,
@@ -178,15 +179,18 @@ export const EditForm = (props) => {
         // ]);
 
         // console.log(f1.value,f2.value);
+
+
     
           fetch (uploadPhotoUrl,{
             method: 'POST',    
             body:fd
-        }).then((response) => response.text())
-        .then(response => {console.log(response)})
-            .catch(err => console.log(err));
+        })
         
         
+
+       
+
         fetch (editUrl,{
             method: 'POST',
             body: JSON.stringify({
@@ -205,7 +209,7 @@ export const EditForm = (props) => {
                
        
         // window.location.reload();
-        // setShowPop(false);
+        setShowPop(false);
     }
 
     const onEditStyles = async formData => {
@@ -248,13 +252,16 @@ export const EditForm = (props) => {
         const options = {
             maxSizeMB: 1,
         }
+        setPictures(URL.createObjectURL(image.target.files[0]));
 
         imageCompression(image.target.files[0],options)
             .then(cf => {
                 // compressed file output
-                setPictures(URL.createObjectURL(cf));
-                setPicExtension(cf.name.split('.').pop());
+                let imgType = cf.type;
+                let ext = imgType.substring(imgType.indexOf('/')+1);
+                setPicExtension(ext);
                 setUploadPicture(cf); 
+                
             }).catch(err => {alert(err)});
 
 
@@ -268,7 +275,7 @@ export const EditForm = (props) => {
     }
     const uploadFile = async () => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
-        console.log("upload file");
+        // console.log("upload file");
     //     const fd = new FormData();
     //     fd.append('uploadedImage',uploadPicture);
      
@@ -287,8 +294,7 @@ export const EditForm = (props) => {
     }
 
     useEffect(() => {
-        // here we load the user's photo
-       
+        setPictures(props.profile_picture);   
     },[])
 
 
