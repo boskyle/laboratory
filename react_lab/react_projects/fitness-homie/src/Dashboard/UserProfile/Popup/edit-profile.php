@@ -25,7 +25,7 @@ if (!is_dir($path)) {
 // delete all images then add your new one
 array_map('unlink',glob($path.'/'.'*'));
 
-// move_uploaded_file($picture,$fileName);
+ move_uploaded_file($picture,$fileName);
 
 }
 
@@ -41,8 +41,8 @@ if (!$conn -> connect_error) {
      $decoded = json_decode($content,true);
     
      // gets the key values of the json format to asscoiate them with their matching pair
-     var_dump($_FILES);
-
+    //  var_dump($_FILES);
+    echo $decoded['username'];
     
     
     
@@ -51,7 +51,7 @@ if (!$conn -> connect_error) {
   
  
     
-     savePicture($_FILES["profilePicture"]["tmp_name"],$decoded['username'],$decoded['picExtension']);
+    //  savePicture($_FILES["profilePicture"]["tmp_name"],$decoded['username'],$decoded['picExtension']);
 
      if(!$stmt = $conn->prepare("UPDATE UserBasic SET firstname = ?,lastname = ? WHERE userlogin_id = ?")) {
             echo "Prepare failed: (". $conn->errno. ")". $conn->error;

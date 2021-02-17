@@ -18,7 +18,7 @@ const Settings = () => {
         <div className="settings-container">
 
         <div className="settings-item">
-            <h2>Change email/password</h2>
+            <h2>Coming to v1.1</h2>
         </div>
 
         

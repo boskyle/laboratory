@@ -149,53 +149,57 @@ export const EditForm = (props) => {
 
     const onEditProfile =  async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
-        let editPhotoUrl ='';
+        let uploadPhotoUrl ='http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/upload-photo.php';
         const fd = new FormData();
-        fd.append('profilePicture',uploadPicture);
+        try {
+            fd.set('profilePicture',uploadPicture,props.username);
+        } catch (err) {
+            console.log(err);
+        }
         
         
-        let [f1,f2] = await  Promise.allSettled([
+        // let [f1,f2] = await  Promise.all([
             
-            fetch (editUrl,{
-                method: 'POST',
-                body: JSON.stringify({
-                    userId: props.userId,
-                    username:props.username,
-                    firstname: formData.firstname,
-                    lastname: formData.lastname,
-                    picExtension: picExtension
-                }),
+        //     fetch (editUrl,{
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //             userId: props.userId,
+        //             username:props.username,
+        //             firstname: formData.firstname,
+        //             lastname: formData.lastname,
+        //             picExtension: picExtension
+        //         }),
                 
-            }).then(value => value.text()),
-        fetch (editUrl,{
-                method: 'POST',    
-                body: fd
-            }).then(value => value.text())
-        ]);
+        //     }).then(value => value.text()),
+        // fetch (uploadPhotoUrl,{
+        //         method: 'POST',    
+        //         body: fd
+        //     }).then(value => value.text())
+        // ]);
 
-        console.log(f1,f2);
+        // console.log(f1.value,f2.value);
     
-        //   fetch (editUrl,{
-        //     method: 'POST',    
-        //     body:fd
-        // }).then((response) => response.text())
-        // .then(response => {console.log(response)})
-        //     .catch(err => console.log(err));
+          fetch (uploadPhotoUrl,{
+            method: 'POST',    
+            body:fd
+        }).then((response) => response.text())
+        .then(response => {console.log(response)})
+            .catch(err => console.log(err));
         
         
-        // fetch (editUrl,{
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         userId: props.userId,
-        //         username:props.username,
-        //         firstname: formData.firstname,
-        //         lastname: formData.lastname,
-        //         picExtension: picExtension,
-        //     })
+        fetch (editUrl,{
+            method: 'POST',
+            body: JSON.stringify({
+                userId: props.userId,
+                username:props.username,
+                firstname: formData.firstname,
+                lastname: formData.lastname,
+                picExtension: picExtension,
+            })
             
-        // }).then(response => response.text())
-        //     .then(response => {console.log(response)})
-        //         .catch(err => console.log(err));
+        }).then(response => response.text())
+            .then(response => {console.log(response)})
+                .catch(err => console.log(err));
                 
        
                
@@ -251,7 +255,7 @@ export const EditForm = (props) => {
                 setPictures(URL.createObjectURL(cf));
                 setPicExtension(cf.name.split('.').pop());
                 setUploadPicture(cf); 
-            })
+            }).catch(err => {alert(err)});
 
 
 

@@ -64,6 +64,15 @@
     width: 5vw;
 }
 
+.profilePicture {
+    border-radius: 50%;
+    width:275px;
+    height: 30%;
+    border: 3px solid black;
+    
+
+}
+
 /* journal item container and its items */
 
 .journal-items-container {

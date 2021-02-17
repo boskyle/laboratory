@@ -5,6 +5,9 @@ import './userprofile.css';
 import Popup from './Popup/Popup';
 
 
+
+
+
 const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernameSearched,gender,age,height,weight,activityLevel,calories,caloriesTarget}) => {
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
@@ -12,6 +15,8 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
 
 
     let edit,edit2,edit3;
+
+    const profilePictureImg = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/assets/user_assets/${username}/images/${username}.jpeg`;
 
 
 
@@ -85,18 +90,19 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
             
             return (
                 <div className="user-profile-container">
-                    <div className="user-profile-item">
+                    <div className="user-profile-item d-flex flex-column">
                     <h2 className="">PROFILE {edit}
-                    {/* <img src={profilePicture}></img> */}
+                
                     
                     
                     
                     
                     </h2>
-                        <div>
+                        <img src={profilePictureImg}  alt="" className="profilePicture mx-auto"/>
+                        <div className="mx-auto text-center mt-3">
                         <span className="userName">{username}</span>
                         <span className="name">{firstname +" "+lastname}</span>
-                        {profile_picture}
+                     
                         </div>
                     </div>
 
