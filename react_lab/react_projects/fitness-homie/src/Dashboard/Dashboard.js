@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,createContext} from 'react';
 import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
@@ -8,12 +8,10 @@ import "./dashboard.css";
 import Navigation from './Navigation/Navigation';
 import DashboardContainer from './DashboardContainer';
 
-function Dashboard() {
+export const DashboardContext = createContext();
+export function Dashboard() {
 
-    // const history = useHistory();
     const {urlParam} = useParams();
-
-
     const [userInfo, setUserInfo] = useState({
         username: '',
         firstname: '',
@@ -21,6 +19,9 @@ function Dashboard() {
         pp_path: ''
 
     });
+
+
+  
 
     const [userFitness,setUserFitness] = useState({
         age: '',
@@ -90,8 +91,8 @@ function Dashboard() {
             }
         })
          // prevents memory leak, make sure that it is mounted first
+       
         return () => {isMounted = false; isMounted2 = false;} 
-           
          
     },[dashUid])
 
@@ -126,7 +127,7 @@ useEffect( () => {
 
 
 
-        return (
+        return (  
             <div className="containerFluid">
                 <div className="row">
                 <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
@@ -140,6 +141,7 @@ useEffect( () => {
                         firstname={userInfo.firstname}
                         lastname={userInfo.lastname}
                         profile_picture={userInfo.pp_path}
+                        setUserInfo={setUserInfo}
                         // fitness Information
                         gender={userFitness.gender}
                         age={userFitness.age}
@@ -156,4 +158,3 @@ useEffect( () => {
 
   
 }
-export default Dashboard;

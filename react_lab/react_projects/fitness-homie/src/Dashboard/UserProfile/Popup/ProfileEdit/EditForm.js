@@ -10,8 +10,9 @@ import ImageUploader from 'react-images-upload';
 import imageCompression from 'browser-image-compression';
 import defaultImage from '../../../../assets/images/defaulProfilePicture.png';
 
-export const EditForm = (props) => {
 
+
+export const EditForm = (props) => {
 
 
    
@@ -25,7 +26,7 @@ export const EditForm = (props) => {
         }
     });
 
-
+  
 
     // mini functions to turn height in cm to feet & inches
     const takeFeet = (height) => {
@@ -92,6 +93,12 @@ export const EditForm = (props) => {
     }
 
 
+
+    const getCurrentImage = () => {
+        console.log(props.profile_picture);
+
+    }
+
     const [showPop,setShowPop] = useState(false);
     const [form,setForm] = useState('');
     
@@ -101,13 +108,17 @@ export const EditForm = (props) => {
     const [inches, setInches] = useState(takeInches(props.height));
     const [actLevel, setLevel] = useState(props.activityLevel);
     // used for visual on edit
-    const [pictures,setPictures] = useState([defaultImage]);
+    const [pictures,setPictures] = useState(defaultImage);
     // actual
-    const [uploadPicture,setUploadPicture] = useState([defaultImage]);
-    const [picExtension,setPicExtension] = useState(undefined);
+    const [uploadPicture,setUploadPicture] = useState();
+    const [picExtension,setPicExtension] = useState(getCurrentImage);
+    const [buff,setBuff]= useState(undefined);
+
+
     
-
-
+    useEffect(() => {
+        setPictures(props.profile_picture);   
+},[])
    
    
     const  handleOpen = () => {
@@ -152,65 +163,50 @@ export const EditForm = (props) => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
         let uploadPhotoUrl ='http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/upload-photo.php';
         const fd = new FormData();
+        console.log(uploadPicture);
         try {
+        if(buff !== undefined)
+        {
             fd.set('profilePicture',uploadPicture,props.username);
+
+        }
         } catch (err) {
             console.log(err);
         }
         
-        
-        // let [f1,f2] = await  Promise.all([
-            
-        //     fetch (editUrl,{
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             userId: props.userId,
-        //             username:props.username,
-        //             firstname: formData.firstname,
-        //             lastname: formData.lastname,
-        //             picExtension: picExtension
-        //         }),
-                
-        //     }).then(value => value.text()),
-        // fetch (uploadPhotoUrl,{
-        //         method: 'POST',    
-        //         body: fd
-        //     }).then(value => value.text())
-        // ]);
+        Promise.all([
 
-        // console.log(f1.value,f2.value);
-
-
-    
-          fetch (uploadPhotoUrl,{
-            method: 'POST',    
-            body:fd
+            fetch (uploadPhotoUrl,{
+              method: 'POST',    
+              body:fd
+          }),
+          fetch (editUrl,{
+              method: 'POST',
+              body: JSON.stringify({
+                  userId: props.userId,
+                  username:props.username,
+                  firstname: formData.firstname,
+                  lastname: formData.lastname,
+                  picExtension: picExtension,
+              })
+              
+          })
+        ]) .then(responses => {
+            return Promise.all(responses.map(response => {
+                return response.text();
+            }))
+        }) .then (() => {
+           window.location.reload();
         })
-        
+          
+    
         
 
-       
 
-        fetch (editUrl,{
-            method: 'POST',
-            body: JSON.stringify({
-                userId: props.userId,
-                username:props.username,
-                firstname: formData.firstname,
-                lastname: formData.lastname,
-                picExtension: picExtension,
-            })
-            
-        }).then(response => response.text())
-            .then(response => {console.log(response)})
-                .catch(err => console.log(err));
-                
-       
-               
-       
-        // window.location.reload();
-        setShowPop(false);
     }
+
+  
+    
 
     const onEditStyles = async formData => {
         let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-stats.php';
@@ -241,61 +237,33 @@ export const EditForm = (props) => {
 
 
 
-  
+ 
 
 
     const onDrop = (image) => {
+   
+        setBuff(image.target.files[0]);
         console.log(image.target.files[0]);
-  
         // compression options, limit to 64kb size of blob
         // console.log(image[0]);
         const options = {
             maxSizeMB: 1,
         }
+        
+        
         setPictures(URL.createObjectURL(image.target.files[0]));
-
         imageCompression(image.target.files[0],options)
-            .then(cf => {
-                // compressed file output
-                let imgType = cf.type;
-                let ext = imgType.substring(imgType.indexOf('/')+1);
+        .then(cf => {
+            // compressed file output
+            let imgType = cf.type;
+            let ext = imgType.substring(imgType.indexOf('/')+1);
                 setPicExtension(ext);
-                setUploadPicture(cf); 
-                
+                setUploadPicture(cf);        
             }).catch(err => {alert(err)});
 
-
-
-           
-         
-            
-
-
-    
-    }
-    const uploadFile = async () => {
-        let editUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/UserProfile/Popup/edit-profile.php';
-        // console.log("upload file");
-    //     const fd = new FormData();
-    //     fd.append('uploadedImage',uploadPicture);
-     
-        
-    //    await fetch (editUrl,{
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'multipart/form-data'
-    //         },
-    //         body: fd
-    //     }).then((response) => response.text())
-    //     .then(response => {console.log(response)})
-    //         .catch(err => console.log(err));
-
-
     }
 
-    useEffect(() => {
-        setPictures(props.profile_picture);   
-    },[])
+
 
 
 
@@ -356,7 +324,7 @@ export const EditForm = (props) => {
 
 
 
-<button  type="submit"  className="btn save-button" onClick={uploadFile}>Save</button>
+<button  type="submit"  className="btn save-button">Save</button>
 </form>
 <form>
 
@@ -488,6 +456,7 @@ export const EditForm = (props) => {
     <ImCross className="exit-icon" onClick={handleClose}/>
     </form>
     </Modal>
+
 
      
         if (form === "userProfile")

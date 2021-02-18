@@ -20,6 +20,7 @@ const Popup = (props) => {
                 <EditForm identity={props.identity} username={props.username} firstname={props.firstname} lastname={props.lastname} userId={props.userId} gender={props.gender} age={props.age} height={props.height} weight={props.weight}
                 activityLevel={props.activityLevel}
                 profile_picture={props.profile_picture}
+                setUserInfo={props.setUserInfo}
                 />
             );
         } else if (props.identity === "userStats")

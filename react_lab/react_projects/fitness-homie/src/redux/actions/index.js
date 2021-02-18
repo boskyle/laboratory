@@ -10,3 +10,10 @@ export const userLoggedOut = () => {
         type:'LOG_OUT_SUCCESS'
     }
 }
+
+export const getEditBasic = (userInfo,setUserInfo) => {
+    return {
+        type: 'SET_USER_INFO',
+        payload: [userInfo,setUserInfo]
+    }
+}

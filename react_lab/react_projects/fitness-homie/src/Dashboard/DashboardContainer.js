@@ -80,6 +80,7 @@ const DashboardContainer = (props) => {
                                 firstname={props.firstname}
                                 lastname={props.lastname}
                                 profile_picture={props.profile_picture}
+                                setUserInfo={props.setUserInfo}
                                 // address={props.country}
                                 usernameSearched={props.urlParam}
                                 gender={props.gender}

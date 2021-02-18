@@ -10,14 +10,14 @@ import defaultPicture from '../../assets//images/defaulProfilePicture.png';
 
 
 
-const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernameSearched,gender,age,height,weight,activityLevel,calories,caloriesTarget}) => {
+const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernameSearched,gender,age,height,weight,activityLevel,calories,caloriesTarget,setUserInfo}) => {
 
         // console.log(loadFromLocalStorage('isLogged').isLogged[1]);
       
    
-    console.log(profile_picture);
+ 
 
-    let edit,edit2,edit3;
+    let edit,edit2;
 
     // const profilePictureImg = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/assets/user_assets/${username}/images/${username}.jpeg`;
     const [picture,setPicture] = useState(defaultPicture);
@@ -84,9 +84,9 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
 
             if (userid === suid)
             {
-                edit =  <Popup identity="userProfile" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} profile_picture={profile_picture}/>
-                edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} caloriesTarget={caloriesTarget}/>
-                edit3 = <Popup identity="userTargetCalories" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel}/>
+                edit =  <Popup identity="userProfile" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} profile_picture={profile_picture} setUserInfo={setUserInfo}/>
+                edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} caloriesTarget={caloriesTarget}setUserInfo={setUserInfo}/>
+           
             }
             
             // console.log(selector);
