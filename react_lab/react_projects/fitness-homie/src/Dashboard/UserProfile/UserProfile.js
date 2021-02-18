@@ -85,7 +85,7 @@ const UserProfile = ({userid,username,firstname,lastname,profile_picture,usernam
             if (userid === suid)
             {
                 edit =  <Popup identity="userProfile" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} profile_picture={profile_picture} setUserInfo={setUserInfo}/>
-                edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} caloriesTarget={caloriesTarget}setUserInfo={setUserInfo}/>
+                edit2 = <Popup identity="userStats" userId ={userid} username={username} firstname={firstname} lastname={lastname} gender={gender} age={age} height={height} weight={weight} activityLevel={activityLevel} caloriesTarget={caloriesTarget} profile_picture={profile_picture} setUserInfo={setUserInfo}/>
            
             }
             

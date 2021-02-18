@@ -94,10 +94,7 @@ export const EditForm = (props) => {
 
 
 
-    const getCurrentImage = () => {
-        console.log(props.profile_picture);
 
-    }
 
     const [showPop,setShowPop] = useState(false);
     const [form,setForm] = useState('');
@@ -111,15 +108,20 @@ export const EditForm = (props) => {
     const [pictures,setPictures] = useState(defaultImage);
     // actual
     const [uploadPicture,setUploadPicture] = useState();
-    const [picExtension,setPicExtension] = useState(getCurrentImage);
+    const [picExtension,setPicExtension] = useState(undefined);
     const [buff,setBuff]= useState(undefined);
 
 
     
     useEffect(() => {
         setPictures(props.profile_picture);   
+        if (props.profile_picture !== undefined) {
+            console.log(props.profile_picture.split('.').pop());
+            setPicExtension(props.profile_picture.split('.').pop());
+        }
 },[])
    
+
    
     const  handleOpen = () => {
         console.log("open");
