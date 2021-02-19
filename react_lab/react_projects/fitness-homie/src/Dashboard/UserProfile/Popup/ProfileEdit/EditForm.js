@@ -114,10 +114,13 @@ export const EditForm = (props) => {
 
     
     useEffect(() => {
-        setPictures(props.profile_picture);   
+
+        
         if (props.profile_picture !== undefined) {
-            console.log(props.profile_picture.split('.').pop());
-            setPicExtension(props.profile_picture.split('.').pop());
+                if(props.profile_picture !== null) {
+                    setPictures(props.profile_picture);   
+                    setPicExtension(props.profile_picture.split('.').pop());
+                }
         }
 },[])
    
