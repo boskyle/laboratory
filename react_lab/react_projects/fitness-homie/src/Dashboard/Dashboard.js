@@ -1,34 +1,27 @@
 import React from 'react';
-import {useState,useEffect} from 'react';
-import {useHistory,useParams} from "react-router-dom";
+import {useState,useEffect,createContext} from 'react';
+import {useParams} from "react-router-dom";
 import {loadFromLocalStorage} from '../LocalStorage';
 import {LoadBasicInfo,LoadFitnessInfo,getUidFromUsername} from './db-endpoints/loadProfile';
-import  UserProfile from './UserProfile/UserProfile';
 import '../assets/fonts/index.css';
 import "./dashboard.css";
-import AsyncSelect from 'react-select/async';
-import {searchBoxStyle} from './SearchBox/SearchBox';
-import {useDispatch} from 'react-redux';
-import {userLoggedOut} from '../redux/actions';
+import Navigation from './Navigation/Navigation';
+import DashboardContainer from './DashboardContainer';
 
+export const DashboardContext = createContext();
+export function Dashboard() {
 
-
-
-function Dashboard() {
-
- 
-    // var to access passed variable from Login.js
-    const history = useHistory();
-    const {username} = useParams();
-
-
+    const {urlParam} = useParams();
     const [userInfo, setUserInfo] = useState({
         username: '',
         firstname: '',
         lastname: '',
-        address: '',
-        country: '',
+        pp_path: ''
+
     });
+
+
+  
 
     const [userFitness,setUserFitness] = useState({
         age: '',
@@ -37,138 +30,132 @@ function Dashboard() {
         gender: '',
         activity: '',
         bmr:'',
-        calories: ''
+        calories: '',
+        calories_target: ''
     });
 
-    const filterUsername =  (inputValue) => {
-     
-          return fetch ('http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/SearchBox/usernameAsync.php',{
-                method: 'POST',
-                body:JSON.stringify(inputValue)
-            }).then(res => res.json());
-            
-      
-    }
+    const [dashUid,setDashUid] = useState(undefined);
+    useEffect(() => {
+        let isMounted = true;
 
-    const [searchInputValue, setSearchInputValue] = useState('');
-    const [selectedSearchInputValue, setSelectedSearchInputValue] = useState(null);
+        getUidFromUsername(urlParam).then(uid => {
+            if(isMounted === true) {
+                setDashUid(uid);     
+            }
+        })  
+
+        return () => {isMounted = false;}
+    },[urlParam])
     
-    const handleSearchInputChange = val => {
-        setSearchInputValue(val);
-    }
-    
-    const handleSelection = val => {
-        setSelectedSearchInputValue(val);
-    }
-    console.log("search input: "+searchInputValue);
- 
    
-
-    const [dashUid,setDashUid] = useState(loadFromLocalStorage('isLogged').isLogged[1]);
-
- 
     useEffect( () => {
        
-        console.log("who is logged: "+ loadFromLocalStorage('isLogged').isLogged[1]);
-        console.log("url param: "+username);
-
-        let isCancelled = false;    
+        let isMounted = true;
+        let isMounted2 = true;
+    //    comment added
         LoadBasicInfo(dashUid).then(data => {
-            if (data !== false) {
-                setUserInfo({
-                    username: data.username,
-                    firstname: data.firstname,
-                    lastname: data.lastname,
-                    country: data.country
-                })
-            }
-        })      
-            // prevents memory leak, make sure that it is mounted first
-            return () => {
-                isCancelled = true;
-            }     
-    },[dashUid])
-
-    // set DashUid everytime selected input from async dropdown is changed
-    // make it local so on page refresh it retains the uid
-    useEffect(() => {
-
-        
-        // console.log(selectedSearchInputValue.userlogin_id);
-        if(selectedSearchInputValue !== null) {
-            localStorage.setItem("dash-uid",selectedSearchInputValue.userlogin_id);
-        }
-        setDashUid(parseInt(localStorage.getItem("dash-uid")));
-       
-    },[selectedSearchInputValue])
-
-
-    // if searching through browser
-    useEffect(() => {
-        let isCancelled = false;
-        getUidFromUsername(username).then(uid => {
-            if (uid !== undefined) {
-                    setDashUid(uid);
+            if (isMounted === true) {
+                if (data !== false) {
+                    // console.log(data);
+                    setUserInfo({
+                        username: data.username,
+                        firstname: data.firstname,
+                        lastname: data.lastname,   
+                        pp_path: data.profile_picture_path
+                    })
+                }
             }
         })
 
-        return () => {
-            isCancelled = true;
-        }     
-      
-    },[username])
-    
-
-    const dispatch = useDispatch();
 
 
-    const logOut = () => {
-        dispatch(userLoggedOut());
-        history.push("/");
-    }
-   
-     
-            return  (
-                // main component (gridbox and will be injected)
-                <div className="containerFluid">
-                 
-                    <div className="row">
-                        <div className="col-3 col-sm-2 col-md-2 text-center">
-                        <button onClick={logOut}>Log out</button>
-                        </div>
-                        <div className="col-9 col-sm-10 col-md-8 ">
-                            <UserProfile 
-                                username={userInfo.username}
-                                firstname={userInfo.firstname}
-                                lastname={userInfo.lastname}
-                                address={userInfo.country}
-                                usernameSearched={username}
-                            />                  
-                        </div>
-                        <div className="col-sm-2 col-md-2 d-none d-md-block text-center">
-                              
-                        <div className="d-flex flex-column align-items-center" style={{width:"100%",height:"100%"}}>
-                            <AsyncSelect className="w-100 mt-3" 
-                             cacheOptions                         
-                             loadingMessage={() => 'searching...'}
-                             noOptionsMessage={() => 'doesnt exist'} 
-                             loadOptions={filterUsername}              
-                             value={searchInputValue}
-                             getOptionValue={e => e.username}
-                             getOptionLabel={e => e.username}
-                             onInputChange={handleSearchInputChange}
-                             onChange={handleSelection}    
-                             styles={searchBoxStyle}
-                             components={{ DropdownIndicator:()=> null,IndicatorSeparator: () => null}}
-                            />                  
-                        </div>
-                        
-                        </div>
-                    </div>
+        // LoadProfilePicture(dashUid).then(data => {
+        //     if (data !== false) {
+        //         console.log(data);
+        //     }
+        // })
+        
+        LoadFitnessInfo(dashUid).then(data => {
+            if (isMounted2 === true) {
+                if (data !== false) {
+                    setUserFitness({
+                        gender: data.gender,
+                        age: data.age,
+                        height: data.height_cm,
+                        weight: data.weight_lbs,
+                        activity: data.activity_level,
+                        calories: data.calories,
+                        calories_target: data.calories_target
+                    })
+                }
+            }
+        })
+         // prevents memory leak, make sure that it is mounted first
+       
+        return () => {isMounted = false; isMounted2 = false;} 
+         
+    },[dashUid])
+
+    const [loggedUid,setLoggedUid] = useState(undefined);
+
+    useEffect( () => {
+        let isMounted = true;
+        // wait to fetch logged in Object (initially undefined)
+        if (loadFromLocalStorage('isLogged').isLogged[1] !== undefined)
+        {
+            if (isMounted === true)
+            {
+                setLoggedUid(loadFromLocalStorage('isLogged').isLogged[1][0]);
+                
+            }
+        }
+        return () => {isMounted = false;}
+        
+},[loadFromLocalStorage('isLogged').isLogged[1]])
+
+
+useEffect( () => {
+    console.log("dashboard mounted");
+},[])
+
+useEffect( () => {
+    return () => {console.log("dashboard unmounted");}
+},[])
+
+
+
+
+
+
+        return (  
+            <div className="containerFluid">
+                
+                <div className="row">
+                <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
+                    <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]}/>
                 </div>
+                <DashboardContainer 
+                        
+                        urlParam={urlParam}    
+                        uid={loggedUid}
+                        username={userInfo.username}
+                        firstname={userInfo.firstname}
+                        lastname={userInfo.lastname}
+                        profile_picture={userInfo.pp_path}
+                        setUserInfo={setUserInfo}
+                        // fitness Information
+                        gender={userFitness.gender}
+                        age={userFitness.age}
+                        height={userFitness.height}
+                        weight={userFitness.weight}
+                        activityLevel={userFitness.activity}
+                        calories={userFitness.calories}
+                        caloriesTarget={userFitness.calories_target}
+                        />
+                </div>   
+            </div>
             );
-      
+
 
   
 }
-export default Dashboard;

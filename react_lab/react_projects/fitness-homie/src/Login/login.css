@@ -1,0 +1,26 @@
+form {
+    background-color:#ccf2f4;
+    border-radius: 5px;
+}
+
+
+.login-btn {
+    font-size:0.75em !important;
+    font-family: raleway-regular;
+    letter-spacing: 3px;
+    position: absolute;
+    bottom: 30%;
+    left: 0;
+    right: 0;
+}
+
+.reg-link{
+    margin-top: 12em;
+    color: purple;
+    font-family: raleway-thin;
+}
+.reg-link:hover{
+    color: purple;
+    text-decoration: underline !important;
+   
+}

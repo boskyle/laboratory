@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import {isEmailExist,getUsernameFromId} from './db-endpoints/db-fetch';
 import {LoadBasicInfo} from '../Dashboard/./db-endpoints/loadProfile';
-import {saveToLocalStorage} from '../LocalStorage';
+
 
 
 
@@ -30,6 +30,7 @@ function Login() {
         
        
         let local_url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/authenticate-user.php';
+        // let auth_rleative_path = "./authenticate-user.php";
        
         // send email + password raw (get a resonpose (validation and authenticate user))
         await fetch (local_url, {
@@ -42,32 +43,36 @@ function Login() {
                 email: formData.email,
                 password: formData.password
             })
-        }).then(response => response.json())
-            .then(response => {
+        }).then(uid => uid.json())
+            .then(uid => {
                
                 /*  If the response returned back is an integer that means the php file fetched  ~ returned a uid 
                     which means the user had entered the right password.
                 */           
-                if (Number.isInteger(response)) {
-
+                if (Number.isInteger(uid)) {
                     
+                    // added username to the redux payload along with his/her userid
+                    getUsernameFromId(uid).then (username => {
+                        dispatch(authenticateUserLoggedIn(uid,username));
+                    });
                     // uid (response) dispatch send
-                    dispatch(authenticateUserLoggedIn(response));
                     /*  fetch uid from the logged in user, 
                         and pass this uid as paramter to another async function t
                         hat will return the username
                         associated with the userid and push it to the history stack to reroute to that username
                     */
-                     LoadBasicInfo(response).then(response => {
-                            console.log(response);
+                     LoadBasicInfo(uid).then(response => {
                                 if (response === false) {
-                                    history.push("login/setup");
-                            } else { history.push(`/${response.username}`);}
+                                    history.push({
+                                        pathname: "/login/setup",
+                                        val: false
+                                    });
+                            } else { history.replace(`/${response.username}`);}
                            
                      })
 
                                          
-                } else {setError(response);}
+                } else {setError(uid);}
                 
             })
             .catch(err => console.log(err));
@@ -119,8 +124,8 @@ function Login() {
                 {<span>{error}</span>}
                 </div>
     
-                 <button type="submit" className="btn mx-auto">Login</button>
-                 <Link to="/register" className="mx-auto mt-2" style={{textDecoration:"none"}}><span>Not a member ? Register here</span></Link>
+                 <button type="submit" className="btn mx-auto login-btn">LOGIN</button>
+                 <Link to="/register" className="mx-auto reg-link" style={{textDecoration:"none"}}><span>Not a member ? Register here</span></Link>
         </form>
 
 

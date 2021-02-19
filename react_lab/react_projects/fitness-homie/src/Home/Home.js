@@ -23,7 +23,8 @@ const Home = () => {
 
     useEffect( () => {
         if (loadFromLocalStorage("isLogged").isLogged[0] === true) {
-            history.push('/dashboard');
+              // get username (isLogged is an array [0](state of logged in) [1] (an array of logged in userId and username))
+            history.push(`/${loadFromLocalStorage('isLogged').isLogged[1][1]}`);
         }
     })
 

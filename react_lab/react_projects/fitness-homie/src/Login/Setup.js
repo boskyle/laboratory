@@ -1,18 +1,17 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {useState,useEffect} from 'react';
-import {CountryDropdown, RegionDropdown} from 'react-country-region-selector';
-import './setup.css';
+import {useState} from 'react';
 import { FaInfoCircle } from 'react-icons/fa';
-import {useLocation,Redirect} from 'react-router-dom';
-import {saveToLocalStorage,loadFromLocalStorage} from '../LocalStorage';
-import {getUsernameFromId} from './db-endpoints/db-fetch';
-
-
-
+import {loadFromLocalStorage} from '../LocalStorage';
+import {useHistory} from 'react-router-dom';
+import {isUsernameExist} from '../DB/validation';
+import {useDispatch} from 'react-redux';
+import {authenticateUserLoggedIn} from '../redux/actions';
+import './setup.css';
 
 var basicInfo;
-var basicInfoArray = new Array();
+var basicInfoArray = [];
+
 
 let bmr_tool_tip_string = "An estimation on how much calories you need to consume to be able to sustain your weight."
 
@@ -22,12 +21,14 @@ const Setup = ()  => {
     let registerFitnessInfoApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/register-basic-info-2.php';
 
     const {register, handleSubmit, errors, reset} = useForm();
- 
-    
+    let history = useHistory();
+    const dispatch = useDispatch();
 
-  
+   
+
+
+
     
-    console.log(loadFromLocalStorage('isDataGiven'));
 
 let activity = [
     ['bmr', 1],
@@ -40,9 +41,7 @@ let activity = [
 
     
     const [isFormSubmitted,setFlag] = useState(false);
-    const [country,setCountry] = useState('');
-    const [region, setRegion] = useState('');
-   
+  
     // dropdown
     const [value,setValue]=useState('bmr');
     const [gender,setGender]=useState('Male');
@@ -51,13 +50,11 @@ let activity = [
 
 
     
-const selectCountry = (val) => {
-    setCountry(val);
-}
 
-const selectRegion = (val) => {
-    setRegion(val);
-}
+
+// const selectRegion = (val) => {
+//     setRegion(val);
+// }
 
 const dropDownChange = (e) => {
     setValue(e.target.value);   
@@ -74,39 +71,7 @@ const dropDownInches = (e) => {
     setInches(e.target.value);
 }
 
-const isUsernameExist = async (userNameInput) => {
-    let userNameListingApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/check-username-exist.php';
-    let matcher = '';
 
-    try {
-        
-        
-        await fetch(userNameListingApi, {
-            method: 'GET',
-            headers: {
-                'accept': 'application/json',
-                'content-Type': 'application/json'
-            }
-            }).then(response => response.json())
-                .then(response => {
-                    response.forEach(username => {
-                        if(username === userNameInput) {
-                            matcher = userNameInput;
-                        }
-                    })
-                })
-                .catch(err => console.log(err))
-    
-                // console.log(matcher);
-          return (userNameInput === matcher) ? false : true;
-
-
-
-
-
-    } catch (err) {console.log("Something went wrong with email fetch:"+err)}
-
-}
 
 /* initialize bascInfo object to fill in values:
     username
@@ -118,13 +83,11 @@ const isUsernameExist = async (userNameInput) => {
     reset() the react-hook-form object to clean and re-use for the second form.
 */
 const onSubmit = formData => {
-    
-    console.log("submit worked!");
-        basicInfo = {   uid:loadFromLocalStorage("isLogged").isLogged[1],
+ 
+        basicInfo = {   uid:parseInt(loadFromLocalStorage("isLogged").isLogged[1][0]),
                         username: formData.username,
                         firstname: formData.firstname,
-                        lastname: formData.lastname,
-                        country: country+','+region,                   
+                        lastname: formData.lastname,              
 };
 
     basicInfoArray.push(basicInfo);
@@ -134,14 +97,17 @@ const onSubmit = formData => {
 }
 
 
+
 // where all the submissions get posted
 
 const onSubmit2 = async formData => {
-    console.log("submit 2 worked!");
+
+
     let height_cm = inchesToCentimeters(parseInt(feet),parseInt(inches));
     let bmr = calculateBMR(gender,formData.weight,height_cm,formData.age);
     let caloric_needs = calculateCalories(bmr,value);
 
+    
     basicInfo = {
         bmr: bmr,
         calories: caloric_needs,
@@ -149,10 +115,13 @@ const onSubmit2 = async formData => {
         activity_level: value,
         gender: gender,
         height_cm: height_cm,
-        age: parseInt(formData.age)
+        age: parseInt(formData.age),
+        calorieTarget: parseInt(formData.calorieTarget)
     }
     basicInfoArray.push(basicInfo);
-    console.log(basicInfoArray);
+   
+
+
 
     await fetch (registerBasicInfoApi, {
         method: 'POST',
@@ -161,10 +130,7 @@ const onSubmit2 = async formData => {
             'content-type':'application/json'
         },
         body: JSON.stringify(basicInfoArray[0])
-    }).then(response => response.text())
-        .then(response => console.log("SUCCESS"))
-            .catch(error => console.log(error));
-
+    })
 
     
     await fetch (registerFitnessInfoApi, {
@@ -181,35 +147,24 @@ const onSubmit2 = async formData => {
             weight: basicInfoArray[1].weight_lbs,
             activity_level: basicInfoArray[1].activity_level,
             bmr: basicInfoArray[1].bmr,
-            calories: basicInfoArray[1].calories
+            calories: basicInfoArray[1].calories,
+            calorieTarget: basicInfoArray[1].calorieTarget
         })
-    }).then(response => response.text())
-            .then(response => console.log("SUCCESS"))
-                .catch(error => console.log(error))
+    })
+    
+    // dispatch
+   
+    dispatch(authenticateUserLoggedIn(loadFromLocalStorage('isLogged').isLogged[1][0],basicInfoArray[0].username))
+    // push to dashboard
+    history.push(`/${basicInfoArray[0].username}`);
+
 
 }
 
-    const [username_boo, setUsername] = useState('');
-
-    useEffect (() => {
-        let isCancelled = false;
-        if (loadFromLocalStorage('isLogged').isLogged[0] === true) {
-            console.log(loadFromLocalStorage('isLogged').isLogged[1])
-            getUsernameFromId(loadFromLocalStorage('isLogged').isLogged[1]).then (response => {
-                setUsername(response);
-            })
-        }
-
-        return () => {
-            isCancelled = true;
-        };
-
-    },[])
 
     
-    console.log(username_boo);
-    // if user is logged in (userId is  pushed into localStorage) BUT info is empty (info.username pushed into localStorage is non existant) then send them to this form
-    if (loadFromLocalStorage('isLogged').isLogged[0] === true && username_boo === undefined) {
+    // if user logged in but no username yet
+    if (loadFromLocalStorage('isLogged').isLogged[0] === true && loadFromLocalStorage('isLogged').isLogged[1][1] === null) {
         if(isFormSubmitted === false) {      
             return (
                 <div className="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
@@ -274,13 +229,7 @@ const onSubmit2 = async formData => {
                                         />
                                         {errors.lastname && <span>{errors.lastname.message}</span>}
                                 </div>
-                                <div className="form-group">
-                                <label htmlFor="emailInput">Location (Optional)</label><br></br>
-                                <CountryDropdown value={country}  onChange={selectCountry}className="countryInput mr-4"/>
-                                <RegionDropdown country={country} value={region}  onChange={selectRegion} className="regionInput"/>
-                                
-        
-                                </div>
+                               
                                 <button type="submit" className="btn mx-auto">Next</button>
                             </form>
         
@@ -319,8 +268,6 @@ const onSubmit2 = async formData => {
                         {errors.age && <span>{errors.age.message}</span>}
                         {errors.age?.type === "tooOld" && <span>Too old.</span>}
                         {errors.age?.type === "positive" && <span>You can't be 0 years old silly.</span>}
-                    
-
                     </div>
                 <div className="form-group mb-0 mt-2">
                 <label htmlFor="ageInput" style={{display:"block"}}><b>Activity</b></label>
@@ -391,6 +338,25 @@ const onSubmit2 = async formData => {
                  {errors.weight?.type === "notPossible" && <span>Not possible.</span>}
                 </div>
 
+                <div className="form-group mb-1">
+                <label htmlFor="caloricTargetInput"><b>Caloric Target (kcal)</b></label>
+                <input name="calorieTarget" type="text" className="form-control w-25 text-center mx-auto" id="" aria-describedby="caloricTargetInput"
+                ref={register({
+                    required: {
+                        value: true,
+                        message: "Target calories is required"
+                    },
+                    pattern: {
+                        value: /^[1-9][0-9]*$/,
+                        message: "Incorrect calorie format"
+                    }
+
+                 })}
+                />
+                {errors.calorieTarget && <span>{errors.calorieTarget.message}</span>}
+
+                </div>
+
             <button type="submit" className="btn mx-auto">Done</button>
                 </form>
                 
@@ -402,7 +368,8 @@ const onSubmit2 = async formData => {
         );}
   
                                
-    } else {return null}
+    }
+    return null;
 
   
 } 

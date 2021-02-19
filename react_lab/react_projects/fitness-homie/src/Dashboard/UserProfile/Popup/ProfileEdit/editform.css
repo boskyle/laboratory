@@ -1,0 +1,37 @@
+/* just for the edit buttons (icons) */
+
+
+.edit-icon {
+    color: black;
+    cursor: pointer;
+    float: right;
+    transition: color 0.5s;
+}
+
+
+.edit-icon:hover {
+    color: #EBCFC4;
+}
+
+.iup {
+    position: absolute;
+    width: 34% !important;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom:40%;
+   text-decoration: none !important;
+   border-bottom:none !important;
+   color: transparent;
+}
+
+.editProfilePicture {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top:1em;
+    object-fit: cover;
+    border-radius: 20px;
+}
+

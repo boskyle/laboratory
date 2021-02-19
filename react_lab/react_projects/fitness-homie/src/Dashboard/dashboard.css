@@ -1,16 +1,30 @@
 .containerFluid {
     position: relative;
     height: 100vh;
-    background-color:#715E7A;
+    background-image: linear-gradient(180deg, #706897, #719fb0);
     padding: 1em;
-    overflow: auto;
-
+    overflow-y: auto;
 }
 
 .containerFluid .row > div {
     /* border: 1px solid black; */
     height: 95vh;
     padding: 0.5em;
+}
+
+.searchBoxMobileContainer {
+   position: absolute;
+   width: 100%;
+   top: -0.25em;
+  
+   border: 1px solid black !important;
+   
+}
+.searchBoxMobile {
+
+    position: absolute !important;
+    bottom: 1em;
+
 }
 
 

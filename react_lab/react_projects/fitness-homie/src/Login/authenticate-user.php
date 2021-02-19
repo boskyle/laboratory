@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Access-Control-Allow-Origin: *');  
+header('Access-Control-Allow-Origin: http://localhost:3000');  
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET,POST');
 
@@ -28,7 +28,6 @@ require_once '../Register/connect.php';
                 $result = $stmt->get_result();
                 $user = $result->fetch_assoc();
 
-                               
                 if(password_verify($_POST['password'],$user['password'])) {
                     echo json_encode($user['uid']);
 

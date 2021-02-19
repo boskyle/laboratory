@@ -8,12 +8,13 @@
 }
 
 .user-profile-item {
+    overflow-x: auto;
+    overflow-y: hidden;
     display: inline-block;
-    border: 1px solid black;
     background-color:#9088d4;
     height: 45%;
     margin: 0.5em;
-    padding:1em;
+    padding: 0.75em;
     color: #fff3e2;
     font-family: raleway-bold;
     letter-spacing:0.25em;
@@ -22,7 +23,32 @@
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;   
 }
 
+.popUp {
+    position: absolute;
+    width: 30%;
+    height: 70%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    /* background-color: #9088D4; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
 
+.user-profile-item > h2, .user-profile-item > h3 {
+    color: #A3DDCB;
+    font-size: 2em;
+}
+
+
+.user-profile-item span {
+    display: block;
+}
 
 .user-profile-item:first-child {
     flex: 1 1 100%;
@@ -31,11 +57,116 @@
     flex: 1 1 auto;
 }
 
+.name {
+    font-size: 2em;
+}
+.user-profile-item button {
+    width: 5vw;
+}
 
-/* medium breakpoint <=  (720px or less)*/
+.profilePicture {
+    border-radius: 50%;
+    width:275px;
+    height: 250px;
+    border: 3px solid black;
+    
+
+}
+
+/* journal item container and its items */
+
+.journal-items-container {
+    width: 100%;
+    margin-top: 1em;
+    height: 85%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* looks */
+}
+
+.journal-item {
+    background-color: #706897;
+    height: 100%;
+    border-radius:15px;
+    text-align: left;
+    padding: 1em;
+    margin: 0px 4px 10px 4px;
+    overflow: auto;   
+    font-size: 0.75em;
+}
+.journal-item:first-child {
+    flex: 1 1 50%;
+}
+.journal-item > h4 {
+    font-size: 1.75em;
+    /* color: #A3DDCB; */
+}
+
+.journal-item ul {
+    font-size: 1.5em;
+    font-family: raleway-regular;
+    list-style-type: none;
+    margin-top: 10%;
+    padding: 0;
+    line-height: 2.5em;
+}
+
+.journal-item ul span {
+    display: inline;
+    font-family: raleway-bold;
+}
+
+/* fancy way of selecting the second div's ul (PROGRESS) */
+.journal-items-container > div + div ul {
+ /* margin-top: 3em; */
+ font-size: 1.2em;
+}
+
+.journal-item:not(:first-child) {
+    flex: 1 1 45%;
+   
+}
+
+.lossGainCalories {
+    letter-spacing:1px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: black;
+    background-color: #A3DDCB;
+    border-radius:15px;
+    text-align: center;
+    margin-top:2em;
+}
+
+
+
+
+
+/* large breakpoint <=  (720px or less)*/
 @media only screen and (max-width: 1500px) {
+
     .user-profile-container {
         flex-wrap: nowrap;
+        font-size: 75%;
+    }
+    .journal-items-container {
+        margin-top: 0em;
+    }
+    .journal-item {
+        height: 90%;
+        padding: 8px;
+    }
+    .user-profile-item button {
+        width:5vw;
+    }
+    .journal-item ul {
+        font-size: 1.1em;
+        margin: 0;
+        line-height: 1.5em;
+    }
+    .journal-item h4 {
+        font-size: 1.5em;
     }
 
     .user-profile-item:first-child {
@@ -44,5 +175,23 @@
     .user-profile-item:not(:first-child) {
         flex: 1 1 auto;
     }
+    .journal-items-container {
+        flex-wrap: nowrap;
+    }
     
   }
+
+  @media (max-width: 768px) {
+    .user-profile-item button {
+        width:12vw;
+    }
+  }
+
+@media only screen and (max-width: 525px) {
+
+    .journal-item {
+        height: 90%;
+        font-size: 0.50em;
+    }
+  }
+

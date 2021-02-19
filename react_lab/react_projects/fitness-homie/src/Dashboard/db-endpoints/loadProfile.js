@@ -26,6 +26,8 @@ export const LoadBasicInfo = async (userId) => {
     // return an object of a succesful response
 }
 
+
+
 export const LoadFitnessInfo = async (userId) => {
 
 

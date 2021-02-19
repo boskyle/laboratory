@@ -1,10 +1,9 @@
-import isLoggedInReducer from './isUserLoggedIn';
-import userIdReducer from './userUid';
+import {loggedInReducer,editBasicReducer} from './isUserLoggedIn';
 import {combineReducers} from 'redux';
 
 const allReducers = combineReducers({
-    isLogged:isLoggedInReducer,
-    getUid:userIdReducer
+    isLogged:loggedInReducer,
+    editBasic:editBasicReducer
 })
 
 export default allReducers;

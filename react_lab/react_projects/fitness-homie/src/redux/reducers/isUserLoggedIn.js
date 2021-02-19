@@ -1,4 +1,4 @@
-const loggedInReducer = (state = [], action) => {
+export const loggedInReducer = (state = [], action) => {
 
     switch (action.type) {
         case 'LOG_IN_SUCCESS':
@@ -11,5 +11,15 @@ const loggedInReducer = (state = [], action) => {
 }
 
 
+export const editBasicReducer = (state =[],action) => {
+    switch (action.type) {
+        case 'SET_USER_INFO':
+            return [true,action.payload];
+        default:
+            return state;
+    }
+
+}
+
+
 // as default I can name it any name i want when exporting this function
-export  default loggedInReducer;

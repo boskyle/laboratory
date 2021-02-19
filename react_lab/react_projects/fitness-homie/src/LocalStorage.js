@@ -4,6 +4,12 @@ export const  saveToLocalStorage = (state,itemName) => {
         localStorage.setItem(itemName,stringyState);
     } catch (e) {console.log("error")}
 }
+export const saveToLocalStorageTwo = (uname,itemName) => {
+    try {
+        const username = JSON.stringify(uname);
+        localStorage.setItem(itemName,username);
+    }  catch (e) {console.log("error")}
+}
  export const loadFromLocalStorage = (itemName) => {
     try {
         const data = localStorage.getItem(itemName);
