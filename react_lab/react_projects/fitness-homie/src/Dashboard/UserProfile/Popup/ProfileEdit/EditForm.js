@@ -253,14 +253,14 @@ export const EditForm = (props) => {
         }
         
         
-        setPictures(URL.createObjectURL(image.target.files[0]));
         imageCompression(image.target.files[0],options)
         .then(cf => {
             // compressed file output
             let imgType = cf.type;
             let ext = imgType.substring(imgType.indexOf('/')+1);
-                setPicExtension(ext);
-                setUploadPicture(cf);        
+            setPicExtension(ext);
+            setUploadPicture(cf);        
+            setPictures(URL.createObjectURL(image.target.files[0]));
             }).catch(err => {alert(err)});
 
     }

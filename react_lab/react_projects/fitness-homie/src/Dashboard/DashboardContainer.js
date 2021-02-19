@@ -5,7 +5,7 @@ import  UserProfile from './UserProfile/UserProfile';
 import '../assets/fonts/index.css';
 import "./dashboard.css";
 import AsyncSelect from 'react-select/async';
-import {searchBoxStyle} from './SearchBox/SearchBox';
+import {searchBoxStyle,searchBoxStyle2} from './SearchBox/SearchBox';
 import Settings from './Settings/Settings';
 import Logbook from '../Logbook/Logbook';
 
@@ -74,6 +74,23 @@ const DashboardContainer = (props) => {
                 // as part of row from parent (Dashboard)            
                         <>
                         <div className="col-9 col-sm-10 col-md-8 p-2">
+                            
+                        <AsyncSelect className="w-100 searchBoxMobile d-md-none" 
+                                cacheOptions    
+                                placeholder="Discover.."                     
+                                loadingMessage={() => 'searching...'}
+                                noOptionsMessage={() => '@ username'} 
+                                loadOptions={filterUsername}              
+                                value={searchInputValue}
+                                getOptionValue={e => e.username}
+                                getOptionLabel={e => e.username}
+                                onInputChange={handleSearchInputChange}
+                                onChange={handleSelection}    
+                                styles={searchBoxStyle2}
+                                components={{ DropdownIndicator:()=> null,IndicatorSeparator: () => null}}
+                                menuPlacement="top"
+                                />          
+                           
                             <UserProfile 
                                 userid={props.uid}
                                 username={props.username}
@@ -90,7 +107,8 @@ const DashboardContainer = (props) => {
                                 activityLevel={props.activityLevel}
                                 calories={props.calories}
                                 caloriesTarget={props.caloriesTarget}
-                            />                  
+                            />   
+                                      
                         </div>
                         <div className="col-sm-2 col-md-2 d-none d-md-block text-center p-2">
                               

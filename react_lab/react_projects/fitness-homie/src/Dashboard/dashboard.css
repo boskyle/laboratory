@@ -12,6 +12,21 @@
     padding: 0.5em;
 }
 
+.searchBoxMobileContainer {
+   position: absolute;
+   width: 100%;
+   top: -0.25em;
+  
+   border: 1px solid black !important;
+   
+}
+.searchBoxMobile {
+
+    position: absolute !important;
+    bottom: 1em;
+
+}
+
 
 @media only screen and (max-width: 760px) {
     .container-flex {

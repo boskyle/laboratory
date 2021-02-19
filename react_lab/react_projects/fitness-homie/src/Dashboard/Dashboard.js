@@ -129,6 +129,7 @@ useEffect( () => {
 
         return (  
             <div className="containerFluid">
+                
                 <div className="row">
                 <div className="col-3 col-sm-2 col-md-2 d-flex flex-column justify-content-center">
                     <Navigation is_logged={loadFromLocalStorage('isLogged').isLogged[0]}/>
