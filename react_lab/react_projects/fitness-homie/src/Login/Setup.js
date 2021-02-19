@@ -5,12 +5,12 @@ import { FaInfoCircle } from 'react-icons/fa';
 import {loadFromLocalStorage} from '../LocalStorage';
 import {useHistory} from 'react-router-dom';
 import {isUsernameExist} from '../DB/validation';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import './setup.css';
 
 var basicInfo;
-var basicInfoArray = new Array();
+var basicInfoArray = [];
 
 
 let bmr_tool_tip_string = "An estimation on how much calories you need to consume to be able to sustain your weight."
@@ -24,7 +24,7 @@ const Setup = ()  => {
     let history = useHistory();
     const dispatch = useDispatch();
 
-    const rState = useSelector(state => state.isLogged[0]);
+   
 
 
 

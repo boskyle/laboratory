@@ -301,7 +301,7 @@ useEffect( () => {
     
     return () => {isMounted = false;}
     
-},[props.calories,props.caloriesTarget])
+},[props.calories,props.caloriesTarget,userId])
 
 
 

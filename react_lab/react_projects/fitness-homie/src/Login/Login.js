@@ -3,7 +3,7 @@ import './login.css';
 import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useHistory} from 'react-router-dom';
-import {Redirect,Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {authenticateUserLoggedIn} from '../redux/actions';
 import {isEmailExist,getUsernameFromId} from './db-endpoints/db-fetch';

@@ -6,7 +6,6 @@ import {BiEdit} from 'react-icons/bi';
 import '../popup.css';
 import './editform.css';
 // image upload imports
-import ImageUploader from 'react-images-upload';
 import imageCompression from 'browser-image-compression';
 import defaultImage from '../../../../assets/images/defaulProfilePicture.png';
 
