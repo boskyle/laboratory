@@ -97,7 +97,7 @@ function Register () {
                  {errors.passwordRepeat && <span>{errors.passwordRepeat.message}</span>}        
             </div>
             <button type="submit" className="btn mx-auto rg-btn">REGISTER</button>
-            <Link to="/login" className="mx-autolog-link" style={{textDecoration:"none"}}><span>Already a member ? Login here</span></Link>
+            <Link to="/login" className="mx-auto log-link" style={{textDecoration:"none"}}><span>Already a member ? Login here</span></Link>
                     
            
         </form>
