@@ -5,7 +5,7 @@ header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET,POST');
 
 
-require_once 'connect.php';
+require_once '../connect.php';
 
     if (!$conn->connect_error) {
         echo 'Connected to server succesfully.';
