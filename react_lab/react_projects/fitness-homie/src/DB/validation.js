@@ -1,5 +1,5 @@
 export const isUsernameExist = async (userNameInput) => {
-    let userNameListingApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/check-username-exist.php';
+    let userNameListingApi = 'http://fitnesshomie.boskyleprojects.com/php-endpoints/Login/check-username-exist.php';
     let matcher = '';
 
     try {
@@ -30,7 +30,7 @@ export const isUsernameExist = async (userNameInput) => {
 
 
 export const isUsernameExistWithCheck = async (userNameInput,currentUsername) => {
-    let userNameListingApi = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Login/check-username-exist.php';
+    let userNameListingApi = 'http://fitnesshomie.boskyleprojects.com/php-endpoints/Login/check-username-exist.php';
     let matcher = '';
 
     try {
