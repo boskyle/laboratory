@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET,POST');
 
-require_once '../../../Register/connect.php';
+require_once '../connect.php';
 
 
 
@@ -29,7 +29,7 @@ if (!$conn -> connect_error) {
     //  var_dump($_FILES);
     
     $fn = $decoded['username'].'.'.$decoded['picExtension'];
-    $url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/assets/user_assets/'.$decoded['username'].'/images/'.$fn;
+    $url = 'http://fitness-homie.com/user_assets/'.$decoded['username'].'/images/'.$fn;
   
     
     

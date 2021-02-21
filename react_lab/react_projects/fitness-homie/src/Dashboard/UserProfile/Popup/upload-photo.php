@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: GET,POST');
 
-require_once '../../../Register/connect.php';
+require_once '../connect.php';
 
 
 
@@ -23,8 +23,8 @@ echo "no file uploaded";
     echo $profilePic;
 
     //
-    $path = '../../../assets/user_assets/'.$fileName.'/images';
-    $fileDest='../../../assets/user_assets/'.$fileName.'/images/'.$profilePic;
+    $path = '../../user_assets/'.$fileName.'/images';
+    $fileDest='../../user_assets/'.$fileName.'/images/'.$profilePic;
     echo $fileDest;
 
     if (!is_dir($path)) {

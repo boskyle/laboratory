@@ -1,7 +1,7 @@
 export const LoadBasicInfo = async (userId) => {
     
 
-    let loadInfoUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/load-profile.php';
+    let loadInfoUrl = 'http://fitness-homie.com/php-endpoints/Dashboard/load-profile.php';
     let userInfo;
 
     await fetch(loadInfoUrl, {
@@ -31,7 +31,7 @@ export const LoadBasicInfo = async (userId) => {
 export const LoadFitnessInfo = async (userId) => {
 
 
-    let loadFitnessUrl = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/load-fitness.php';
+    let loadFitnessUrl = 'http://fitness-homie.com/php-endpoints/Dashboard/load-fitness.php';
     let userInfo;
 
     await fetch(loadFitnessUrl, {
@@ -56,7 +56,7 @@ export const LoadFitnessInfo = async (userId) => {
 }
 
 export const getUidFromUsername = async (username) => {
-    let loadUidAPI = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Dashboard/load-uid.php';
+    let loadUidAPI = 'http://fitness-homie.com/php-endpoints/Dashboard/load-uid.php';
     let userId;
 
     await fetch(loadUidAPI, {

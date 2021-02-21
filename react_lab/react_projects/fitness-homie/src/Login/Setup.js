@@ -17,8 +17,8 @@ let bmr_tool_tip_string = "An estimation on how much calories you need to consum
 
 // component instance
 const Setup = ()  => {
-    let registerBasicInfoApi = 'http://fitnesshomie.boskyleprojects.com/php-endpoints/Login/register-basic-info.php';
-    let registerFitnessInfoApi = 'http://fitnesshomie.boskyleprojects.com/php-endpoints/Login/register-basic-info-2.php';
+    let registerBasicInfoApi = 'http://fitness-homie.com/php-endpoints/Login/register-basic-info.php';
+    let registerFitnessInfoApi = 'http://fitness-homie.com/php-endpoints/Login/register-basic-info-2.php';
 
     const {register, handleSubmit, errors, reset} = useForm();
     let history = useHistory();
