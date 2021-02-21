@@ -11,7 +11,7 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood,setC
     
     const fetchUserFoods = async () => {
     let username = loadFromLocalStorage('isLogged').isLogged[1][1];
-    let displayFoodList = `http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/displayFoodlist.php?username=${username}`;
+    let displayFoodList = `http://fitness-homie.com/php-endpoints/Logbook/displayFoodlist.php?username=${username}`;
     
     const foodData = await fetch(displayFoodList,{
             method: 'GET',
@@ -59,7 +59,7 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood,setC
 
         console.log('add food item to log clicked');
         const addFoodItemToDatabase = async (uname,foodname,cals,carbs,protein,fat) => {
-            let url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/logfood.php';
+            let url = 'http://fitness-homie.com/php-endpoints/Logbook/logfood.php';
 
             await fetch(url,{
                 method: 'POST',
@@ -114,7 +114,7 @@ export const FoodItem = ({loggedItems,setLoggedItems,simpleDate,setOpenFood,setC
         console.log('delete food item clicked');
         e.stopPropagation();
         const deleteFoodFromDatabase = async (uname,arrayIndex) => {
-            let url = 'http://127.0.0.1/laboratory/react_lab/react_projects/fitness-homie/src/Logbook/deletefood.php';
+            let url = 'http://fitness-homie.com/php-endpoints/Logbook/deletefood.php';
             
                 await fetch(url, {
                     method: 'POST',
