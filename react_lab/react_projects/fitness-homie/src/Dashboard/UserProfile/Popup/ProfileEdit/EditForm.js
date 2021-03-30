@@ -164,8 +164,8 @@ export const EditForm = (props) => {
     }
 
     const onEditProfile =  async formData => {
-        let editUrl = 'http://www.fitness-homie.com/php-endpoints/ProfileEdit/edit-profile.php';
-        let uploadPhotoUrl ='http://www.fitness-homie.com/php-endpoints/ProfileEdit/upload-photo.php';
+        let editUrl = 'https://www.fitness-homie.com/php-endpoints/ProfileEdit/edit-profile.php';
+        let uploadPhotoUrl ='https://www.fitness-homie.com/php-endpoints/ProfileEdit/upload-photo.php';
         const fd = new FormData();
         console.log(uploadPicture);
         try {
@@ -213,7 +213,7 @@ export const EditForm = (props) => {
     
 
     const onEditStyles = async formData => {
-        let editUrl = 'http://www.fitness-homie.com/php-endpoints/ProfileEdit/edit-stats.php';
+        let editUrl = 'https://www.fitness-homie.com/php-endpoints/ProfileEdit/edit-stats.php';
 
         await fetch (editUrl,{
             method: 'POST',

@@ -29,7 +29,7 @@ function Login() {
     const onSubmit = async formData => {
         
        
-        let local_url = 'http://fitness-homie.com/php-endpoints/Login/authenticate-user.php';
+        let local_url = 'https://fitness-homie.com/php-endpoints/Login/authenticate-user.php';
         // let auth_rleative_path = "./authenticate-user.php";
        
         // send email + password raw (get a resonpose (validation and authenticate user))

@@ -17,7 +17,7 @@ const DashboardContainer = (props) => {
 
     const filterUsername =  (inputValue) => {
      
-        return fetch ('http://fitness-homie.com/php-endpoints/SearchBox/usernameAsync.php',{
+        return fetch ('https://fitness-homie.com/php-endpoints/SearchBox/usernameAsync.php',{
               method: 'POST',
               body:JSON.stringify(inputValue)
           }).then(res => res.json());

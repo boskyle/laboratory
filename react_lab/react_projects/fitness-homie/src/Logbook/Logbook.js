@@ -35,8 +35,8 @@ const Logbook = (props) => {
     
     const onSubmit = async (formData,event) => {
         
-        let createFoodUrl = 'http://fitness-homie.com/php-endpoints/Logbook/createfood.php';
-        let logFoodUrl = 'http://fitness-homie.com/php-endpoints/Logbook/logfood.php';
+        let createFoodUrl = 'https://fitness-homie.com/php-endpoints/Logbook/createfood.php';
+        let logFoodUrl = 'https://fitness-homie.com/php-endpoints/Logbook/logfood.php';
         // prevents page from refeshing aswell as disable normal operations of a typical submit function of a form..
         event.preventDefault();
         // get the username that is logged in
@@ -101,7 +101,7 @@ const Logbook = (props) => {
             return total;
         }
         let username = loadFromLocalStorage('isLogged').isLogged[1][1];
-        let displayLoggedFoods = `http://fitness-homie.com/php-endpoints/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${moment(date).format('YYYY-MM-DD')}`
+        let displayLoggedFoods = `https://fitness-homie.com/php-endpoints/Logbook/displayLoggedFood.php?username=${username}&dateSelected=${moment(date).format('YYYY-MM-DD')}`
         
         const loggedFoods = await fetch(displayLoggedFoods, {
             method: 'GET',
@@ -174,7 +174,7 @@ const Logbook = (props) => {
 
         console.log('food  deleted clicked');
         const deleteLoggedFoodFromDatabase = async (uname, arrayIndex) => {
-            let url = 'http://fitness-homie.com/php-endpoints/Logbook/deleteLoggedFood.php';
+            let url = 'https://fitness-homie.com/php-endpoints/Logbook/deleteLoggedFood.php';
 
             await fetch(url, {
                 method: 'POST',

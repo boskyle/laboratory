@@ -10,7 +10,7 @@ function Register () {
     const {register, handleSubmit, watch, errors, reset} = useForm();
     
     const history = useHistory();
-    var urlLocalServer = 'http://fitness-homie.com/php-endpoints/Register/register.php';
+    var urlLocalServer = 'https://fitness-homie.com/php-endpoints/Register/register.php';
      const onSubmit = async formData => {
         // a promise
          await fetch(urlLocalServer, {
@@ -113,7 +113,7 @@ function Register () {
 
 const emailIsValid = async (emailInput) => {
     
-    var emailsUrl="http://fitness-homie.com/php-endpoints/Register/check-email-exist.php";
+    var emailsUrl="https://fitness-homie.com/php-endpoints/Register/check-email-exist.php";
     var matcher='';
     try {
         

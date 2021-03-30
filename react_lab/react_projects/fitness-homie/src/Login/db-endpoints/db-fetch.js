@@ -1,6 +1,6 @@
 export const isEmailExist = async (emailInput) => {
 
-    let emailsListing = 'http://fitness-homie.com/php-endpoints/Register/check-email-exist.php';
+    let emailsListing = 'https://fitness-homie.com/php-endpoints/Register/check-email-exist.php';
     let matcher = '';
     // code goes here for api fetch
     await fetch (emailsListing,{
@@ -19,7 +19,7 @@ export const isEmailExist = async (emailInput) => {
 
 export const getUsernameFromId  = async (userId) => {
 
-    let userNameListing = 'http://fitness-homie.com/php-endpoints/Login/get-username-from-id.php';
+    let userNameListing = 'https://fitness-homie.com/php-endpoints/Login/get-username-from-id.php';
     let buffer;
     
     await fetch(userNameListing, {
