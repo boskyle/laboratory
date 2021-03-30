@@ -1,5 +1,5 @@
 export const isUsernameExist = async (userNameInput) => {
-    let userNameListingApi = 'http://fitness-homie.com/php-endpoints/Login/check-username-exist.php';
+    let userNameListingApi = 'https://fitness-homie.com/php-endpoints/Login/check-username-exist.php';
     let matcher = '';
 
     try {
@@ -30,7 +30,7 @@ export const isUsernameExist = async (userNameInput) => {
 
 
 export const isUsernameExistWithCheck = async (userNameInput,currentUsername) => {
-    let userNameListingApi = 'http://fitness-homie.com/php-endpoints/Login/check-username-exist.php';
+    let userNameListingApi = 'https://fitness-homie.com/php-endpoints/Login/check-username-exist.php';
     let matcher = '';
 
     try {
